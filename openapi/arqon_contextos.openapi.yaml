@@ -1,0 +1,85 @@
+openapi: 3.1.0
+info:
+  title: Arqon ContextOS Broker
+  version: 0.1.0
+  description: Repo-backed context bus for Arqon role GPTs.
+servers:
+  - url: https://YOUR-WORKER-SUBDOMAIN.workers.dev
+paths:
+  /v1/health:
+    get:
+      operationId: health
+      summary: Broker health check.
+      responses:
+        "200":
+          description: Health response.
+          content:
+            application/json:
+              schema:
+                type: object
+  /v1/context:
+    get:
+      operationId: syncContext
+      summary: Load role-specific project context.
+      parameters:
+        - name: project
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ArqonZero]
+        - name: role
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_CODEX, HUMAN]
+      responses:
+        "200":
+          description: Role context.
+          content:
+            application/json:
+              schema:
+                type: object
+  /v1/constitution:
+    get:
+      operationId: syncConstitution
+      summary: Load role constitution context.
+      parameters:
+        - name: project
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ArqonZero]
+        - name: role
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_CODEX, HUMAN]
+      responses:
+        "200":
+          description: Constitution context.
+          content:
+            application/json:
+              schema:
+                type: object
+  /v1/manifest:
+    get:
+      operationId: getManifest
+      summary: Load project context manifest.
+      parameters:
+        - name: project
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ArqonZero]
+      responses:
+        "200":
+          description: Context manifest.
+          content:
+            application/json:
+              schema:
+                type: object

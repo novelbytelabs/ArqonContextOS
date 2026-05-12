@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "artifacts": {
+      "type": "object"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "run_id",
+    "project",
+    "status",
+    "created_at",
+    "artifacts"
+  ],
+  "title": "Arqon ContextOS Run Manifest",
+  "type": "object"
+}

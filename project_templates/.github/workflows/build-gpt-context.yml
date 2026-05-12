@@ -1,0 +1,36 @@
+name: Build GPT Context
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/governance/**"
+      - "governance/**"
+      - "scripts/build_gpt_context.py"
+      - "scripts/append_context_event.py"
+      - "scripts/verify_context_manifest.py"
+
+permissions:
+  contents: write
+
+jobs:
+  build-context:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip context-build]')"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build context
+        run: python3 scripts/build_gpt_context.py
+      - name: Verify manifest
+        run: python3 scripts/verify_context_manifest.py
+      - name: Commit generated context if changed
+        run: |
+          if [ -n "$(git status --short governance/context)" ]; then
+            git config user.name "arqon-contextos-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add governance/context
+            git commit -m "Update generated GPT context [skip context-build]"
+            git push
+          else
+            echo "No context changes"
+          fi

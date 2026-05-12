@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "created_at": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "string"
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "status_labels": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "run_id",
+    "decision",
+    "rationale",
+    "status_labels",
+    "created_at"
+  ],
+  "title": "Arqon ContextOS Human Decision",
+  "type": "object"
+}

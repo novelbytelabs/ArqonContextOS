@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "artifact_type": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "source_role": {
+      "type": "string"
+    },
+    "status_labels": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "artifact_type",
+    "project",
+    "run_id",
+    "source_role",
+    "content",
+    "status_labels"
+  ],
+  "title": "Arqon ContextOS Run Artifact",
+  "type": "object"
+}

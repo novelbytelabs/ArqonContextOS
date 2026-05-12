@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "body": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "from": {
+      "type": "string"
+    },
+    "message_id": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "message_id",
+    "project",
+    "from",
+    "to",
+    "subject",
+    "body",
+    "status",
+    "created_at"
+  ],
+  "title": "Arqon ContextOS Message",
+  "type": "object"
+}

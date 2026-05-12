@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "current_phase": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "open_runs": {
+      "type": "array"
+    },
+    "project": {
+      "type": "string"
+    },
+    "recent_events": {
+      "type": "array"
+    },
+    "status_labels": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "project",
+    "generated_at",
+    "status_labels",
+    "current_phase",
+    "recent_events",
+    "open_runs"
+  ],
+  "title": "Arqon ContextOS Current Context Snapshot",
+  "type": "object"
+}

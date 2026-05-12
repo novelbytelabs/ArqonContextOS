@@ -1,0 +1,7 @@
+name = "arqon-contextos-broker"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+[vars]
+BROKER_VERSION = "0.1.0"
+DEFAULT_BRANCH = "main"

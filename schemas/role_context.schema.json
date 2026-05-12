@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "project": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "role_boundaries": {
+      "type": "object"
+    },
+    "snapshot": {
+      "type": "object"
+    },
+    "status_labels": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "project",
+    "role",
+    "snapshot",
+    "status_labels",
+    "role_boundaries"
+  ],
+  "title": "Arqon ContextOS Role Context",
+  "type": "object"
+}

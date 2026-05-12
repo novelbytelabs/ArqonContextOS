@@ -1,0 +1,198 @@
+{
+  "bundle": "arqon_contextos_repo_scaffold",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "a53a054e1160b69e795ca83f522a4d368eea941c79694c1258d745f2fbdf91c5"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "eba5ea71f6d9cc39f7338596b8c29c3b4db9b4502b3937f51f48d32b5745c0ec"
+    },
+    {
+      "path": "docs/DEPLOYMENT_CLOUDFLARE.md",
+      "sha256": "d8b7782bac4427334e1c09e4bff35c893b7ece1d571cffa08c8767dc628804e3"
+    },
+    {
+      "path": "docs/GITHUB_APP_SETUP.md",
+      "sha256": "72b8a5f7a60dcfa2e29b256fd8c45f089ad99763dee2716155d3e7f994d885f6"
+    },
+    {
+      "path": "docs/GPT_COMMANDS.md",
+      "sha256": "05f5fa86e19ac7905298df9594dd2ba0ede685998f0aee5dc6017a6d6ca43d10"
+    },
+    {
+      "path": "docs/PROJECT_INTEGRATION_GUIDE.md",
+      "sha256": "41bc1270b6efb2975db18b0d7ddcc38fa2b24e7a20c6fb98a379eda6eb2e0b07"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "sha256": "b7af3a6ddcf4d675e4034d139f031b6e56a234cf4521d9e10c8e5641b2750c63"
+    },
+    {
+      "path": "docs/SECURITY_MODEL.md",
+      "sha256": "dd2f401e843c91f07f43a84c382fd35beebf1df7dcb99399a8330da2cfb6da91"
+    },
+    {
+      "path": "openapi/arqon_contextos.openapi.yaml",
+      "sha256": "92a879bece13f460e6f82b6fedb58d182ec43dd00ad5a6c6ef378f8ba3ef7efb"
+    },
+    {
+      "path": "project_templates/.github/workflows/build-gpt-context.yml",
+      "sha256": "ad9e7db59f2b7e24da7d024fedf2d8cd147dab29d2c7cb026ae0f252f9372419"
+    },
+    {
+      "path": "project_templates/governance/context/context_ledger.jsonl",
+      "sha256": "0f813520b32a79e955abaf9c3ad8c719a28666a032098b5cfab6aa427554dc9a"
+    },
+    {
+      "path": "project_templates/governance/context/project_context.yaml",
+      "sha256": "2c14a671ac135c7d5e94af3469a15b0ac3dda50a815510e7a79336d617a69bfb"
+    },
+    {
+      "path": "project_templates/governance/ledger/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/governance/messages/AUDITOR_AI/archive/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/governance/messages/AUDITOR_AI/inbox/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/governance/messages/CODER_AI/archive/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/governance/messages/CODER_AI/inbox/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/governance/messages/HELPER_CODEX/archive/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/governance/messages/HELPER_CODEX/inbox/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/governance/messages/PM_AI/archive/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/governance/messages/PM_AI/inbox/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/governance/notes/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/governance/runs/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "project_templates/scripts/append_context_event.py",
+      "sha256": "908eeb5e03dff6b6f1efe5a7aaf0e2078fb53cf9dd08a55a9a595161a406f58f"
+    },
+    {
+      "path": "project_templates/scripts/build_gpt_context.py",
+      "sha256": "ef69cbc5101ee99e976d3eb645fc8faf8df740287f5e5057706e11500a981356"
+    },
+    {
+      "path": "project_templates/scripts/verify_context_manifest.py",
+      "sha256": "e833938ad450b3c345626f8dea3f7fd47143a480144c1219424f5c7f12790359"
+    },
+    {
+      "path": "prompts/BOOTSTRAP_REPO_PROMPT.md",
+      "sha256": "31c5dc803fb4d7730eabad41f5dd9ee4d0238facadc58f101f6a3ba1ed59e92f"
+    },
+    {
+      "path": "schemas/artifact.schema.json",
+      "sha256": "3684f0e932a7faba0296e46ad65531577d9df63ac84bf869ec5aca1eb8f0eaae"
+    },
+    {
+      "path": "schemas/context_snapshot.schema.json",
+      "sha256": "c467aff3d2af651191caa52d07e4930276bb90d836df1fbb914299bf972e931c"
+    },
+    {
+      "path": "schemas/human_decision.schema.json",
+      "sha256": "3a715b017de9fed1890d28d69aee9bf79c3e865bf1fe619af5ddd6fe2498efae"
+    },
+    {
+      "path": "schemas/message.schema.json",
+      "sha256": "9ad261e52178b2ccc36a1207f0310d775aa9363a9fb5cb46e642005660c5e07a"
+    },
+    {
+      "path": "schemas/note.schema.json",
+      "sha256": "97b02123e0945e0a93d761d2255d6e8864dc5bcf611b4371131252f261a2f704"
+    },
+    {
+      "path": "schemas/role_context.schema.json",
+      "sha256": "ef61c16fd3e422733aa47ae4ac140569a7930f603947ad83493609e0c6b27c08"
+    },
+    {
+      "path": "schemas/run_manifest.schema.json",
+      "sha256": "fa40fbb4dcc38f624c272b6e0f89e9de474bc0d0bc0195e1108d03f4e0789e11"
+    },
+    {
+      "path": "tests/README.md",
+      "sha256": "8598e6c5ceee8c6b06d0bdeab15751844e5d16a1bb796e6f8a7b5aed2d0af242"
+    },
+    {
+      "path": "tests/fixtures/README.md",
+      "sha256": "f62329f2e3e696bdcafb47cb1af27efeaeb6590ecc23e697ade15767524b2599"
+    },
+    {
+      "path": "worker/package.json",
+      "sha256": "e83b8c01637d5b07e5e8401358038f7abcfdff3ab3e710556a642c9fc4cb0ac1"
+    },
+    {
+      "path": "worker/src/auth.ts",
+      "sha256": "dc65aeee2e4a6439b1e321ac014504710ab4afbba526c6dae601761542d25c4d"
+    },
+    {
+      "path": "worker/src/github_app.ts",
+      "sha256": "52b7831168f2e0b4ea51f2c870697a4cc60ab8a7e6c02578e3c6e8611a69c328"
+    },
+    {
+      "path": "worker/src/index.ts",
+      "sha256": "f187ae00f3f11178df280f3e0d306daded4b1f25c5b3b897e8ab228b6c1fe19b"
+    },
+    {
+      "path": "worker/src/policy.ts",
+      "sha256": "1defd86ab56b9735fba7fef8fda3ce0741265188ca4101d6dd019cf7c285e58e"
+    },
+    {
+      "path": "worker/src/projects.ts",
+      "sha256": "9ba0c78588a48e18613bc1f2c5aa4e88aa46fdc239092ca6da3aee2398628ee2"
+    },
+    {
+      "path": "worker/src/response.ts",
+      "sha256": "694c15b19a633075db1c8ac32bbd273c078095981931c203522346bef2b14a1b"
+    },
+    {
+      "path": "worker/src/types.ts",
+      "sha256": "bc280f2b38ca9cf5927090b6adaf4f7f34993c87345b1cb6e86c200e6d51f014"
+    },
+    {
+      "path": "worker/tsconfig.json",
+      "sha256": "f048e8c574425ff23ee645df6a56a7f04ddf5a68d4321cef125e947bd0db7158"
+    },
+    {
+      "path": "worker/wrangler.toml",
+      "sha256": "8fa49bf5037f918b731c51f12c8488f7050c4ca6d34834cf498762c767bc0746"
+    }
+  ],
+  "generated_at": "2026-05-12T18:08:50.906648+00:00",
+  "repo": "ArqonContextOS",
+  "status": [
+    "REQUIRES_HUMAN_REVIEW",
+    "development diagnostic only",
+    "NOT SEALED-TEST CERTIFIED",
+    "not promotable"
+  ],
+  "version": "0.1.0"
+}
