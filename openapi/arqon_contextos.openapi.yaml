@@ -83,3 +83,142 @@ paths:
             application/json:
               schema:
                 type: object
+  /v1/notes:
+    get:
+      operationId: listContextNotes
+      summary: List recent non-official context notes.
+      parameters:
+        - name: project
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ArqonZero]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+      responses:
+        "200":
+          description: Note list.
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      operationId: saveContextNote
+      summary: Save a non-official context note.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: Note created.
+          content:
+            application/json:
+              schema:
+                type: object
+  /v1/messages:
+    get:
+      operationId: listInbox
+      summary: List messages in a role inbox.
+      parameters:
+        - name: project
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ArqonZero]
+        - name: role
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_CODEX, HUMAN]
+      responses:
+        "200":
+          description: Inbox list.
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      operationId: sendMessage
+      summary: Send a message to a role inbox.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: Message created.
+          content:
+            application/json:
+              schema:
+                type: object
+  /v1/messages/{message_id}:
+    get:
+      operationId: openMessage
+      summary: Open a role message.
+      parameters:
+        - name: message_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ArqonZero]
+        - name: role
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_CODEX, HUMAN]
+      responses:
+        "200":
+          description: Message payload.
+          content:
+            application/json:
+              schema:
+                type: object
+  /v1/messages/{message_id}/archive:
+    post:
+      operationId: archiveMessage
+      summary: Copy a message into the role archive.
+      parameters:
+        - name: message_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: project
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [ArqonZero]
+        - name: role
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_CODEX, HUMAN]
+      responses:
+        "200":
+          description: Archived message reference.
+          content:
+            application/json:
+              schema:
+                type: object

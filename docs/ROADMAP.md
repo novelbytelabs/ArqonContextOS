@@ -30,6 +30,8 @@ Update GPT Actions to use broker.
 
 Add notes and message boxes.
 
+v0.2 broker endpoints now cover `POST /v1/notes`, `GET /v1/notes`, `POST /v1/messages`, `GET /v1/messages/inbox`, `GET /v1/messages/{message_id}`, and `POST /v1/messages/{message_id}/archive`.
+
 ## Phase 6
 
 Add official run artifact writes.

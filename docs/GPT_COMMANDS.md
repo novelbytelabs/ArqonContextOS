@@ -44,6 +44,17 @@ Open a message.
 
 Example: `/open-message project=ArqonZero role=PM_AI message_id=MSG-2026-0001`
 
+## v0.2 note and message boxes
+
+The broker now exposes the note and inbox endpoints behind the same status labels and role checks.
+
+- `/save-context` maps to `POST /v1/notes`
+- `/inbox` maps to `GET /v1/messages/inbox`
+- `/open-message` maps to `GET /v1/messages/{message_id}`
+- `archive-message` maps to `POST /v1/messages/{message_id}/archive`
+
+Listing is intentionally simple for this phase: recent items are gathered from the allowed `governance/notes/` and `governance/messages/` directories.
+
 ## `/create-run`
 
 Create a run folder and manifest.

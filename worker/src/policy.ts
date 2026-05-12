@@ -1,5 +1,12 @@
 import type { Role } from "./types";
 
+export const STATUS_LABELS = [
+  "REQUIRES_HUMAN_REVIEW",
+  "development diagnostic only",
+  "NOT SEALED-TEST CERTIFIED",
+  "not promotable"
+] as const;
+
 const FORBIDDEN_PARTS = [".env", "secrets", "sealed", "holdout", "models", "data", "private", "credentials"];
 const ALLOWED_WRITE_ROOTS = ["governance/runs/", "governance/messages/", "governance/notes/", "governance/ledger/", "governance/context/"];
 
@@ -16,6 +23,14 @@ export function assertSafeWritePath(path: string): void {
   if (path.startsWith("src/") || path.startsWith("tests/") || path.startsWith(".github/")) {
     throw new Error(`Source/test/workflow writes are forbidden in broker v0.1: ${path}`);
   }
+}
+
+export function isRole(value: string): value is Role {
+  return value === "PM_AI" || value === "CODER_AI" || value === "AUDITOR_AI" || value === "HELPER_CODEX" || value === "HUMAN";
+}
+
+export function isKnownProject(value: string): boolean {
+  return value === "ArqonZero";
 }
 
 export function canWriteArtifact(role: Role, artifactType: string): boolean {

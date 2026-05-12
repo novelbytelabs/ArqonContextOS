@@ -3,6 +3,8 @@ import { requireRole } from "./auth";
 import { getProject, contextPathFor } from "./projects";
 import { fetchGithubFile } from "./github_app";
 import { jsonResponse, errorResponse } from "./response";
+import { handleNotesRequest } from "./notes";
+import { handleMessagesRequest } from "./messages";
 
 function getParam(url: URL, name: string): string | null {
   const value = url.searchParams.get(name);
@@ -56,8 +58,13 @@ export default {
       if (url.pathname === "/v1/context" && request.method === "GET") return handleContext(request, env);
       if (url.pathname === "/v1/constitution" && request.method === "GET") return handleContext(request, env);
       if (url.pathname === "/v1/manifest" && request.method === "GET") return handleManifest(request, env);
-      if (url.pathname.startsWith("/v1/notes")) return handleNotImplemented("notes");
-      if (url.pathname.startsWith("/v1/messages")) return handleNotImplemented("messages");
+      if (url.pathname === "/v1/notes") return handleNotesRequest(request, env);
+      if (url.pathname === "/v1/messages") return handleMessagesRequest(request, env);
+      if (url.pathname === "/v1/messages/inbox") return handleMessagesRequest(request, env);
+      const messageArchiveMatch = url.pathname.match(/^\/v1\/messages\/([^/]+)\/archive$/);
+      if (messageArchiveMatch) return handleMessagesRequest(request, env, decodeURIComponent(messageArchiveMatch[1]), "archive");
+      const messageMatch = url.pathname.match(/^\/v1\/messages\/([^/]+)$/);
+      if (messageMatch) return handleMessagesRequest(request, env, decodeURIComponent(messageMatch[1]), "item");
       if (url.pathname.startsWith("/v1/runs")) return handleNotImplemented("runs");
       return errorResponse("NOT_FOUND", `No route for ${request.method} ${url.pathname}`, 404);
     } catch (err) {
