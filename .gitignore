@@ -64,42 +64,7 @@ Thumbs.db
 *.vsix
 *.raw
 
-# Maestro Engine Subtree
-maestro/client/static/local
-maestro/core/lib
-maestro/core/src/dist/lib
-maestro/core/src/main/antlr/.antlr
-maestro/core/src/main/antlr/CommandLexer.g4
-maestro/core/src/main/antlr/CommandParser.g4
-maestro/core/src/main/java/core/util/ObjectType.java
-maestro/core/src/main/java/core/util/ObjectTypeConverter.java
-maestro/core/src/main/resources/CommandLexer.g4
-maestro/core/src/main/resources/CommandParser.g4
-maestro/core/src/main/resources/lexicons
-maestro/core/src/main/resources/grammars
-
-# External Dependencies and Runtime Assets
-maestro/models/
-maestro/tree-sitter/*
-!maestro/tree-sitter/java-tree-sitter/
-!maestro/tree-sitter/java-tree-sitter/**
-maestro/tree-sitter/java-tree-sitter/build/
-maestro/tree-sitter/java-tree-sitter/bin/
-maestro/tree-sitter/java-tree-sitter/libjava-tree-sitter.so
-maestro/tree-sitter/java-tree-sitter/tree-sitter/libtree-sitter.a
-maestro/tree-sitter/java-tree-sitter/tree-sitter/libtree-sitter.so
-maestro/tree-sitter/java-tree-sitter/tree-sitter/libtree-sitter.so.*
-
-# Exceptions
-!maestro/client/build/*
-!maestro/core/src/main/java/core/gen/antlr/antlr4/LexerAdaptor.java
-!maestro/core/src/dist/bin/run-pro
-
-# Local audit bundles generated during PM freeze/report workflows
-maestro_integrity_layer_*/
-maestro_pm_reset_bundle_*/
-.codebuddy
-
-# Local runtime debugging artifacts (generated)
-maestro/client/artifacts/
-tmp/h23_audit/
+# User Added
+/temps
+.agents/
+.codex/
