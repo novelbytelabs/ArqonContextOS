@@ -121,48 +121,11 @@ plugins:
 
 nav:
   - Home: index.md
-  - Core Doctrine:
-      - North Star: 00_NORTH_STAR.md
-      - Product Identity: 01_PRODUCT_IDENTITY.md
-      - Safe Superintelligence: 02_SAFE_SUPERINTELLIGENCE_RELATIONSHIP.md
-      - Architecture Overview: 03_ARCHITECTURE_OVERVIEW.md
-      - Model Roles: 04_MODEL_ROLES_FRONTIER_BONSAI_BANKAI_JEPA.md
-      - Truth Kernel Spec: 05_TRUTH_KERNEL_SPEC.md
-      - Evidence Boundary and Sealed Tests: 06_EVIDENCE_BOUNDARY_AND_SEALED_TESTS.md
-      - GRSI Feature Spec: 07_GRSI_FEATURE_SPEC.md
-      - Safety and Security: 08_SAFETY_SECURITY_FOUNDATION.md
-      - AI Worker and Helper Policy: 09_AI_WORKER_AND_HELPER_POLICY.md
-      - Contamination Purge Protocol: 10_CONTAMINATION_PURGE_PROTOCOL.md
-      - Status Language and Claim Discipline: 13_STATUS_LANGUAGE_AND_CLAIM_DISCIPLINE.md
-      - Roadmap: 14_ROADMAP.md
-      - Optimize For: 15_OPTIMIZE_FOR.md
-      - Operating Cadence: 16_OPERATING_CADENCE.md
-      - Verifier Contract: 17_VERIFIER_CONTRACT.md
-      - Diagnosis Taxonomy Contract: 18_DIAGNOSIS_TAXONOMY_CONTRACT.md
-      - GRSI Constitution: GRSI_CONSTITUTION.md
-      - Helper AI Policy: HELPER_AI_POLICY.md
-      - Measurement Base: V0_1_MEASUREMENT_BASE.md
-  - Migration and Legacy:
-      - Rename Note: 00A_RENAME_NOTE.md
-      - Legacy Doc Quarantine: 11_LEGACY_DOC_QUARANTINE_LEDGER.md
-      - Doc Migration Map: 12_DOC_MIGRATION_MAP.md
-  - Governance:
-      - Governance Index: governance/README.md
-      - Architecture Overview: governance/01_ARCHITECTURE_OVERVIEW.md
-      - Agent Authority Model: governance/02_AGENT_AUTHORITY_MODEL.md
-      - Workflow Protocol: governance/03_WORKFLOW_PROTOCOL.md
-      - Evidence and Hash Contract: governance/04_EVIDENCE_AND_HASH_CONTRACT.md
-      - Gate and Override Model: governance/05_GATE_AND_OVERRIDE_MODEL.md
-      - Helper Codex Execution Model: governance/06_HELPER_CODEX_EXECUTION_MODEL.md
-      - Constitution and GPT Sync: governance/07_CONSTITUTION_AND_GPT_SYNC.md
-      - Threat Model: governance/08_THREAT_MODEL.md
-      - CI/CD Integration: governance/09_CI_CD_INTEGRATION.md
-      - Dry Run and Validation Plan: governance/10_DRY_RUN_AND_VALIDATION_PLAN.md
-      - Operating Checklists: governance/11_OPERATING_CHECKLISTS.md
-      - Residual Risks: governance/12_RESIDUAL_RISKS.md
-      - Deception Prevention Plan: governance/DECEPTION_PREVENTION_IMPROVEMENT_PLAN.md
-      - Governance Install Report: governance/NEW_SYSTEM_DOCS_INSTALL_REPORT.md
-      - Quick Reference: governance/OPERATOR_QUICK_REFERENCE.md
-      - Technote: governance/TECHNOTE_ARQON_ZERO_MULTI_AGENT_GOVERNANCE.md
-      - Tutorial: governance/TUTORIAL_USING_ARQON_ZERO_GOVERNANCE_SYSTEM.md
-      - Technote Install Report: governance/TECHNOTE_TUTORIAL_INSTALL_REPORT.md
+  - Docs:
+      - Architecture: ARCHITECTURE.md
+      - Deployment: DEPLOYMENT_CLOUDFLARE.md
+      - GitHub App Setup: GITHUB_APP_SETUP.md
+      - GPT Commands: GPT_COMMANDS.md
+      - Project Integration Guide: PROJECT_INTEGRATION_GUIDE.md
+      - Roadmap: ROADMAP.md
+      - Security Model: SECURITY_MODEL.md
