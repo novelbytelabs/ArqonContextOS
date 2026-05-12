@@ -55,6 +55,5 @@ export async function fetchGithubFile(env: Env, project: ProjectConfig, path: st
   if (!res.ok) throw new Error(`GitHub file fetch failed for ${path}: ${res.status} ${await res.text()}`);
   const body = await res.json() as { content?: string; encoding?: string; sha: string; path: string; };
   if (body.encoding !== "base64" || !body.content) throw new Error(`Unexpected GitHub content encoding for ${path}`);
-  return { content: atob(body.content.replace(/
-/g, "")), sha: body.sha, path: body.path };
+  return { content: atob(body.content.replace(/\n/g, "")), sha: body.sha, path: body.path };
 }
