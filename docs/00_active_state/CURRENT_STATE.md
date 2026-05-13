@@ -98,6 +98,9 @@ Ground-truth docs root:
 - Science Monkeys represent explore workflow.
 - Code Monkeys represent exploit workflow.
 - Arqon Zero remains the first project/product using this system.
-- The repository has NOT yet been renamed.
+- GitHub repository rename is complete: `ArqonContextOS` -> `ArqonMonkeyOS`.
+- Local directory may still remain `ArqonContextOS` until a separate filesystem rename step is approved and executed.
+- ContextOS remains legacy terminology.
+- ContextBus remains the infrastructure layer.
 - Runtime and API behavior have NOT changed in this migration step.
 - Science Monkeys and Code Monkeys are doctrine/planned workflow layers and are not fully implemented broker capabilities yet.

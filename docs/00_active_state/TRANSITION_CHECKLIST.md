@@ -63,7 +63,11 @@ Status labels:
 - [ ] docs-first migration complete before any rename proposal
 - [ ] OpenAPI/source/schema naming-impact review completed
 - [ ] GitHub Pages, GPT Action URL, and Cloudflare URL review completed
-- [ ] explicit human approval captured before any repo rename
+- [x] explicit human approval captured before any repo rename
+- [x] GitHub repository renamed: `ArqonContextOS` -> `ArqonMonkeyOS`
+- [ ] OpenAPI/server/docs/site naming migration completed (pending)
+- [ ] Cloudflare deployment/route naming migration completed (pending)
+- [ ] GPT Action endpoint/name migration completed (pending)
 
 ## 7. Docs hierarchy migration checks
 
