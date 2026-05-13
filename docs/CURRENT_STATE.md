@@ -89,3 +89,13 @@ The new PM AI instance must inspect merged ground-truth docs and this current st
 Ground-truth docs root:
 
 - [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/`](./ground_truth/arqon_contextos_merged_ground_truth_docs/)
+
+## Doctrine shift (active, docs-level)
+
+- MonkeyOS / Arqon MonkeyOS is now treated as the umbrella platform.
+- ContextBus is the infrastructure layer formerly called ContextOS.
+- Science Monkeys represent explore workflow.
+- Code Monkeys represent exploit workflow.
+- Arqon Zero remains the first project/product using this system.
+- The repository has NOT yet been renamed.
+- Runtime and API behavior have NOT changed in this migration step.

@@ -57,6 +57,14 @@ Status labels:
 - [ ] no private key exposure
 - [ ] no treating old docs as equal to merged ground truth
 
+## 6. MonkeyOS / ContextBus rename-readiness
+
+- [ ] inventory ContextOS references across docs/source/config
+- [ ] docs-first migration complete before any rename proposal
+- [ ] OpenAPI/source/schema naming-impact review completed
+- [ ] GitHub Pages, GPT Action URL, and Cloudflare URL review completed
+- [ ] explicit human approval captured before any repo rename
+
 Related references:
 
 - [`docs/CURRENT_STATE.md`](./CURRENT_STATE.md)

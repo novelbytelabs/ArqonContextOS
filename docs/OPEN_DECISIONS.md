@@ -32,6 +32,13 @@ Status labels:
   - DEV_EVIDENCE_READY
   - INTEGRITY_GATE_PASSED
   - CLAIM_OR_PROMOTION_CANDIDATE
+- Final repo name decision: `MonkeyOS`, `ArqonMonkeyOS`, `ContextBus`, `ArqonContextBus`, or other
+- Whether current repo becomes umbrella repo or infrastructure-only repo
+- Whether Science Monkeys and Code Monkeys initially live in the same repo
+- Whether Auditor GPT is shared across Science and Code modes
+- How `/share` creates PM context
+- How Mike/Ash identity is represented before OAuth
+- When to rename OpenAPI/server/docs/site references
 
 ## Conservative resolution rule
 

@@ -43,3 +43,14 @@ Add KV cache and GitHub webhook refresh.
 ## Phase 8
 
 Add hardening: role permission tests, claim-language guard, hash-chain guard, evidence completeness score, and forbidden path tests.
+
+## Current priority
+
+Flow Core v0.3 remains the next implementation milestone.
+
+Flow Core should support generic flow families:
+
+- `science_flow`
+- `code_flow`
+- `audit_flow`
+- `governance_flow`
