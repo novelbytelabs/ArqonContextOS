@@ -10,6 +10,22 @@ not promotable
 
 Repo-backed operating layer for GPT team context, messages, notes, flows, artifacts, evidence, and governance.
 
+## MonkeyOS
+
+Umbrella governed AI-team operating system platform.
+
+## Arqon MonkeyOS
+
+Naming variant for MonkeyOS umbrella platform.
+
+## ContextBus
+
+Infrastructure layer inside MonkeyOS; legacy name is ContextOS.
+
+## ContextOS (legacy term)
+
+Legacy infrastructure naming retained for compatibility while rename is not yet authorized.
+
 ## Flow
 
 Official workflow container. Replaces run at the user level.
@@ -41,6 +57,46 @@ GitHub specification-driven development workflow/tooling.
 ## Dossier
 
 ContextOS pre-spec context artifact.
+
+## Science Monkeys
+
+Explore-side team roles for uncertain knowledge work.
+
+## Code Monkeys
+
+Exploit-side team roles for product implementation work.
+
+## Explore
+
+Investigative lifecycle that develops and audits uncertain findings.
+
+## Exploit
+
+Implementation lifecycle that turns validated findings into governed product work.
+
+## Share Packet
+
+Bridge artifact carrying science findings into PM context with claim/audit boundaries.
+
+## Finding Record
+
+Official science artifact preserving findings, evidence level, and claim boundaries.
+
+## science_flow
+
+Generic flow family for exploration workflows.
+
+## code_flow
+
+Generic flow family for product development workflows.
+
+## governance_flow
+
+Generic flow family for doctrine/policy/process changes.
+
+## Mike/Ash human identity distinction
+
+Human identity differs from role identity; temporary user labels may be used before OAuth.
 
 ## Gate
 

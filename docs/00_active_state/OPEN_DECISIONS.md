@@ -39,6 +39,11 @@ Status labels:
 - How `/share` creates PM context
 - How Mike/Ash identity is represented before OAuth
 - When to rename OpenAPI/server/docs/site references
+- Whether `/share` writes a PM inbox message, an official artifact, or both
+- First `science_flow` schema and artifact contract
+- Science finding evidence levels and claim boundaries
+- How to keep old ContextOS URLs/actions working during rename transition
+- Whether generated context should switch to MonkeyOS/ContextBus terminology now or after Flow Core
 
 ## Conservative resolution rule
 
@@ -46,6 +51,6 @@ If a decision is unresolved, fail closed, preserve status labels, and require PM
 
 Related ground-truth references:
 
-- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/06_FLOW_MODEL.md`](./ground_truth/arqon_contextos_merged_ground_truth_docs/docs/06_FLOW_MODEL.md)
-- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/08_MULTI_USER_MULTI_REPO.md`](./ground_truth/arqon_contextos_merged_ground_truth_docs/docs/08_MULTI_USER_MULTI_REPO.md)
-- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/09_SECURITY_AND_GOVERNANCE.md`](./ground_truth/arqon_contextos_merged_ground_truth_docs/docs/09_SECURITY_AND_GOVERNANCE.md)
+- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/06_FLOW_MODEL.md`](../ground_truth/arqon_contextos_merged_ground_truth_docs/docs/06_FLOW_MODEL.md)
+- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/08_MULTI_USER_MULTI_REPO.md`](../ground_truth/arqon_contextos_merged_ground_truth_docs/docs/08_MULTI_USER_MULTI_REPO.md)
+- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/09_SECURITY_AND_GOVERNANCE.md`](../ground_truth/arqon_contextos_merged_ground_truth_docs/docs/09_SECURITY_AND_GOVERNANCE.md)

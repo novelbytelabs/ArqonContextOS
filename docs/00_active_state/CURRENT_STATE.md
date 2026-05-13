@@ -9,7 +9,8 @@ Status labels:
 
 ## Active system
 
-Arqon ContextOS is the repo-backed context, flow, artifact, message, and governance bus for Arqon Zero GPT teams.
+Active doctrine treats MonkeyOS / Arqon MonkeyOS as the umbrella platform and ContextBus as the repo-backed infrastructure layer formerly called ContextOS.
+Arqon Zero remains the first project/product using this system.
 
 ## Current architecture
 
@@ -17,7 +18,7 @@ Arqon ContextOS is the repo-backed context, flow, artifact, message, and governa
 - Helper/Codex in VS Code
 - Cloudflare Worker broker
 - GitHub App bridge
-- ArqonContextOS public infrastructure repo
+- ArqonContextOS public infrastructure repo (current repo name; rename not yet authorized)
 - ArqonZero private project repo
 
 ## Current deployed broker
@@ -88,7 +89,7 @@ The new PM AI instance must inspect merged ground-truth docs and this current st
 
 Ground-truth docs root:
 
-- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/`](./ground_truth/arqon_contextos_merged_ground_truth_docs/)
+- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/`](../ground_truth/arqon_contextos_merged_ground_truth_docs/)
 
 ## Doctrine shift (active, docs-level)
 
@@ -99,3 +100,4 @@ Ground-truth docs root:
 - Arqon Zero remains the first project/product using this system.
 - The repository has NOT yet been renamed.
 - Runtime and API behavior have NOT changed in this migration step.
+- Science Monkeys and Code Monkeys are doctrine/planned workflow layers and are not fully implemented broker capabilities yet.

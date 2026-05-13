@@ -2,6 +2,12 @@
 
 Status: REQUIRES_HUMAN_REVIEW | development diagnostic only | NOT SEALED-TEST CERTIFIED | not promotable
 
+Doctrine note:
+
+- MonkeyOS is the umbrella platform.
+- ContextBus is the infrastructure layer formerly called ContextOS.
+- Runtime/API behavior in this runbook remains unchanged in v0.2.
+
 ## 1. Quick Start
 - **Load role context** — `/sync-context project=ArqonZero role=PM_AI` — Yes
 - **Load constitution package** — `/sync-constitution project=ArqonZero role=PM_AI` — Yes
@@ -11,9 +17,9 @@ Status: REQUIRES_HUMAN_REVIEW | development diagnostic only | NOT SEALED-TEST CE
 - **Read inbox** — `/inbox project=ArqonZero role=PM_AI` — Yes
 - **Open message** — `/open-message project=ArqonZero role=PM_AI message_id=MSG-...` — Yes
 - **Archive message** — `/archive-message project=ArqonZero role=PM_AI message_id=MSG-...` — Yes; safe copy in v0.2
-- **Create task run** — `/create-run project=ArqonZero title="..." owner=PM_AI` — Planned Step 8
-- **Load task run** — `/load-run project=ArqonZero run_id=AZ-... role=AUDITOR_AI` — Planned Step 8
-- **Write artifact** — `/write-artifact project=ArqonZero run_id=AZ-... type=pm_spec` — Planned Step 8
+- **Create task run** — `/create-run project=ArqonZero title="..." owner=PM_AI` — Legacy/planned; superseded by Flow Core `/create-flow`
+- **Load task run** — `/load-run project=ArqonZero run_id=AZ-... role=AUDITOR_AI` — Legacy/planned; superseded by Flow Core `/load-flow`
+- **Write artifact** — `/write-artifact project=ArqonZero run_id=AZ-... type=pm_spec` — Legacy/planned; superseded by `/write-flow`
 
 ## 2. Mental Model
 Core rule: PM proposes. Coder implements. Helper executes. Auditor verifies. Human promotes. No AI self-certifies.
@@ -70,6 +76,40 @@ Core rule: PM proposes. Coder implements. Helper executes. Auditor verifies. Hum
 - `/supersede-context` — Mark note/message as superseded. Example: `/supersede-context note_id=NOTE-... reason="Replaced by PM spec AZ-..."` Status: Planned
 - `/link-artifact` — Link note/message to a run. Example: `/link-artifact note_id=NOTE-... run_id=AZ-...` Status: Planned
 - `/summarize-inbox` — Summarize unread role inbox messages. Example: `/summarize-inbox project=ArqonZero role=PM_AI` Status: Planned
+
+### Planned Flow Core v0.3 command set
+
+- `/create-flow`
+- `/load-flow`
+- `/flow-status`
+- `/adv-flow`
+- `/write-flow`
+
+### Future Science Monkeys command family
+
+- `/research`
+- `/hypothesize`
+- `/design-experiment`
+- `/execute-experiment`
+- `/audit-experiment`
+- `/interpret`
+- `/iterate`
+- `/record-finding`
+- `/share`
+
+### Future Code Monkeys command family
+
+- `/dossier`
+- `/constitution`
+- `/specify`
+- `/clarify`
+- `/plan`
+- `/checklists`
+- `/tasks`
+- `/analyze`
+- `/implement`
+- `/execute`
+- `/audit`
 
 ## 6. Daily Operating Runbook
 1. Open PM AI and run /sync-context project=ArqonZero role=PM_AI.

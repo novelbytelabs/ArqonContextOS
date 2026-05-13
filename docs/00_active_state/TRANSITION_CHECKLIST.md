@@ -65,8 +65,34 @@ Status labels:
 - [ ] GitHub Pages, GPT Action URL, and Cloudflare URL review completed
 - [ ] explicit human approval captured before any repo rename
 
+## 7. Docs hierarchy migration checks
+
+- [ ] new hierarchy folders created and populated
+- [ ] key docs moved with preserved content
+- [ ] compatibility docs retained where needed
+- [ ] links/path references reviewed after move
+
+## 8. Stale terminology inventory
+
+- [ ] stale `run` terminology inventoried where superseded by `flow`
+- [ ] stale `ContextOS` wording marked as legacy where appropriate
+- [ ] conflicting doctrine statements flagged for PM/Human review
+
+## 9. User-story expansion checks
+
+- [ ] Natural Flow User Stories extended with sections 25-38
+- [ ] Science Monkeys stories present
+- [ ] Code Monkeys stories present
+- [ ] top-level and compatibility copies synchronized
+
+## 10. Post-rename planning checks
+
+- [ ] post-rename GPT Action URL review plan captured
+- [ ] post-rename Cloudflare URL compatibility plan captured
+- [ ] human approval gate required before any actual rename action
+
 Related references:
 
 - [`docs/CURRENT_STATE.md`](./CURRENT_STATE.md)
 - [`docs/OPEN_DECISIONS.md`](./OPEN_DECISIONS.md)
-- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/00_GROUND_TRUTH.md`](./ground_truth/arqon_contextos_merged_ground_truth_docs/docs/00_GROUND_TRUTH.md)
+- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/00_GROUND_TRUTH.md`](../ground_truth/arqon_contextos_merged_ground_truth_docs/docs/00_GROUND_TRUTH.md)

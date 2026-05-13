@@ -134,3 +134,24 @@ Acceptance criteria:
 - human decision recorded.
 - promotion-level advancement requires human authority.
 - audit pass does not equal promotion.
+
+## Appendix — MonkeyOS doctrine expansion reference
+
+The extended Natural Flow User Stories file now includes the MonkeyOS / ContextBus expansion with Science Monkeys and Code Monkeys story sections (25-38), including:
+
+- MonkeyOS umbrella-platform story
+- ContextBus infrastructure story
+- Science Monkeys explore lifecycle stories
+- Code Monkeys exploit lifecycle story
+- `/share` boundary and PM context bridge story
+- Mike/Ash multi-user identity story
+- Unified flow-family story (`science_flow`, `code_flow`, `audit_flow`, `governance_flow`)
+
+Primary reference:
+
+- [`docs/04_flows_and_spec_kit/Arqon_ContextOS_Natural_Flow_User_Stories.md`](../../../../04_flows_and_spec_kit/Arqon_ContextOS_Natural_Flow_User_Stories.md)
+
+Compatibility copies:
+
+- [`docs/Arqon_ContextOS_Natural_Flow_User_Stories.md`](../../../../Arqon_ContextOS_Natural_Flow_User_Stories.md)
+- [`docs/project/specs/Arqon_ContextOS_Natural_Flow_User_Stories.md`](../../../../project/specs/Arqon_ContextOS_Natural_Flow_User_Stories.md)
