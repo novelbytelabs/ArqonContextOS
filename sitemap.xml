@@ -5,47 +5,95 @@
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ARCHITECTURE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/Arqon_ContextOS_Natural_Flow_User_Stories/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/Arqon_ContextOS_Command_Runbook_Cheat_Sheet/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/00_active_state/CURRENT_STATE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/CURRENT_STATE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/00_active_state/OPEN_DECISIONS/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/DEPLOYMENT_CLOUDFLARE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/00_active_state/ROADMAP/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/GITHUB_APP_SETUP/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/00_active_state/TRANSITION_CHECKLIST/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/GPT_COMMANDS/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/01_monkeyos_doctrine/GLOSSARY/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/OPEN_DECISIONS/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/01_monkeyos_doctrine/MONKEYOS_CONTEXTBUS_DOCTRINE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/PROJECT_INTEGRATION_GUIDE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/01_monkeyos_doctrine/RENAME_READINESS_PLAN/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ROADMAP/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/02_contextbus_infrastructure/ARCHITECTURE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/SECURITY_MODEL/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/02_contextbus_infrastructure/DEPLOYMENT_CLOUDFLARE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/TRANSITION_CHECKLIST/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/02_contextbus_infrastructure/GITHUB_APP_SETUP/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/02_contextbus_infrastructure/PROJECT_INTEGRATION_GUIDE/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/02_contextbus_infrastructure/SECURITY_MODEL/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/03_commands_and_runbooks/Arqon_ContextOS_Command_Runbook_Cheat_Sheet/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/03_commands_and_runbooks/GPT_COMMANDS/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/04_flows_and_spec_kit/Arqon_ContextOS_Natural_Flow_User_Stories/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/04_flows_and_spec_kit/FLOW_MODEL/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/04_flows_and_spec_kit/SPEC_KIT_INTEGRATION/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/05_science_monkeys/SCIENCE_FLOW_MODEL/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/05_science_monkeys/SCIENCE_MONKEYS_DOCTRINE/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/06_code_monkeys/CODE_FLOW_MODEL/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/06_code_monkeys/CODE_MONKEYS_DOCTRINE/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/07_arqon_zero_project/ARQON_ZERO_PROJECT_CONTEXT/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
