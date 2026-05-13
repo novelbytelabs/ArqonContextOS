@@ -1,8 +1,8 @@
-site_name: ArqonContextOS Docs
-site_description: Documentation for the ArqonContextOS project
-site_url: https://novelbytelabs.github.io/ArqonContextOS/
-repo_url: https://github.com/novelbytelabs/ArqonContextOS/
-repo_name: ArqonContextOS
+site_name: ArqonMonkeyOS Docs
+site_description: Documentation for the ArqonMonkeyOS project
+site_url: https://novelbytelabs.github.io/ArqonMonkeyOS/
+repo_url: https://github.com/novelbytelabs/ArqonMonkeyOS/
+repo_name: ArqonMonkeyOS
 edit_uri: edit/main/docs/
 docs_dir: docs
 site_dir: site
@@ -92,7 +92,7 @@ extra:
   version: "0.2.0-alpha.1 (planned)"
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/novelbytelabs/ArqonContextOS
+      link: https://github.com/novelbytelabs/ArqonMonkeyOS
   analytics:
     provider: google
     property: G-XXXXXXXXXX
@@ -109,7 +109,7 @@ extra:
           data: 0
           note: >-
             Thanks for your feedback! Help us improve this page by
-            <a href="https://github.com/novelbytelabs/ArqonContextOS/issues/new/?title=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">telling us what you found helpful or what could be improved</a>.
+            <a href="https://github.com/novelbytelabs/ArqonMonkeyOS/issues/new/?title=[Feedback]+{title}+-+{url}" target="_blank" rel="noopener">telling us what you found helpful or what could be improved</a>.
 
 copyright: "Copyright &copy; 2026 NovelByte Labs - All rights reserved."
 
@@ -121,11 +121,60 @@ plugins:
 
 nav:
   - Home: index.md
-  - Docs:
-      - Architecture: ARCHITECTURE.md
-      - Deployment: DEPLOYMENT_CLOUDFLARE.md
-      - GitHub App Setup: GITHUB_APP_SETUP.md
-      - GPT Commands: GPT_COMMANDS.md
-      - Project Integration Guide: PROJECT_INTEGRATION_GUIDE.md
-      - Roadmap: ROADMAP.md
-      - Security Model: SECURITY_MODEL.md
+  - Active State:
+      - Current State: 00_active_state/CURRENT_STATE.md
+      - Open Decisions: 00_active_state/OPEN_DECISIONS.md
+      - Roadmap: 00_active_state/ROADMAP.md
+      - Transition Checklist: 00_active_state/TRANSITION_CHECKLIST.md
+  - MonkeyOS Doctrine:
+      - Doctrine: 01_monkeyos_doctrine/MONKEYOS_CONTEXTBUS_DOCTRINE.md
+      - Rename Readiness: 01_monkeyos_doctrine/RENAME_READINESS_PLAN.md
+      - Glossary: 01_monkeyos_doctrine/GLOSSARY.md
+  - ContextBus Infrastructure:
+      - Architecture: 02_contextbus_infrastructure/ARCHITECTURE.md
+      - Security Model: 02_contextbus_infrastructure/SECURITY_MODEL.md
+      - Deployment: 02_contextbus_infrastructure/DEPLOYMENT_CLOUDFLARE.md
+      - GitHub App Setup: 02_contextbus_infrastructure/GITHUB_APP_SETUP.md
+      - Project Integration Guide: 02_contextbus_infrastructure/PROJECT_INTEGRATION_GUIDE.md
+  - Commands and Runbooks:
+      - GPT Commands: 03_commands_and_runbooks/GPT_COMMANDS.md
+      - Runbook Cheat Sheet: 03_commands_and_runbooks/Arqon_ContextOS_Command_Runbook_Cheat_Sheet.md
+  - Flows and Spec Kit:
+      - Flow Model: 04_flows_and_spec_kit/FLOW_MODEL.md
+      - Spec Kit Integration: 04_flows_and_spec_kit/SPEC_KIT_INTEGRATION.md
+      - Natural Flow User Stories: 04_flows_and_spec_kit/Arqon_ContextOS_Natural_Flow_User_Stories.md
+      - Natural Flow User Stories (Compatibility): Arqon_ContextOS_Natural_Flow_User_Stories.md
+  - Science Monkeys:
+      - Doctrine: 05_science_monkeys/SCIENCE_MONKEYS_DOCTRINE.md
+      - Flow Model: 05_science_monkeys/SCIENCE_FLOW_MODEL.md
+  - Code Monkeys:
+      - Doctrine: 06_code_monkeys/CODE_MONKEYS_DOCTRINE.md
+      - Flow Model: 06_code_monkeys/CODE_FLOW_MODEL.md
+  - Arqon Zero:
+      - Project Context: 07_arqon_zero_project/ARQON_ZERO_PROJECT_CONTEXT.md
+  - PM Specs:
+      - MonkeyOS Doctrine PM Spec: monkey_os_context_bus_doctrine_and_rename_readiness_pm_spec.md
+      - Natural Flow User Stories (Project Specs): project/specs/Arqon_ContextOS_Natural_Flow_User_Stories.md
+  - Ground Truth Archive:
+      - Overview: ground_truth/arqon_contextos_merged_ground_truth_docs/README.md
+      - Ground Truth:
+          - 00 Ground Truth: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/00_GROUND_TRUTH.md
+          - 01 Vision Mission Objectives: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/01_VISION_MISSION_OBJECTIVES.md
+          - 02 Current System Status: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/02_CURRENT_SYSTEM_STATUS.md
+          - 03 Architecture: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/03_ARCHITECTURE.md
+          - 04 Role Authority Model: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/04_ROLE_AUTHORITY_MODEL.md
+          - 05 Command Model: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/05_COMMAND_MODEL.md
+          - 06 Flow Model: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/06_FLOW_MODEL.md
+          - 07 Spec Kit Integration: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/07_SPEC_KIT_INTEGRATION.md
+          - 08 Multi User Multi Repo: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/08_MULTI_USER_MULTI_REPO.md
+          - 09 Security and Governance: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/09_SECURITY_AND_GOVERNANCE.md
+          - 10 Roadmap Plan Milestones: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/10_ROADMAP_PLAN_MILESTONES.md
+          - 11 Implementation Plan: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/11_IMPLEMENTATION_PLAN.md
+          - 14 Command Runbook: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/14_COMMAND_RUNBOOK.md
+          - 15 User Stories and Acceptance Criteria: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/15_USER_STORIES_AND_ACCEPTANCE_CRITERIA.md
+          - 16 Glossary: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/16_GLOSSARY.md
+          - 17 MonkeyOS ContextBus Doctrine: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/17_MONKEYOS_CONTEXTBUS_DOCTRINE.md
+          - 18 Rename Readiness Plan: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/18_RENAME_READINESS_PLAN.md
+          - MkDocs Nav Snippet: ground_truth/arqon_contextos_merged_ground_truth_docs/docs/MKDOCS_NAV_SNIPPET.md
+      - Prompts:
+          - Install Merged Docs Prompt: ground_truth/arqon_contextos_merged_ground_truth_docs/prompts/INSTALL_MERGED_DOCS_PROMPT.md

@@ -89,7 +89,7 @@ The new PM AI instance must inspect merged ground-truth docs and this current st
 
 Ground-truth docs root:
 
-- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/`](../ground_truth/arqon_contextos_merged_ground_truth_docs/)
+- [`docs/ground_truth/arqon_contextos_merged_ground_truth_docs/README.md`](../ground_truth/arqon_contextos_merged_ground_truth_docs/README.md)
 
 ## Doctrine shift (active, docs-level)
 

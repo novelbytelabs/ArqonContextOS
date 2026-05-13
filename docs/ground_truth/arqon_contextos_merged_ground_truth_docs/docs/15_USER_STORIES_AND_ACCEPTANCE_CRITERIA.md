@@ -149,9 +149,9 @@ The extended Natural Flow User Stories file now includes the MonkeyOS / ContextB
 
 Primary reference:
 
-- [`docs/04_flows_and_spec_kit/Arqon_ContextOS_Natural_Flow_User_Stories.md`](../../../../04_flows_and_spec_kit/Arqon_ContextOS_Natural_Flow_User_Stories.md)
+- [`docs/04_flows_and_spec_kit/Arqon_ContextOS_Natural_Flow_User_Stories.md`](../../../04_flows_and_spec_kit/Arqon_ContextOS_Natural_Flow_User_Stories.md)
 
 Compatibility copies:
 
-- [`docs/Arqon_ContextOS_Natural_Flow_User_Stories.md`](../../../../Arqon_ContextOS_Natural_Flow_User_Stories.md)
-- [`docs/project/specs/Arqon_ContextOS_Natural_Flow_User_Stories.md`](../../../../project/specs/Arqon_ContextOS_Natural_Flow_User_Stories.md)
+- [`docs/Arqon_ContextOS_Natural_Flow_User_Stories.md`](../../../Arqon_ContextOS_Natural_Flow_User_Stories.md)
+- [`docs/project/specs/Arqon_ContextOS_Natural_Flow_User_Stories.md`](../../../project/specs/Arqon_ContextOS_Natural_Flow_User_Stories.md)
