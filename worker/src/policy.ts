@@ -8,7 +8,7 @@ export const STATUS_LABELS = [
 ] as const;
 
 const FORBIDDEN_PARTS = [".env", "secrets", "sealed", "holdout", "models", "data", "private", "credentials"];
-const ALLOWED_WRITE_ROOTS = ["governance/runs/", "governance/messages/", "governance/notes/", "governance/ledger/", "governance/context/"];
+const ALLOWED_WRITE_ROOTS = ["governance/flows/", "governance/runs/", "governance/messages/", "governance/notes/", "governance/ledger/", "governance/context/"];
 
 export function assertSafeReadPath(path: string): void {
   const parts = path.split("/").map(p => p.toLowerCase());
@@ -40,6 +40,48 @@ export function canWriteArtifact(role: Role, artifactType: string): boolean {
     HELPER_CODEX: ["helper_execution_report", "evidence_manifest", "helper_log", "helper_message"],
     AUDITOR_AI: ["auditor_report", "auditor_score", "claim_audit", "auditor_message", "auditor_note"],
     HUMAN: ["human_decision", "exception_manifest", "promotion_manifest", "human_message", "human_note"]
+  };
+  return allowed[role]?.includes(artifactType) ?? false;
+}
+
+export function canWriteFlowArtifact(role: Role, artifactType: string): boolean {
+  const allowed: Record<Role, string[]> = {
+    PM_AI: [
+      "research_dossier_review",
+      "pm_dossier",
+      "constitution",
+      "specification",
+      "plan",
+      "pm_spec",
+      "pm_gate_definition",
+      "share_review"
+    ],
+    CODER_AI: [
+      "tasks",
+      "implementation_bundle",
+      "coder_patch_bundle",
+      "coder_handoff"
+    ],
+    HELPER_CODEX: [
+      "execution_report",
+      "evidence_manifest",
+      "command_log",
+      "helper_log"
+    ],
+    AUDITOR_AI: [
+      "clarification",
+      "checklist",
+      "analysis",
+      "audit_report",
+      "integrity_review",
+      "claim_audit"
+    ],
+    HUMAN: [
+      "human_decision",
+      "advancement_approval",
+      "promotion_decision",
+      "exception_manifest"
+    ]
   };
   return allowed[role]?.includes(artifactType) ?? false;
 }

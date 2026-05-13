@@ -5,6 +5,7 @@ import { fetchGithubFile } from "./github_app";
 import { jsonResponse, errorResponse } from "./response";
 import { handleNotesRequest } from "./notes";
 import { handleMessagesRequest } from "./messages";
+import { handleFlowsRequest } from "./flows";
 
 function getParam(url: URL, name: string): string | null {
   const value = url.searchParams.get(name);
@@ -65,6 +66,15 @@ export default {
       if (messageArchiveMatch) return handleMessagesRequest(request, env, decodeURIComponent(messageArchiveMatch[1]), "archive");
       const messageMatch = url.pathname.match(/^\/v1\/messages\/([^/]+)$/);
       if (messageMatch) return handleMessagesRequest(request, env, decodeURIComponent(messageMatch[1]), "item");
+      if (url.pathname === "/v1/flows") return handleFlowsRequest(request, env);
+      const flowStatusMatch = url.pathname.match(/^\/v1\/flows\/([^/]+)\/status$/);
+      if (flowStatusMatch) return handleFlowsRequest(request, env, decodeURIComponent(flowStatusMatch[1]), "status");
+      const flowArtifactsMatch = url.pathname.match(/^\/v1\/flows\/([^/]+)\/artifacts$/);
+      if (flowArtifactsMatch) return handleFlowsRequest(request, env, decodeURIComponent(flowArtifactsMatch[1]), "artifacts");
+      const flowAdvanceMatch = url.pathname.match(/^\/v1\/flows\/([^/]+)\/advance$/);
+      if (flowAdvanceMatch) return handleFlowsRequest(request, env, decodeURIComponent(flowAdvanceMatch[1]), "advance");
+      const flowMatch = url.pathname.match(/^\/v1\/flows\/([^/]+)$/);
+      if (flowMatch) return handleFlowsRequest(request, env, decodeURIComponent(flowMatch[1]), "item");
       if (url.pathname.startsWith("/v1/runs")) return handleNotImplemented("runs");
       return errorResponse("NOT_FOUND", `No route for ${request.method} ${url.pathname}`, 404);
     } catch (err) {

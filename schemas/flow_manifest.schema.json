@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arqon.dev/schemas/flow_manifest.schema.json",
+  "title": "ArqonMonkeyOS Flow Manifest v0.3",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "official_artifact",
+    "project",
+    "flow_id",
+    "name",
+    "type",
+    "title",
+    "status",
+    "current_gate",
+    "created_at",
+    "created_by_role",
+    "updated_at",
+    "updated_by_role",
+    "required_status_labels",
+    "artifacts",
+    "history"
+  ],
+  "properties": {
+    "schema_version": { "const": "flow_manifest.v0.3" },
+    "official_artifact": { "const": true },
+    "project": { "type": "string" },
+    "flow_id": { "type": "string", "pattern": "^FLOW-[0-9]{4}-[0-9]{4}$" },
+    "name": { "type": "string" },
+    "type": { "enum": ["science_flow", "code_flow", "audit_flow", "governance_flow"] },
+    "title": { "type": "string" },
+    "summary": { "type": "string" },
+    "status": { "enum": ["active", "blocked", "completed", "archived"] },
+    "current_gate": { "enum": ["DRAFT", "PLAN_READY", "DEV_EVIDENCE_READY", "INTEGRITY_GATE_PASSED", "CLAIM_OR_PROMOTION_CANDIDATE", "HUMAN_APPROVED"] },
+    "created_at": { "type": "string" },
+    "created_by_role": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "updated_by_role": { "type": "string" },
+    "required_status_labels": { "type": "array", "items": { "type": "string" } },
+    "artifacts": { "type": "array" },
+    "history": { "type": "array" }
+  }
+}

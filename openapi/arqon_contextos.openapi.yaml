@@ -223,3 +223,126 @@ paths:
             application/json:
               schema:
                 type: object
+  /v1/flows:
+    get:
+      summary: List flows
+      description: Lists Flow Core v0.3 flow summaries. Project defaults to ArqonZero when omitted.
+      parameters:
+        - in: query
+          name: project
+          schema: { type: string, default: ArqonZero }
+        - in: query
+          name: type
+          schema:
+            type: string
+            enum: [science_flow, code_flow, audit_flow, governance_flow]
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [active, blocked, completed, archived]
+      responses:
+        '200': { description: Flow list }
+    post:
+      summary: Create flow
+      description: Creates an official Flow Core v0.3 flow manifest and index entry.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, type, title]
+              properties:
+                project: { type: string, default: ArqonZero }
+                name: { type: string, description: Human-friendly flow alias }
+                type:
+                  type: string
+                  enum: [science_flow, code_flow, audit_flow, governance_flow]
+                title: { type: string }
+                summary: { type: string }
+                initial_gate:
+                  type: string
+                  enum: [DRAFT, PLAN_READY, DEV_EVIDENCE_READY, INTEGRITY_GATE_PASSED, CLAIM_OR_PROMOTION_CANDIDATE, HUMAN_APPROVED]
+                  default: DRAFT
+      responses:
+        '201': { description: Flow created }
+  /v1/flows/{flow_ref}:
+    get:
+      summary: Load flow
+      description: Loads a flow manifest by canonical flow_id or human-friendly name.
+      parameters:
+        - in: path
+          name: flow_ref
+          required: true
+          schema: { type: string }
+        - in: query
+          name: project
+          schema: { type: string, default: ArqonZero }
+      responses:
+        '200': { description: Flow manifest }
+  /v1/flows/{flow_ref}/status:
+    get:
+      summary: Flow status
+      description: Returns a compact flow status by canonical flow_id or human-friendly name.
+      parameters:
+        - in: path
+          name: flow_ref
+          required: true
+          schema: { type: string }
+        - in: query
+          name: project
+          schema: { type: string, default: ArqonZero }
+      responses:
+        '200': { description: Flow status }
+  /v1/flows/{flow_ref}/artifacts:
+    post:
+      summary: Write flow artifact
+      description: Writes an official flow artifact. Artifact types are role-gated.
+      parameters:
+        - in: path
+          name: flow_ref
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [artifact_type, title, body]
+              properties:
+                project: { type: string, default: ArqonZero }
+                artifact_type: { type: string }
+                title: { type: string }
+                body: { type: string }
+      responses:
+        '201': { description: Flow artifact written }
+  /v1/flows/{flow_ref}/advance:
+    post:
+      summary: Advance flow
+      description: Human-only gate/status advancement in Flow Core v0.3.
+      parameters:
+        - in: path
+          name: flow_ref
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [gate_state]
+              properties:
+                project: { type: string, default: ArqonZero }
+                gate_state:
+                  type: string
+                  enum: [DRAFT, PLAN_READY, DEV_EVIDENCE_READY, INTEGRITY_GATE_PASSED, CLAIM_OR_PROMOTION_CANDIDATE, HUMAN_APPROVED]
+                status:
+                  type: string
+                  enum: [active, blocked, completed, archived]
+                  default: active
+                note: { type: string }
+      responses:
+        '200': { description: Flow advanced }

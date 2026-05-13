@@ -33,6 +33,20 @@ These are instruction-level commands routed through the ContextBus broker (legac
 - `/adv-flow`
 - `/write-flow`
 
+Implementation mapping:
+
+- `/create-flow` -> `POST /v1/flows`
+- `/load-flow` -> `GET /v1/flows/{flow_ref}`
+- `/flow-status` -> `GET /v1/flows/{flow_ref}/status`
+- `/write-flow` -> `POST /v1/flows/{flow_ref}/artifacts`
+- `/adv-flow` -> `POST /v1/flows/{flow_ref}/advance`
+
+Flow Core v0.3 defaults and authority:
+
+- project defaults to `ArqonZero`
+- role is inferred from broker key
+- Human role is required to advance flow gate/status in v0.3
+
 ## Future Science Monkeys commands
 
 - `/research`

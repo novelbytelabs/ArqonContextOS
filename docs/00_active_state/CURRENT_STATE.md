@@ -105,3 +105,32 @@ Ground-truth docs root:
 - Historical and archival docs intentionally preserve legacy ContextOS references for traceability.
 - Runtime and API behavior have NOT changed in this migration step.
 - Science Monkeys and Code Monkeys are doctrine/planned workflow layers and are not fully implemented broker capabilities yet.
+
+## Flow Core v0.3 implementation status
+
+Flow Core v0.3 implementation is now being introduced as the first official flow container layer for ArqonMonkeyOS / ContextBus.
+
+The implementation target adds broker routes for:
+
+- `POST /v1/flows`
+- `GET /v1/flows`
+- `GET /v1/flows/{flow_ref}`
+- `GET /v1/flows/{flow_ref}/status`
+- `POST /v1/flows/{flow_ref}/artifacts`
+- `POST /v1/flows/{flow_ref}/advance`
+
+Flow Core v0.3 supports the flow families:
+
+- `science_flow`
+- `code_flow`
+- `audit_flow`
+- `governance_flow`
+
+The existing v0.2 context, constitution, notes, and messages capabilities remain in place.
+
+Required status remains:
+
+REQUIRES_HUMAN_REVIEW  
+development diagnostic only  
+NOT SEALED-TEST CERTIFIED  
+not promotable

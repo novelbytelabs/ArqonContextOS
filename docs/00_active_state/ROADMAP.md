@@ -21,7 +21,8 @@ MonkeyOS doctrine reset and docs hierarchy migration are underway.
 
 ## Next implementation milestone
 
-Flow Core v0.3 remains the next implementation target.
+Flow Core v0.3 is now implementation in progress as the first official implementation slice.
+Status remains diagnostic only and not certified/promoted.
 
 Required Flow Core command family:
 
