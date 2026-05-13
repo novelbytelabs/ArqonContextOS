@@ -12,7 +12,7 @@ Science Monkeys are the explore team.
 Code Monkeys are the exploit team.
 Arqon Zero is the first project/product on the platform.
 
-Current repository name remains `ArqonContextOS`.
+Current repository name is `ArqonMonkeyOS`.
 Runtime/API behavior has not changed as part of this docs migration.
 
 ## Start Here
@@ -58,3 +58,6 @@ Runtime/API behavior has not changed as part of this docs migration.
 ## Ground Truth Archive
 
 - [Merged Ground Truth Docs](./ground_truth/arqon_contextos_merged_ground_truth_docs/README.md)
+
+Compatibility note:
+Legacy ContextOS references remain in archive and compatibility documents where historical traceability is required.

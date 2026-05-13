@@ -8,7 +8,7 @@ not promotable
 
 ## Goal
 
-Integrate a project repo with Arqon ContextOS.
+Integrate a project repo with ArqonMonkeyOS ContextBus.
 
 ## Steps
 
@@ -18,7 +18,7 @@ Integrate a project repo with Arqon ContextOS.
 4. Run `python3 scripts/verify_context_manifest.py`.
 5. Commit generated context files.
 6. Enable `.github/workflows/build-gpt-context.yml`.
-7. Add the repo to the ContextOS broker project map.
+7. Add the repo to the ContextBus broker project map.
 8. Test `/sync-context`.
 
 ## Required project files

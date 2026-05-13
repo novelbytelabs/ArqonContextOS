@@ -59,11 +59,13 @@ All transition documents must preserve this compatibility sentence:
 - Rename completed at: `2026-05-13T22:14:37Z` (UTC)
 - Old repository name: `ArqonContextOS`
 - New repository name: `ArqonMonkeyOS`
+- Local directory rename completed: `/home/irbsurfer/Projects/arqon/ArqonContextOS` -> `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS`
 - Post-rename verification: PASS
   - `gh repo view` resolves to `novelbytelabs/ArqonMonkeyOS`
   - `origin` remote updated to `https://github.com/novelbytelabs/ArqonMonkeyOS.git`
   - `git pull --ff-only` succeeded
   - `git push --dry-run` succeeded
+  - controlled legacy-reference sweep executed (`LEGACY_REFERENCE_SWEEP_001`)
 
 ## Remaining Follow-up Checks
 

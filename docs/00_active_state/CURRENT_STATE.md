@@ -18,7 +18,7 @@ Arqon Zero remains the first project/product using this system.
 - Helper/Codex in VS Code
 - Cloudflare Worker broker
 - GitHub App bridge
-- ArqonContextOS public infrastructure repo (current repo name; rename not yet authorized)
+- ArqonMonkeyOS public infrastructure repo
 - ArqonZero private project repo
 
 ## Current deployed broker
@@ -99,8 +99,9 @@ Ground-truth docs root:
 - Code Monkeys represent exploit workflow.
 - Arqon Zero remains the first project/product using this system.
 - GitHub repository rename is complete: `ArqonContextOS` -> `ArqonMonkeyOS`.
-- Local directory may still remain `ArqonContextOS` until a separate filesystem rename step is approved and executed.
+- Local directory rename is complete: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS`.
 - ContextOS remains legacy terminology.
 - ContextBus remains the infrastructure layer.
+- Historical and archival docs intentionally preserve legacy ContextOS references for traceability.
 - Runtime and API behavior have NOT changed in this migration step.
 - Science Monkeys and Code Monkeys are doctrine/planned workflow layers and are not fully implemented broker capabilities yet.

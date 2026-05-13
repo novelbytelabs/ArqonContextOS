@@ -8,8 +8,8 @@ not promotable
 
 - MonkeyOS:
   governed AI-team operating platform umbrella.
-- Arqon MonkeyOS:
-  platform naming variant for MonkeyOS.
+- ArqonMonkeyOS:
+  current repository/platform name.
 - ContextBus:
   repo-backed infrastructure layer for context, flow, artifacts, messages, and governance.
 - ContextOS (legacy):

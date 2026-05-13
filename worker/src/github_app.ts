@@ -19,7 +19,7 @@ export interface GithubWriteResult {
   sha: string;
 }
 
-const GITHUB_USER_AGENT = "ArqonContextOS/0.2";
+const GITHUB_USER_AGENT = "ArqonMonkeyOS/0.2";
 
 function base64url(input: ArrayBuffer | string): string {
   const bytes = typeof input === "string" ? new TextEncoder().encode(input) : new Uint8Array(input);

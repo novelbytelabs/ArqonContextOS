@@ -65,6 +65,8 @@ Status labels:
 - [ ] GitHub Pages, GPT Action URL, and Cloudflare URL review completed
 - [x] explicit human approval captured before any repo rename
 - [x] GitHub repository renamed: `ArqonContextOS` -> `ArqonMonkeyOS`
+- [x] Local directory renamed: `/home/irbsurfer/Projects/arqon/ArqonContextOS` -> `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS`
+- [x] controlled legacy-reference sweep completed (`LEGACY_REFERENCE_SWEEP_001`)
 - [ ] OpenAPI/server/docs/site naming migration completed (pending)
 - [ ] Cloudflare deployment/route naming migration completed (pending)
 - [ ] GPT Action endpoint/name migration completed (pending)

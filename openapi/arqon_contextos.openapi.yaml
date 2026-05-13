@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: Arqon ContextOS Broker
+  title: ArqonMonkeyOS ContextBus Broker
   version: 0.1.0
-  description: Repo-backed context bus for Arqon role GPTs.
+  description: Repo-backed ContextBus broker for Arqon role GPTs (legacy name: ContextOS).
 servers:
   - url: https://arqon-contextos-broker.sonarum.workers.dev
 paths:

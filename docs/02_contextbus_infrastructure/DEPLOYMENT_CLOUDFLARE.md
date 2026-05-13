@@ -11,7 +11,7 @@ not promotable
 - Cloudflare account
 - Wrangler installed
 - GitHub App created and installed on target repo/security domain
-- Arqon ContextOS Worker configured
+- ArqonMonkeyOS ContextBus Worker configured
 
 ## Worker secrets
 

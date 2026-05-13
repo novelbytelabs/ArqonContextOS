@@ -8,7 +8,7 @@ not promotable
 
 ## System overview
 
-Arqon ContextOS connects GPT role agents to repo-backed context and artifact storage.
+ArqonMonkeyOS ContextBus connects GPT role agents to repo-backed context and artifact storage.
 
 ```text
 PM / Coder / Auditor GPTs
@@ -51,10 +51,11 @@ The GPTs use instruction-level commands that map to broker endpoints:
 - `/send-message`
 - `/inbox`
 - `/open-message`
-- `/create-run`
-- `/load-run`
-- `/write-artifact`
-- `/checkpoint`
+- `/archive-message`
+- `/create-flow` (planned)
+- `/load-flow` (planned)
+- `/write-flow` (planned)
+- `/adv-flow` (planned)
 
 ## Authority model
 

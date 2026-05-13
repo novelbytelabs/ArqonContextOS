@@ -12,7 +12,7 @@ Use one GitHub App per security domain.
 
 For Arqon Zero private infrastructure, create:
 
-`Arqon ContextOS Governance App`
+`ArqonMonkeyOS ContextBus Governance App`
 
 ## Repository permissions
 

@@ -48,3 +48,9 @@ The platform supports both knowledge exploration and product exploitation:
 ## Outcome
 
 ArqonMonkeyOS gives teams a repeatable way to operate AI collaboration as an accountable system, not a sequence of disconnected chats.
+
+## Legacy Compatibility and Delivery Status
+
+- ContextOS is the legacy terminology for the infrastructure now named ContextBus.
+- Current v0.2 capabilities remain unchanged after the rename.
+- Flow Core v0.3 remains the next implementation milestone.
