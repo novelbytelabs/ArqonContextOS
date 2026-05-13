@@ -1,0 +1,91 @@
+{
+  "bundle": "arqon_contextos_merged_ground_truth_docs",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "f16b85410c7d9111e4d048626ff357043d130ea04155f15148f967ec67cd2dda"
+    },
+    {
+      "path": "docs/00_GROUND_TRUTH.md",
+      "sha256": "26d1be318021ba3a7a5ab18b53cd23138ca46ea984e24ce34c8e773ab39a5d7d"
+    },
+    {
+      "path": "docs/01_VISION_MISSION_OBJECTIVES.md",
+      "sha256": "37de99a539ca8940e8d4500e34672990a35518009c898acfa5f63c1b0814098e"
+    },
+    {
+      "path": "docs/02_CURRENT_SYSTEM_STATUS.md",
+      "sha256": "cd936046a145353750ff7409ec1968368fe6c4aea44bd621502470740d6d3a59"
+    },
+    {
+      "path": "docs/03_ARCHITECTURE.md",
+      "sha256": "c723d75ebb9fbeeb6fdb3f3249e4a473d420de42db801c56563c7f1725b4afab"
+    },
+    {
+      "path": "docs/04_ROLE_AUTHORITY_MODEL.md",
+      "sha256": "bbf9d57d767f1e5e5edb2e4942c7dd7e2c0607134bc9ebdfb5fe8db14fa423f0"
+    },
+    {
+      "path": "docs/05_COMMAND_MODEL.md",
+      "sha256": "4b30319c2047c3302bfff5d90644eb5b3f03a2f6940f58d8605e28ea860f7f05"
+    },
+    {
+      "path": "docs/06_FLOW_MODEL.md",
+      "sha256": "2451eeb9ab0869fc09a7c3c71b0fbc7f3c0d75caf1ed079a94d60256ef53a77a"
+    },
+    {
+      "path": "docs/07_SPEC_KIT_INTEGRATION.md",
+      "sha256": "e9ffe4660ba6c695cef5fd629497b23f049c1c21f5ac0977a4cf90716d6d7beb"
+    },
+    {
+      "path": "docs/08_MULTI_USER_MULTI_REPO.md",
+      "sha256": "d0f29e1112ac7349f0b480781cf5a695ed37abdf9d54455c00c1967ccf1e1c51"
+    },
+    {
+      "path": "docs/09_SECURITY_AND_GOVERNANCE.md",
+      "sha256": "d51a9f513c9894d67a494f2bfec3acea12fd4f116cd80c543da3e92d7d55ce61"
+    },
+    {
+      "path": "docs/10_ROADMAP_PLAN_MILESTONES.md",
+      "sha256": "15364732bdf7d0dfcffb02ec058f3167172ed101a68d66491297bffdba756905"
+    },
+    {
+      "path": "docs/11_IMPLEMENTATION_PLAN.md",
+      "sha256": "887ae898df45565cfd7a1c09edbbae5cc6804f74d2512b31a837cdaf3263dc86"
+    },
+    {
+      "path": "docs/14_COMMAND_RUNBOOK.md",
+      "sha256": "77ba4867f8179e3ad9e2c55aaab5aa7227d3b6e0d1b4b466ad69a754e772baf3"
+    },
+    {
+      "path": "docs/15_USER_STORIES_AND_ACCEPTANCE_CRITERIA.md",
+      "sha256": "fc0333aa6db44d35c4538b83efdb9df43049f7ed498c82136550ea10855199c0"
+    },
+    {
+      "path": "docs/16_GLOSSARY.md",
+      "sha256": "27a538a97280834eac32f838c28cfe28758d2508bfa4aa35595bed29f73574a5"
+    },
+    {
+      "path": "docs/MKDOCS_NAV_SNIPPET.md",
+      "sha256": "47a4f7eeecadfd4cffaab8d21931734297188fd641b6a6e48d7fb6509e6fea24"
+    },
+    {
+      "path": "prompts/INSTALL_MERGED_DOCS_PROMPT.md",
+      "sha256": "faf63f40776c4c88b7d172fdfb158c192192f983bd92eb0ac6b536708bad1e84"
+    }
+  ],
+  "generated_at": "2026-05-13T15:35:53.741555+00:00",
+  "source_inputs": [
+    "docs_bundle.zip existing docs",
+    "Arqon ContextOS top-level docs",
+    "Natural Flow user stories",
+    "latest conversation design: Spec Kit, flows, multi-user, multi-repo swarm"
+  ],
+  "status": [
+    "REQUIRES_HUMAN_REVIEW",
+    "development diagnostic only",
+    "NOT SEALED-TEST CERTIFIED",
+    "not promotable"
+  ],
+  "version": "0.3.0-diagnostic"
+}

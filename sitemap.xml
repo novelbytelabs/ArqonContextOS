@@ -2,34 +2,122 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://novelbytelabs.github.io/ArqonContextOS/</loc>
-         <lastmod>2026-05-12</lastmod>
+         <lastmod>2026-05-13</lastmod>
     </url>
     <url>
          <loc>https://novelbytelabs.github.io/ArqonContextOS/ARCHITECTURE/</loc>
-         <lastmod>2026-05-12</lastmod>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/Arqon_ContextOS_Command_Runbook_Cheat_Sheet/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/CURRENT_STATE/</loc>
+         <lastmod>2026-05-13</lastmod>
     </url>
     <url>
          <loc>https://novelbytelabs.github.io/ArqonContextOS/DEPLOYMENT_CLOUDFLARE/</loc>
-         <lastmod>2026-05-12</lastmod>
+         <lastmod>2026-05-13</lastmod>
     </url>
     <url>
          <loc>https://novelbytelabs.github.io/ArqonContextOS/GITHUB_APP_SETUP/</loc>
-         <lastmod>2026-05-12</lastmod>
+         <lastmod>2026-05-13</lastmod>
     </url>
     <url>
          <loc>https://novelbytelabs.github.io/ArqonContextOS/GPT_COMMANDS/</loc>
-         <lastmod>2026-05-12</lastmod>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/OPEN_DECISIONS/</loc>
+         <lastmod>2026-05-13</lastmod>
     </url>
     <url>
          <loc>https://novelbytelabs.github.io/ArqonContextOS/PROJECT_INTEGRATION_GUIDE/</loc>
-         <lastmod>2026-05-12</lastmod>
+         <lastmod>2026-05-13</lastmod>
     </url>
     <url>
          <loc>https://novelbytelabs.github.io/ArqonContextOS/ROADMAP/</loc>
-         <lastmod>2026-05-12</lastmod>
+         <lastmod>2026-05-13</lastmod>
     </url>
     <url>
          <loc>https://novelbytelabs.github.io/ArqonContextOS/SECURITY_MODEL/</loc>
-         <lastmod>2026-05-12</lastmod>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/00_GROUND_TRUTH/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/01_VISION_MISSION_OBJECTIVES/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/02_CURRENT_SYSTEM_STATUS/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/03_ARCHITECTURE/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/04_ROLE_AUTHORITY_MODEL/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/05_COMMAND_MODEL/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/06_FLOW_MODEL/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/07_SPEC_KIT_INTEGRATION/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/08_MULTI_USER_MULTI_REPO/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/09_SECURITY_AND_GOVERNANCE/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/10_ROADMAP_PLAN_MILESTONES/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/11_IMPLEMENTATION_PLAN/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/14_COMMAND_RUNBOOK/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/15_USER_STORIES_AND_ACCEPTANCE_CRITERIA/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/16_GLOSSARY/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/MKDOCS_NAV_SNIPPET/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/prompts/INSTALL_MERGED_DOCS_PROMPT/</loc>
+         <lastmod>2026-05-13</lastmod>
+    </url>
+    <url>
+         <loc>https://novelbytelabs.github.io/ArqonContextOS/project/specs/Arqon_ContextOS_Natural_Flow_User_Stories/</loc>
+         <lastmod>2026-05-13</lastmod>
     </url>
 </urlset>
