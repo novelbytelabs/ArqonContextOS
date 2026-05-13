@@ -1,187 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/Arqon_ContextOS_Natural_Flow_User_Stories/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/Arqon_ContextOS_Natural_Flow_User_Stories/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/monkey_os_context_bus_doctrine_and_rename_readiness_pm_spec/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/monkey_os_context_bus_doctrine_and_rename_readiness_pm_spec/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/00_active_state/CURRENT_STATE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/00_active_state/CURRENT_STATE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/00_active_state/OPEN_DECISIONS/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/00_active_state/OPEN_DECISIONS/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/00_active_state/ROADMAP/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/00_active_state/ROADMAP/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/00_active_state/TRANSITION_CHECKLIST/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/00_active_state/TRANSITION_CHECKLIST/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/01_monkeyos_doctrine/GLOSSARY/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/01_monkeyos_doctrine/GLOSSARY/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/01_monkeyos_doctrine/MONKEYOS_CONTEXTBUS_DOCTRINE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/01_monkeyos_doctrine/MONKEYOS_CONTEXTBUS_DOCTRINE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/01_monkeyos_doctrine/RENAME_READINESS_PLAN/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/01_monkeyos_doctrine/RENAME_READINESS_PLAN/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/02_contextbus_infrastructure/ARCHITECTURE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/02_contextbus_infrastructure/ARCHITECTURE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/02_contextbus_infrastructure/DEPLOYMENT_CLOUDFLARE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/02_contextbus_infrastructure/DEPLOYMENT_CLOUDFLARE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/02_contextbus_infrastructure/GITHUB_APP_SETUP/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/02_contextbus_infrastructure/GITHUB_APP_SETUP/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/02_contextbus_infrastructure/PROJECT_INTEGRATION_GUIDE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/02_contextbus_infrastructure/PROJECT_INTEGRATION_GUIDE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/02_contextbus_infrastructure/SECURITY_MODEL/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/02_contextbus_infrastructure/SECURITY_MODEL/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/03_commands_and_runbooks/Arqon_ContextOS_Command_Runbook_Cheat_Sheet/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/03_commands_and_runbooks/Arqon_ContextOS_Command_Runbook_Cheat_Sheet/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/03_commands_and_runbooks/GPT_COMMANDS/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/03_commands_and_runbooks/GPT_COMMANDS/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/04_flows_and_spec_kit/Arqon_ContextOS_Natural_Flow_User_Stories/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/04_flows_and_spec_kit/Arqon_ContextOS_Natural_Flow_User_Stories/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/04_flows_and_spec_kit/FLOW_MODEL/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/04_flows_and_spec_kit/FLOW_MODEL/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/04_flows_and_spec_kit/SPEC_KIT_INTEGRATION/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/04_flows_and_spec_kit/SPEC_KIT_INTEGRATION/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/05_science_monkeys/SCIENCE_FLOW_MODEL/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/05_science_monkeys/SCIENCE_FLOW_MODEL/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/05_science_monkeys/SCIENCE_MONKEYS_DOCTRINE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/05_science_monkeys/SCIENCE_MONKEYS_DOCTRINE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/06_code_monkeys/CODE_FLOW_MODEL/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/06_code_monkeys/CODE_FLOW_MODEL/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/06_code_monkeys/CODE_MONKEYS_DOCTRINE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/06_code_monkeys/CODE_MONKEYS_DOCTRINE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/07_arqon_zero_project/ARQON_ZERO_PROJECT_CONTEXT/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/07_arqon_zero_project/ARQON_ZERO_PROJECT_CONTEXT/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/00_GROUND_TRUTH/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/00_GROUND_TRUTH/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/01_VISION_MISSION_OBJECTIVES/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/01_VISION_MISSION_OBJECTIVES/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/02_CURRENT_SYSTEM_STATUS/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/02_CURRENT_SYSTEM_STATUS/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/03_ARCHITECTURE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/03_ARCHITECTURE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/04_ROLE_AUTHORITY_MODEL/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/04_ROLE_AUTHORITY_MODEL/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/05_COMMAND_MODEL/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/05_COMMAND_MODEL/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/06_FLOW_MODEL/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/06_FLOW_MODEL/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/07_SPEC_KIT_INTEGRATION/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/07_SPEC_KIT_INTEGRATION/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/08_MULTI_USER_MULTI_REPO/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/08_MULTI_USER_MULTI_REPO/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/09_SECURITY_AND_GOVERNANCE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/09_SECURITY_AND_GOVERNANCE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/10_ROADMAP_PLAN_MILESTONES/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/10_ROADMAP_PLAN_MILESTONES/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/11_IMPLEMENTATION_PLAN/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/11_IMPLEMENTATION_PLAN/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/14_COMMAND_RUNBOOK/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/14_COMMAND_RUNBOOK/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/15_USER_STORIES_AND_ACCEPTANCE_CRITERIA/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/15_USER_STORIES_AND_ACCEPTANCE_CRITERIA/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/16_GLOSSARY/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/16_GLOSSARY/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/17_MONKEYOS_CONTEXTBUS_DOCTRINE/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/17_MONKEYOS_CONTEXTBUS_DOCTRINE/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/18_RENAME_READINESS_PLAN/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/18_RENAME_READINESS_PLAN/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/MKDOCS_NAV_SNIPPET/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/docs/MKDOCS_NAV_SNIPPET/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/ground_truth/arqon_contextos_merged_ground_truth_docs/prompts/INSTALL_MERGED_DOCS_PROMPT/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/ground_truth/arqon_contextos_merged_ground_truth_docs/prompts/INSTALL_MERGED_DOCS_PROMPT/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
     <url>
-         <loc>https://novelbytelabs.github.io/ArqonContextOS/project/specs/Arqon_ContextOS_Natural_Flow_User_Stories/</loc>
+         <loc>https://novelbytelabs.github.io/ArqonMonkeyOS/project/specs/Arqon_ContextOS_Natural_Flow_User_Stories/</loc>
          <lastmod>2026-05-13</lastmod>
     </url>
 </urlset>
