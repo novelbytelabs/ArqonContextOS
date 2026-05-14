@@ -1,5 +1,5 @@
 import { requireRole } from "./auth";
-import { fetchGithubFile, writeGithubFile } from "./github_app";
+import { githubRepoStore, type RepoStore } from "./repo_store";
 import { getProject } from "./projects";
 import { errorResponse, jsonResponse } from "./response";
 import { STATUS_LABELS, canWriteFlowArtifact, isKnownProject } from "./policy";
@@ -175,11 +175,11 @@ function emptyIndex(projectName: string): FlowIndex {
   };
 }
 
-async function loadFlowIndex(env: Env, projectName: string): Promise<FlowIndex> {
+async function loadFlowIndex(env: Env, projectName: string, store: RepoStore): Promise<FlowIndex> {
   const project = getProject(projectName);
   if (!project) throw new Error(`Unknown project: ${projectName}`);
   try {
-    const file = await fetchGithubFile(env, project, flowIndexPath());
+    const file = await store.fetchFile(env, project, flowIndexPath());
     const parsed = JSON.parse(file.content) as FlowIndex;
     if (parsed.schema_version !== "flow_index.v0.3" || !Array.isArray(parsed.flows)) {
       throw new Error("Invalid flow index schema");
@@ -193,17 +193,17 @@ async function loadFlowIndex(env: Env, projectName: string): Promise<FlowIndex> 
   }
 }
 
-async function writeFlowIndex(env: Env, projectName: string, index: FlowIndex, message: string): Promise<void> {
+async function writeFlowIndex(env: Env, projectName: string, index: FlowIndex, message: string, store: RepoStore): Promise<void> {
   const project = getProject(projectName);
   if (!project) throw new Error(`Unknown project: ${projectName}`);
   index.updated_at = utcIso();
-  await writeGithubFile(env, project, flowIndexPath(), formatJson(index), message);
+  await store.writeFile(env, project, flowIndexPath(), formatJson(index), message);
 }
 
-async function loadFlowManifest(env: Env, projectName: string, flowId: string): Promise<FlowManifest> {
+async function loadFlowManifest(env: Env, projectName: string, flowId: string, store: RepoStore): Promise<FlowManifest> {
   const project = getProject(projectName);
   if (!project) throw new Error(`Unknown project: ${projectName}`);
-  const file = await fetchGithubFile(env, project, flowManifestPath(flowId));
+  const file = await store.fetchFile(env, project, flowManifestPath(flowId));
   const parsed = JSON.parse(file.content) as FlowManifest;
   if (parsed.schema_version !== "flow_manifest.v0.3" || parsed.flow_id !== flowId) {
     throw new Error(`Invalid flow manifest schema for ${flowId}`);
@@ -211,11 +211,11 @@ async function loadFlowManifest(env: Env, projectName: string, flowId: string): 
   return parsed;
 }
 
-async function writeFlowManifest(env: Env, projectName: string, manifest: FlowManifest, message: string): Promise<{ path: string; sha: string }> {
+async function writeFlowManifest(env: Env, projectName: string, manifest: FlowManifest, message: string, store: RepoStore): Promise<{ path: string; sha: string }> {
   const project = getProject(projectName);
   if (!project) throw new Error(`Unknown project: ${projectName}`);
   manifest.updated_at = utcIso();
-  return await writeGithubFile(env, project, flowManifestPath(manifest.flow_id), formatJson(manifest), message);
+  return await store.writeFile(env, project, flowManifestPath(manifest.flow_id), formatJson(manifest), message);
 }
 
 function nextFlowId(index: FlowIndex): string {
@@ -298,7 +298,7 @@ function buildArtifactDocument(artifact: {
   return `${frontMatter}\n\n${artifact.body.trimEnd()}\n`;
 }
 
-async function handleCreateFlow(request: Request, env: Env): Promise<Response> {
+async function handleCreateFlow(request: Request, env: Env, store: RepoStore): Promise<Response> {
   const role = requireRole(request, env);
   const url = new URL(request.url);
   const body = await readJsonBody(request);
@@ -314,7 +314,7 @@ async function handleCreateFlow(request: Request, env: Env): Promise<Response> {
   const initialGate = optionalString(body.initial_gate) || "DRAFT";
   assertGateState(initialGate);
 
-  const index = await loadFlowIndex(env, projectName);
+  const index = await loadFlowIndex(env, projectName, store);
   const duplicate = index.flows.find(entry => entry.name === name && ["active", "blocked"].includes(entry.status));
   if (duplicate) {
     return errorResponse("FLOW_NAME_CONFLICT", `Active flow name already exists: ${name}`, 409);
@@ -342,9 +342,9 @@ async function handleCreateFlow(request: Request, env: Env): Promise<Response> {
     history: [buildHistory("create_flow", role, "Flow created")]
   };
 
-  const written = await writeFlowManifest(env, projectName, manifest, `Create flow ${flowId}`);
+  const written = await writeFlowManifest(env, projectName, manifest, `Create flow ${flowId}`, store);
   upsertIndexEntry(index, manifest);
-  await writeFlowIndex(env, projectName, index, `Update flow index for ${flowId}`);
+  await writeFlowIndex(env, projectName, index, `Update flow index for ${flowId}`, store);
 
   return jsonResponse({
     ok: true,
@@ -360,7 +360,7 @@ async function handleCreateFlow(request: Request, env: Env): Promise<Response> {
   }, 201);
 }
 
-async function handleListFlows(request: Request, env: Env): Promise<Response> {
+async function handleListFlows(request: Request, env: Env, store: RepoStore): Promise<Response> {
   requireRole(request, env);
   const url = new URL(request.url);
   const projectName = projectNameFrom(url);
@@ -370,7 +370,7 @@ async function handleListFlows(request: Request, env: Env): Promise<Response> {
   if (typeFilter) assertFlowType(typeFilter);
   if (statusFilter) assertFlowStatus(statusFilter);
 
-  const index = await loadFlowIndex(env, projectName);
+  const index = await loadFlowIndex(env, projectName, store);
   let flows = [...index.flows];
   if (typeFilter) flows = flows.filter(flow => flow.type === typeFilter);
   if (statusFilter) flows = flows.filter(flow => flow.status === statusFilter);
@@ -383,21 +383,21 @@ async function handleListFlows(request: Request, env: Env): Promise<Response> {
   });
 }
 
-async function flowIdOrError(env: Env, projectName: string, flowRef: string): Promise<{ index: FlowIndex; flowId: string } | Response> {
-  const index = await loadFlowIndex(env, projectName);
+async function flowIdOrError(env: Env, projectName: string, flowRef: string, store: RepoStore): Promise<{ index: FlowIndex; flowId: string } | Response> {
+  const index = await loadFlowIndex(env, projectName, store);
   const flowId = resolveFlowId(index, flowRef);
   if (!flowId) return errorResponse("FLOW_NOT_FOUND", `No flow found for ref: ${flowRef}`, 404);
   return { index, flowId };
 }
 
-async function handleLoadFlow(request: Request, env: Env, flowRef: string): Promise<Response> {
+async function handleLoadFlow(request: Request, env: Env, flowRef: string, store: RepoStore): Promise<Response> {
   requireRole(request, env);
   const url = new URL(request.url);
   const projectName = projectNameFrom(url);
   assertKnownProjectName(projectName);
-  const resolved = await flowIdOrError(env, projectName, flowRef);
+  const resolved = await flowIdOrError(env, projectName, flowRef, store);
   if (resolved instanceof Response) return resolved;
-  const manifest = await loadFlowManifest(env, projectName, resolved.flowId);
+  const manifest = await loadFlowManifest(env, projectName, resolved.flowId, store);
   return jsonResponse({
     ok: true,
     project: projectName,
@@ -408,12 +408,12 @@ async function handleLoadFlow(request: Request, env: Env, flowRef: string): Prom
   });
 }
 
-async function handleFlowStatus(request: Request, env: Env, flowRef: string): Promise<Response> {
+async function handleFlowStatus(request: Request, env: Env, flowRef: string, store: RepoStore): Promise<Response> {
   requireRole(request, env);
   const url = new URL(request.url);
   const projectName = projectNameFrom(url);
   assertKnownProjectName(projectName);
-  const resolved = await flowIdOrError(env, projectName, flowRef);
+  const resolved = await flowIdOrError(env, projectName, flowRef, store);
   if (resolved instanceof Response) return resolved;
   const entry = resolved.index.flows.find(flow => flow.flow_id === resolved.flowId);
   if (!entry) return errorResponse("FLOW_NOT_FOUND", `No flow found for ref: ${flowRef}`, 404);
@@ -432,7 +432,7 @@ async function handleFlowStatus(request: Request, env: Env, flowRef: string): Pr
   });
 }
 
-async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: string): Promise<Response> {
+async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: string, store: RepoStore): Promise<Response> {
   const role = requireRole(request, env);
   const url = new URL(request.url);
   const body = await readJsonBody(request);
@@ -445,9 +445,9 @@ async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: stri
   const title = requireString(body.title, "title");
   const artifactBody = requireString(body.body, "body");
 
-  const resolved = await flowIdOrError(env, projectName, flowRef);
+  const resolved = await flowIdOrError(env, projectName, flowRef, store);
   if (resolved instanceof Response) return resolved;
-  const manifest = await loadFlowManifest(env, projectName, resolved.flowId);
+  const manifest = await loadFlowManifest(env, projectName, resolved.flowId, store);
   if (["completed", "archived"].includes(manifest.status)) {
     return errorResponse("FLOW_CLOSED", `Cannot write artifacts to ${manifest.status} flow`, 409);
   }
@@ -467,7 +467,7 @@ async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: stri
   });
   const project = getProject(projectName);
   if (!project) throw new Error(`Unknown project: ${projectName}`);
-  const written = await writeGithubFile(env, project, path, document, `Write flow artifact ${artifactId} for ${manifest.flow_id}`);
+  const written = await store.writeFile(env, project, path, document, `Write flow artifact ${artifactId} for ${manifest.flow_id}`);
 
   const summary: FlowArtifactSummary = {
     artifact_id: artifactId,
@@ -481,9 +481,9 @@ async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: stri
   manifest.artifacts.push(summary);
   manifest.updated_by_role = role;
   manifest.history.push(buildHistory("write_artifact", role, `Wrote ${artifactType}: ${artifactId}`));
-  const manifestWrite = await writeFlowManifest(env, projectName, manifest, `Update flow manifest for ${artifactId}`);
+  const manifestWrite = await writeFlowManifest(env, projectName, manifest, `Update flow manifest for ${artifactId}`, store);
   upsertIndexEntry(resolved.index, manifest);
-  await writeFlowIndex(env, projectName, resolved.index, `Update flow index for ${manifest.flow_id}`);
+  await writeFlowIndex(env, projectName, resolved.index, `Update flow index for ${manifest.flow_id}`, store);
 
   return jsonResponse({
     ok: true,
@@ -497,7 +497,7 @@ async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: stri
   }, 201);
 }
 
-async function handleAdvanceFlow(request: Request, env: Env, flowRef: string): Promise<Response> {
+async function handleAdvanceFlow(request: Request, env: Env, flowRef: string, store: RepoStore): Promise<Response> {
   const role = requireRole(request, env);
   if (role !== "HUMAN") {
     return errorResponse("HUMAN_ADVANCEMENT_REQUIRED", "Only HUMAN may advance flow gates or status in Flow Core v0.3", 403);
@@ -512,16 +512,16 @@ async function handleAdvanceFlow(request: Request, env: Env, flowRef: string): P
   assertFlowStatus(status);
   const note = optionalString(body.note) || `Advanced to ${gateState}`;
 
-  const resolved = await flowIdOrError(env, projectName, flowRef);
+  const resolved = await flowIdOrError(env, projectName, flowRef, store);
   if (resolved instanceof Response) return resolved;
-  const manifest = await loadFlowManifest(env, projectName, resolved.flowId);
+  const manifest = await loadFlowManifest(env, projectName, resolved.flowId, store);
   manifest.current_gate = gateState;
   manifest.status = status;
   manifest.updated_by_role = role;
   manifest.history.push(buildHistory("advance_flow", role, note));
-  const written = await writeFlowManifest(env, projectName, manifest, `Advance flow ${manifest.flow_id}`);
+  const written = await writeFlowManifest(env, projectName, manifest, `Advance flow ${manifest.flow_id}`, store);
   upsertIndexEntry(resolved.index, manifest);
-  await writeFlowIndex(env, projectName, resolved.index, `Update flow index for ${manifest.flow_id}`);
+  await writeFlowIndex(env, projectName, resolved.index, `Update flow index for ${manifest.flow_id}`, store);
 
   return jsonResponse({
     ok: true,
@@ -536,29 +536,35 @@ async function handleAdvanceFlow(request: Request, env: Env, flowRef: string): P
   });
 }
 
-export async function handleFlowsRequest(request: Request, env: Env, flowRef?: string, action: "collection" | "item" | "status" | "artifacts" | "advance" = "collection"): Promise<Response> {
+export async function handleFlowsRequest(
+  request: Request,
+  env: Env,
+  flowRef?: string,
+  action: "collection" | "item" | "status" | "artifacts" | "advance" = "collection",
+  repoStore: RepoStore = githubRepoStore
+): Promise<Response> {
   try {
     if (action === "collection") {
-      if (request.method === "POST") return await handleCreateFlow(request, env);
-      if (request.method === "GET") return await handleListFlows(request, env);
+      if (request.method === "POST") return await handleCreateFlow(request, env, repoStore);
+      if (request.method === "GET") return await handleListFlows(request, env, repoStore);
       return errorResponse("METHOD_NOT_ALLOWED", `Unsupported method: ${request.method}`, 405);
     }
     if (!flowRef) return errorResponse("INVALID_REQUEST", "Missing flow ref", 400);
     if (action === "item") {
       if (request.method !== "GET") return errorResponse("METHOD_NOT_ALLOWED", `Unsupported method: ${request.method}`, 405);
-      return await handleLoadFlow(request, env, flowRef);
+      return await handleLoadFlow(request, env, flowRef, repoStore);
     }
     if (action === "status") {
       if (request.method !== "GET") return errorResponse("METHOD_NOT_ALLOWED", `Unsupported method: ${request.method}`, 405);
-      return await handleFlowStatus(request, env, flowRef);
+      return await handleFlowStatus(request, env, flowRef, repoStore);
     }
     if (action === "artifacts") {
       if (request.method !== "POST") return errorResponse("METHOD_NOT_ALLOWED", `Unsupported method: ${request.method}`, 405);
-      return await handleWriteFlowArtifact(request, env, flowRef);
+      return await handleWriteFlowArtifact(request, env, flowRef, repoStore);
     }
     if (action === "advance") {
       if (request.method !== "POST") return errorResponse("METHOD_NOT_ALLOWED", `Unsupported method: ${request.method}`, 405);
-      return await handleAdvanceFlow(request, env, flowRef);
+      return await handleAdvanceFlow(request, env, flowRef, repoStore);
     }
     return errorResponse("NOT_FOUND", "Unknown flow action", 404);
   } catch (err) {
