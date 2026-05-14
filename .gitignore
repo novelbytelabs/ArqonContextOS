@@ -68,3 +68,5 @@ Thumbs.db
 /temps
 .agents/
 .codex/
+# local scratch bundles / generated temp work
+tmp/
