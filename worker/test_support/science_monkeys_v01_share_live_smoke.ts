@@ -188,6 +188,44 @@ async function main(): Promise<void> {
   const recommendationArtifact = recommendationBody.artifact?.artifact_id || "";
   assert(Boolean(auditArtifact && findingArtifact && recommendationArtifact), "missing source artifact ids");
 
+  transcripts.push(await requestScenario({
+    name: "11 empty source_artifacts denied",
+    method: "POST",
+    path: "/v1/science/share",
+    role: "HUMAN",
+    request_body: {
+      flow_ref: flowId,
+      idempotency_key: `empty-sources-${suffix}`,
+      evidence_level: "SUPPORTED_DIAGNOSTIC",
+      uncertainty: "diagnostic only",
+      source_artifacts: [],
+      allowed_claims: ["diagnostic claim"],
+      forbidden_claims: ["certified claim"],
+      body: body("empty source artifacts")
+    },
+    expected_status: 400,
+    expected_error: "SCIENCE_SHARE_SOURCE_ARTIFACTS_REQUIRED"
+  }));
+
+  transcripts.push(await requestScenario({
+    name: "12 semantically unrelated source_artifacts denied",
+    method: "POST",
+    path: "/v1/science/share",
+    role: "HUMAN",
+    request_body: {
+      flow_ref: flowId,
+      idempotency_key: `unrelated-sources-${suffix}`,
+      evidence_level: "SUPPORTED_DIAGNOSTIC",
+      uncertainty: "diagnostic only",
+      source_artifacts: [researchArtifactValue],
+      allowed_claims: ["diagnostic claim"],
+      forbidden_claims: ["certified claim"],
+      body: body("unrelated source artifacts")
+    },
+    expected_status: 409,
+    expected_error: "SCIENCE_SHARE_PRECONDITION_FAILED"
+  }));
+
   const sharePayload = {
     flow_ref: flowId,
     idempotency_key: `share-${suffix}`,
@@ -201,7 +239,7 @@ async function main(): Promise<void> {
   };
 
   transcripts.push(await requestScenario({
-    name: "11 Science Auditor cannot share",
+    name: "13 Science Auditor cannot share",
     method: "POST",
     path: "/v1/science/share",
     role: "SCIENCE_AUDITOR_AI",
@@ -211,7 +249,7 @@ async function main(): Promise<void> {
   }));
 
   transcripts.push(await requestScenario({
-    name: "12 Helper human_identity spoof cannot share",
+    name: "14 Helper human_identity spoof cannot share",
     method: "POST",
     path: "/v1/science/share",
     role: "HELPER_AI",
@@ -221,7 +259,7 @@ async function main(): Promise<void> {
   }));
 
   transcripts.push(await requestScenario({
-    name: "13 Human share succeeds",
+    name: "15 Human share succeeds",
     method: "POST",
     path: "/v1/science/share",
     role: "HUMAN",
@@ -231,9 +269,13 @@ async function main(): Promise<void> {
   const shareBody = transcripts[transcripts.length - 1].response_body as { share?: { share_id?: string; share_packet_hash?: string; human_authority?: string } };
   assert(shareBody.share?.human_authority === "server_authenticated_human", "share must be server-derived HUMAN authority");
   assert(typeof shareBody.share?.share_packet_hash === "string", "share hash missing");
+  const resolvedSources = (shareBody.share as { resolved_source_artifacts?: unknown[] })?.resolved_source_artifacts;
+  assert(Array.isArray(resolvedSources), "resolved source artifact metadata missing");
+  const resolvedSourceArtifacts = resolvedSources as unknown[];
+  assert(resolvedSourceArtifacts.length === 3, "resolved source artifact metadata count mismatch");
 
   transcripts.push(await requestScenario({
-    name: "14 duplicate Human share is idempotent",
+    name: "16 duplicate Human share is idempotent",
     method: "POST",
     path: "/v1/science/share",
     role: "HUMAN",
@@ -245,7 +287,7 @@ async function main(): Promise<void> {
   assert(dup.share?.share_id === shareBody.share?.share_id, "idempotent share id mismatch");
 
   transcripts.push(await requestScenario({
-    name: "15 generic share_packet remains blocked",
+    name: "17 generic share_packet remains blocked",
     method: "POST",
     path: `/v1/flows/${encodeURIComponent(flowIdValue)}/artifacts`,
     role: "HUMAN",

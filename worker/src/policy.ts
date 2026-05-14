@@ -8,7 +8,7 @@ export const STATUS_LABELS = [
 ] as const;
 
 const FORBIDDEN_PARTS = [".env", "secrets", "sealed", "holdout", "models", "data", "private", "credentials"];
-const ALLOWED_WRITE_ROOTS = ["governance/flows/", "governance/runs/", "governance/messages/", "governance/notes/", "governance/ledger/", "governance/context/", "governance/outbox/"];
+const ALLOWED_WRITE_ROOTS = ["governance/flows/", "governance/runs/", "governance/messages/", "governance/notes/", "governance/ledger/", "governance/context/", "governance/outbox/science_share/"];
 
 export function assertSafeReadPath(path: string): void {
   const parts = path.split("/").map(p => p.toLowerCase());

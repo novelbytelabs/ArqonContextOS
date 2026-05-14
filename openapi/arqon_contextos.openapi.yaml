@@ -453,8 +453,8 @@ paths:
         '201': { description: Science finding artifact written }
   /v1/science/share:
     post:
-      operationId: scienceShareReserved
-      summary: Reserved Science Monkeys share command.
+      operationId: scienceShare
+      summary: Science Monkeys Human-approved share command.
       description: Creates a Human-approved official science share packet, writes PM notification/context artifacts, preserves source references and share hash, and supports idempotent replay.
       requestBody:
         required: true

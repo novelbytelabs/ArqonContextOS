@@ -17,6 +17,16 @@ interface FlowArtifactSummary {
   source_sha?: string;
 }
 
+interface ResolvedShareSourceArtifact {
+  artifact_id: string;
+  artifact_type: string;
+  title: string;
+  role: Role;
+  created_at: string;
+  source_path: string;
+  source_sha?: string;
+}
+
 interface FlowHistoryEvent {
   event_id: string;
   event_type: string;
@@ -77,6 +87,7 @@ interface SharePacketRecord {
   evidence_level: string;
   uncertainty: string;
   source_artifacts: string[];
+  resolved_source_artifacts: ResolvedShareSourceArtifact[];
   allowed_claims: string[];
   forbidden_claims: string[];
   share_packet_hash: string;
@@ -100,6 +111,7 @@ interface PMShareContextEntry {
   evidence_level: string;
   uncertainty: string;
   source_artifacts: string[];
+  resolved_source_artifacts: ResolvedShareSourceArtifact[];
   allowed_claims: string[];
   forbidden_claims: string[];
   share_packet_hash: string;
@@ -271,7 +283,23 @@ function artifactTypes(manifest: FlowManifest): Set<string> {
   return new Set(manifest.artifacts.map(artifact => artifact.artifact_type));
 }
 
-function sharePreconditionError(manifest: FlowManifest, sourceArtifacts: string[]): Response | null {
+function artifactForRef(manifest: FlowManifest, ref: string): FlowArtifactSummary | null {
+  return manifest.artifacts.find(artifact => artifact.artifact_id === ref || artifact.source_path === ref) || null;
+}
+
+function toResolvedShareSourceArtifact(artifact: FlowArtifactSummary): ResolvedShareSourceArtifact {
+  return {
+    artifact_id: artifact.artifact_id,
+    artifact_type: artifact.artifact_type,
+    title: artifact.title,
+    role: artifact.role,
+    created_at: artifact.created_at,
+    source_path: artifact.source_path,
+    source_sha: artifact.source_sha
+  };
+}
+
+function sharePreconditionError(manifest: FlowManifest): Response | null {
   if (manifest.type !== "science_flow") return errorResponse("SCIENCE_SHARE_FLOW_TYPE_REQUIRED", "Share requires a science_flow", 409);
   const types = artifactTypes(manifest);
   const missing: string[] = [];
@@ -280,13 +308,63 @@ function sharePreconditionError(manifest: FlowManifest, sourceArtifacts: string[
   if (![...FINDING_ARTIFACTS].some(type => types.has(type))) {
     missing.push("finding_record|negative_finding_record|inconclusive_finding_record|finding_boundary_record");
   }
-  for (const source of sourceArtifacts) {
-    if (!manifest.artifacts.some(artifact => artifact.artifact_id === source || artifact.source_path === source)) {
-      missing.push(`source_artifact:${source}`);
-    }
-  }
   if (missing.length > 0) return errorResponse("SCIENCE_SHARE_PRECONDITION_FAILED", `Share preconditions missing: ${missing.join(", ")}`, 409);
   return null;
+}
+
+function requireSourceEvidenceCoverage(
+  manifest: FlowManifest,
+  sourceArtifacts: string[]
+): { error: Response | null; resolved: ResolvedShareSourceArtifact[] } {
+  if (sourceArtifacts.length === 0) {
+    return {
+      error: errorResponse(
+        "SCIENCE_SHARE_SOURCE_ARTIFACTS_REQUIRED",
+        "source_artifacts must include audit_report, share_recommendation, and finding record references",
+        400
+      ),
+      resolved: []
+    };
+  }
+
+  const resolvedArtifacts: FlowArtifactSummary[] = [];
+  const missingRefs: string[] = [];
+  for (const ref of sourceArtifacts) {
+    const artifact = artifactForRef(manifest, ref);
+    if (!artifact) {
+      missingRefs.push(ref);
+      continue;
+    }
+    resolvedArtifacts.push(artifact);
+  }
+
+  if (missingRefs.length > 0) {
+    return {
+      error: errorResponse("SCIENCE_SHARE_PRECONDITION_FAILED", `Unknown source_artifacts: ${missingRefs.join(", ")}`, 409),
+      resolved: []
+    };
+  }
+
+  const types = new Set(resolvedArtifacts.map(artifact => artifact.artifact_type));
+  const missingTypes: string[] = [];
+  if (!types.has("audit_report")) missingTypes.push("audit_report");
+  if (!types.has("share_recommendation")) missingTypes.push("share_recommendation");
+  if (![...FINDING_ARTIFACTS].some(type => types.has(type))) {
+    missingTypes.push("finding_record|negative_finding_record|inconclusive_finding_record|finding_boundary_record");
+  }
+
+  if (missingTypes.length > 0) {
+    return {
+      error: errorResponse(
+        "SCIENCE_SHARE_PRECONDITION_FAILED",
+        `source_artifacts missing required evidence classes: ${missingTypes.join(", ")}`,
+        409
+      ),
+      resolved: []
+    };
+  }
+
+  return { error: null, resolved: resolvedArtifacts.map(toResolvedShareSourceArtifact) };
 }
 
 function requireIdempotencyKey(value: unknown): string {
@@ -314,6 +392,7 @@ function buildShareMarkdown(input: {
   evidenceLevel: string;
   uncertainty: string;
   sourceArtifacts: string[];
+  resolvedSourceArtifacts: ResolvedShareSourceArtifact[];
   allowedClaims: string[];
   forbiddenClaims: string[];
   body: string;
@@ -354,6 +433,10 @@ ${input.uncertainty}
 ## Source Artifacts
 
 ${input.sourceArtifacts.map(item => `- ${item}`).join("\n")}
+
+## Resolved Source Artifacts
+
+${input.resolvedSourceArtifacts.map(item => `- ${item.artifact_type}: ${item.artifact_id} (${item.source_path})`).join("\n")}
 
 ## Allowed Claims
 
@@ -508,8 +591,11 @@ export async function handleScienceShare(
   }
 
   const manifest = await loadFlowManifest(env, projectName, flowId, repoStore);
-  const preconditionError = sharePreconditionError(manifest, sourceArtifacts);
+  const preconditionError = sharePreconditionError(manifest);
   if (preconditionError) return preconditionError;
+  const sourceCoverage = requireSourceEvidenceCoverage(manifest, sourceArtifacts);
+  if (sourceCoverage.error) return sourceCoverage.error;
+  const resolvedSourceArtifacts = sourceCoverage.resolved;
 
   const createdAt = utcIso();
   const artifactId = `SHARE-${shareId}`;
@@ -542,6 +628,7 @@ export async function handleScienceShare(
     evidence_level: evidenceLevel,
     uncertainty,
     source_artifacts: sourceArtifacts,
+    resolved_source_artifacts: resolvedSourceArtifacts,
     allowed_claims: allowedClaims,
     forbidden_claims: forbiddenClaims,
     body: shareBody
@@ -555,6 +642,7 @@ export async function handleScienceShare(
     evidenceLevel,
     uncertainty,
     sourceArtifacts,
+    resolvedSourceArtifacts,
     allowedClaims,
     forbiddenClaims,
     body: shareBody,
@@ -595,6 +683,7 @@ export async function handleScienceShare(
     evidence_level: evidenceLevel,
     uncertainty,
     source_artifacts: sourceArtifacts,
+    resolved_source_artifacts: resolvedSourceArtifacts,
     allowed_claims: allowedClaims,
     forbidden_claims: forbiddenClaims,
     share_packet_hash: shareHash,
@@ -637,6 +726,7 @@ export async function handleScienceShare(
     evidence_level: evidenceLevel,
     uncertainty,
     source_artifacts: sourceArtifacts,
+    resolved_source_artifacts: resolvedSourceArtifacts,
     allowed_claims: allowedClaims,
     forbidden_claims: forbiddenClaims,
     share_packet_hash: shareHash,

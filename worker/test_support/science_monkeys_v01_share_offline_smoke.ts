@@ -180,6 +180,42 @@ async function main(): Promise<void> {
   const shareRecommendationArtifactId = shareRecommendation.body.artifact.artifact_id as string;
   record("SCIENCE_AUDITOR_AI wrote share_recommendation");
 
+  const emptySourceShare = await requestJson("/v1/science/share", {
+    method: "POST",
+    headers: { authorization: auth("HUMAN"), "content-type": "application/json" },
+    body: JSON.stringify({
+      flow_ref: flowId,
+      idempotency_key: "empty-sources-should-fail-0001",
+      evidence_level: "SUPPORTED_DIAGNOSTIC",
+      uncertainty: "diagnostic only",
+      source_artifacts: [],
+      allowed_claims: ["diagnostic claim"],
+      forbidden_claims: ["certified claim"],
+      body: "This must not create an official share packet."
+    })
+  });
+  assert(emptySourceShare.status === 400, `empty source_artifacts must fail 400, got ${emptySourceShare.status}`);
+  assert(emptySourceShare.body.error.code === "SCIENCE_SHARE_SOURCE_ARTIFACTS_REQUIRED", "expected empty source_artifacts error");
+  record("empty source_artifacts denied");
+
+  const unrelatedSourceShare = await requestJson("/v1/science/share", {
+    method: "POST",
+    headers: { authorization: auth("HUMAN"), "content-type": "application/json" },
+    body: JSON.stringify({
+      flow_ref: flowId,
+      idempotency_key: "unrelated-sources-should-fail-0001",
+      evidence_level: "SUPPORTED_DIAGNOSTIC",
+      uncertainty: "diagnostic only",
+      source_artifacts: [researchArtifactId],
+      allowed_claims: ["diagnostic claim"],
+      forbidden_claims: ["certified claim"],
+      body: "This must not create an official share packet."
+    })
+  });
+  assert(unrelatedSourceShare.status === 409, `unrelated source_artifacts must fail 409, got ${unrelatedSourceShare.status}`);
+  assert(unrelatedSourceShare.body.error.code === "SCIENCE_SHARE_PRECONDITION_FAILED", "expected source evidence class precondition failure");
+  record("semantically unrelated source_artifacts denied");
+
   const auditorShare = await requestJson("/v1/science/share", {
     method: "POST",
     headers: { authorization: auth("SCIENCE_AUDITOR_AI"), "content-type": "application/json" },
@@ -236,7 +272,13 @@ async function main(): Promise<void> {
   assert(share.status === 201, `HUMAN share expected 201, got ${share.status}: ${JSON.stringify(share.body)}`);
   assert(share.body.share.human_authority === "server_authenticated_human", "share must use server-derived human authority");
   assert(share.body.share.share_packet_hash, "share hash required");
-  record("HUMAN created official share_packet");
+  assert(Array.isArray(share.body.share.resolved_source_artifacts), "resolved source artifact metadata required");
+  assert(share.body.share.resolved_source_artifacts.length === 3, "resolved source artifact metadata count mismatch");
+  const resolvedTypes = new Set(share.body.share.resolved_source_artifacts.map((artifact: { artifact_type: string }) => artifact.artifact_type));
+  assert(resolvedTypes.has("audit_report"), "resolved source artifacts must include audit_report");
+  assert(resolvedTypes.has("share_recommendation"), "resolved source artifacts must include share_recommendation");
+  assert(resolvedTypes.has("negative_finding_record"), "resolved source artifacts must include finding record");
+  record("HUMAN created official share_packet with resolved source metadata");
 
   const duplicate = await requestJson("/v1/science/share", {
     method: "POST",
