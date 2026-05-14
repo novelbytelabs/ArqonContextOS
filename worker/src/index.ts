@@ -6,6 +6,7 @@ import { jsonResponse, errorResponse } from "./response";
 import { handleNotesRequest } from "./notes";
 import { handleMessagesRequest } from "./messages";
 import { handleFlowsRequest } from "./flows";
+import { handleScienceRequest } from "./science";
 import type { RepoStore } from "./repo_store";
 
 function getParam(url: URL, name: string): string | null {
@@ -70,6 +71,8 @@ export async function handleWorkerFetch(
     if (messageArchiveMatch) return handleMessagesRequest(request, env, decodeURIComponent(messageArchiveMatch[1]), "archive");
     const messageMatch = url.pathname.match(/^\/v1\/messages\/([^/]+)$/);
     if (messageMatch) return handleMessagesRequest(request, env, decodeURIComponent(messageMatch[1]), "item");
+    const scienceMatch = url.pathname.match(/^\/v1\/science\/([^/]+)$/);
+    if (scienceMatch) return handleScienceRequest(request, env, decodeURIComponent(scienceMatch[1]), options.flowRepoStore);
     if (url.pathname === "/v1/flows") return handleFlowsRequest(request, env, undefined, "collection", options.flowRepoStore);
     const flowStatusMatch = url.pathname.match(/^\/v1\/flows\/([^/]+)\/status$/);
     if (flowStatusMatch) return handleFlowsRequest(request, env, decodeURIComponent(flowStatusMatch[1]), "status", options.flowRepoStore);

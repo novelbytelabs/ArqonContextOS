@@ -146,6 +146,20 @@ export const FLOW_ARTIFACT_SLOTS: Record<FlowType, string[]> = {
   ]
 };
 
+
+export const ROLE_FLOW_CREATE: Record<FlowType, Role[]> = {
+  science_flow: ["EXPLORER_AI"],
+  code_flow: ["PM_AI", "HUMAN"],
+  audit_flow: ["AUDITOR_AI", "HUMAN"],
+  governance_flow: ["PM_AI", "HUMAN"]
+};
+
+export function validateFlowCreateRole(flowType: FlowType, role: Role): string | null {
+  const allowed = ROLE_FLOW_CREATE[flowType] || [];
+  if (allowed.includes(role)) return null;
+  return `Role ${role} cannot create ${flowType}`;
+}
+
 export const ROLE_FLOW_ARTIFACTS: Record<FlowType, Partial<Record<Role, string[]>>> = {
   science_flow: {
     EXPLORER_AI: ["research_dossier", "source_map", "contradiction_map", "open_questions"],

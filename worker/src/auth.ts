@@ -1,5 +1,49 @@
 import type { Env, Role } from "./types";
 
+export const BROKER_KEY_FIELDS = [
+  "BROKER_KEY_PM",
+  "BROKER_KEY_CODER",
+  "BROKER_KEY_AUDITOR",
+  "BROKER_KEY_HELPER",
+  "BROKER_KEY_EXPLORER",
+  "BROKER_KEY_HYPOTHESIZER",
+  "BROKER_KEY_DESIGNER",
+  "BROKER_KEY_SCIENCE_AUDITOR",
+  "BROKER_KEY_SCIENCE_EXECUTOR",
+  "BROKER_KEY_HUMAN"
+] as const;
+
+export type BrokerKeyField = typeof BROKER_KEY_FIELDS[number];
+
+export interface BrokerKeyValidation {
+  ok: boolean;
+  missing: BrokerKeyField[];
+  duplicate_groups: BrokerKeyField[][];
+}
+
+export function validateBrokerKeyUniqueness(env: Env): BrokerKeyValidation {
+  const missing: BrokerKeyField[] = [];
+  const byValue = new Map<string, BrokerKeyField[]>();
+
+  for (const field of BROKER_KEY_FIELDS) {
+    const value = env[field];
+    if (!value) {
+      missing.push(field);
+      continue;
+    }
+    const existing = byValue.get(value) || [];
+    existing.push(field);
+    byValue.set(value, existing);
+  }
+
+  const duplicate_groups = [...byValue.values()].filter(group => group.length > 1);
+  return {
+    ok: missing.length === 0 && duplicate_groups.length === 0,
+    missing,
+    duplicate_groups
+  };
+}
+
 export function roleFromAuth(request: Request, env: Env): Role | null {
   const auth = request.headers.get("authorization") || "";
   const token = auth.startsWith("Bearer ") ? auth.slice("Bearer ".length).trim() : "";

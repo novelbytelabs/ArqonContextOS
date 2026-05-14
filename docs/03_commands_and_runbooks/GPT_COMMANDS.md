@@ -109,3 +109,20 @@ Code Monkeys / Spec Kit commands:
 ```
 
 `/share` is the bridge into PM context. It does not automatically create Spec Kit artifacts.
+
+## Science Routes 001 API Layer
+
+Science Monkeys v0.1 Routes 001 adds dedicated route wrappers for the Science command layer:
+
+```text
+POST /v1/science/research
+POST /v1/science/hypothesize
+POST /v1/science/design-experiment
+POST /v1/science/execute-experiment
+POST /v1/science/audit-experiment
+POST /v1/science/interpret
+POST /v1/science/iterate
+POST /v1/science/record-finding
+```
+
+`POST /v1/science/share` remains reserved for Share Integration 001 and must return `SCIENCE_SHARE_NOT_IMPLEMENTED` in Routes 001.

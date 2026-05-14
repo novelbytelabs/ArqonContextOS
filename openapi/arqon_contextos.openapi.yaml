@@ -33,7 +33,7 @@ paths:
           required: true
           schema:
             type: string
-            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_CODEX, HUMAN]
+            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_AI, EXPLORER_AI, HYPOTHESIZER_AI, DESIGNER_AI, SCIENCE_AUDITOR_AI, SCIENCE_EXECUTOR_AI, HUMAN]
       responses:
         "200":
           description: Role context.
@@ -57,7 +57,7 @@ paths:
           required: true
           schema:
             type: string
-            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_CODEX, HUMAN]
+            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_AI, EXPLORER_AI, HYPOTHESIZER_AI, DESIGNER_AI, SCIENCE_AUDITOR_AI, SCIENCE_EXECUTOR_AI, HUMAN]
       responses:
         "200":
           description: Constitution context.
@@ -140,7 +140,7 @@ paths:
           required: true
           schema:
             type: string
-            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_CODEX, HUMAN]
+            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_AI, EXPLORER_AI, HYPOTHESIZER_AI, DESIGNER_AI, SCIENCE_AUDITOR_AI, SCIENCE_EXECUTOR_AI, HUMAN]
       responses:
         "200":
           description: Inbox list.
@@ -186,7 +186,7 @@ paths:
           required: true
           schema:
             type: string
-            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_CODEX, HUMAN]
+            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_AI, EXPLORER_AI, HYPOTHESIZER_AI, DESIGNER_AI, SCIENCE_AUDITOR_AI, SCIENCE_EXECUTOR_AI, HUMAN]
       responses:
         "200":
           description: Message payload.
@@ -215,7 +215,7 @@ paths:
           required: true
           schema:
             type: string
-            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_CODEX, HUMAN]
+            enum: [PM_AI, CODER_AI, AUDITOR_AI, HELPER_AI, EXPLORER_AI, HYPOTHESIZER_AI, DESIGNER_AI, SCIENCE_AUDITOR_AI, SCIENCE_EXECUTOR_AI, HUMAN]
       responses:
         "200":
           description: Archived message reference.
@@ -346,3 +346,148 @@ paths:
                 note: { type: string }
       responses:
         '200': { description: Flow advanced }
+
+  /v1/science/research:
+    post:
+      operationId: scienceResearch
+      summary: Science Monkeys research command.
+      description: Creates or updates a science_flow by writing Explorer-owned research artifacts. May create a science_flow when flow_ref is omitted.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScienceCommandRequest'
+      responses:
+        '201': { description: Science research artifact written }
+  /v1/science/hypothesize:
+    post:
+      operationId: scienceHypothesize
+      summary: Science Monkeys hypothesize command.
+      description: Writes Hypothesizer-owned hypothesis artifacts to an existing science_flow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScienceCommandRequest'
+      responses:
+        '201': { description: Science hypothesis artifact written }
+  /v1/science/design-experiment:
+    post:
+      operationId: scienceDesignExperiment
+      summary: Science Monkeys design experiment command.
+      description: Writes Designer-owned experiment design artifacts to an existing science_flow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScienceCommandRequest'
+      responses:
+        '201': { description: Science design artifact written }
+  /v1/science/execute-experiment:
+    post:
+      operationId: scienceExecuteExperiment
+      summary: Science Monkeys execute experiment command.
+      description: Writes SCIENCE_EXECUTOR_AI-owned execution artifacts to an existing science_flow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScienceCommandRequest'
+      responses:
+        '201': { description: Science execution artifact written }
+  /v1/science/audit-experiment:
+    post:
+      operationId: scienceAuditExperiment
+      summary: Science Monkeys audit experiment command.
+      description: Writes SCIENCE_AUDITOR_AI-owned audit artifacts to an existing science_flow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScienceCommandRequest'
+      responses:
+        '201': { description: Science audit artifact written }
+  /v1/science/interpret:
+    post:
+      operationId: scienceInterpret
+      summary: Science Monkeys interpret command.
+      description: Writes Hypothesizer-owned interpretation artifacts to an existing science_flow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScienceCommandRequest'
+      responses:
+        '201': { description: Science interpretation artifact written }
+  /v1/science/iterate:
+    post:
+      operationId: scienceIterate
+      summary: Science Monkeys iterate command.
+      description: Writes Hypothesizer or Designer revision artifacts to an existing science_flow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScienceCommandRequest'
+      responses:
+        '201': { description: Science iteration artifact written }
+  /v1/science/record-finding:
+    post:
+      operationId: scienceRecordFinding
+      summary: Science Monkeys record finding command.
+      description: Writes SCIENCE_AUDITOR_AI-owned finding records to an existing science_flow.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScienceCommandRequest'
+      responses:
+        '201': { description: Science finding artifact written }
+  /v1/science/share:
+    post:
+      operationId: scienceShareReserved
+      summary: Reserved Science Monkeys share command.
+      description: Reserved for Science Monkeys v0.1 Share Integration 001. Routes 001 returns SCIENCE_SHARE_NOT_IMPLEMENTED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '501': { description: Share integration is not implemented in Routes 001 }
+components:
+  schemas:
+    ScienceCommandRequest:
+      type: object
+      required: [body]
+      properties:
+        project:
+          type: string
+          default: ArqonZero
+        flow_ref:
+          type: string
+          description: Existing science flow id or alias. Optional only for /v1/science/research.
+        name:
+          type: string
+          description: Human-friendly science_flow alias used by /v1/science/research when creating a new flow.
+        title:
+          type: string
+          description: Flow title for new research flows or artifact title fallback.
+        summary:
+          type: string
+        artifact_type:
+          type: string
+          description: Optional route-allowed artifact type override.
+        artifact_title:
+          type: string
+        body:
+          type: string

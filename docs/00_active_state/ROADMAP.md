@@ -72,3 +72,23 @@ Routes 001 must carry forward:
 - guardrail/policy checks
 - adversarial tests
 - regression tests
+
+## NanoResearch-Inspired Post-Share Roadmap
+
+NanoResearch-style tri-level co-evolution is added as a post-share roadmap item, not a Routes 001 expansion.
+
+Future layer:
+
+1. ContextBus Memory Model 001
+2. Skill Registry 001
+3. Preference Profile 001
+4. Governed Research Personalization 001
+
+Routes 001 must only preserve enough structured artifacts for future extraction.
+
+Required status remains:
+
+REQUIRES_HUMAN_REVIEW  
+development diagnostic only  
+NOT SEALED-TEST CERTIFIED  
+not promotable

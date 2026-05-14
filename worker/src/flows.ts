@@ -4,7 +4,7 @@ import { getProject } from "./projects";
 import { errorResponse, jsonResponse } from "./response";
 import { STATUS_LABELS, isKnownProject } from "./policy";
 import type { FlowType, FlowStatus, GateState } from "./flow_policy";
-import { assertFlowType, assertFlowStatus, assertGateState, validateArtifactSlot, validateGateAdvance, validateFlowArtifactRole } from "./flow_policy";
+import { assertFlowType, assertFlowStatus, assertGateState, validateArtifactSlot, validateGateAdvance, validateFlowArtifactRole, validateFlowCreateRole } from "./flow_policy";
 import type { Env, Role } from "./types";
 import { buildFrontMatter, shortId } from "./notes";
 
@@ -283,6 +283,10 @@ async function handleCreateFlow(request: Request, env: Env, store: RepoStore): P
   assertFlowName(name);
   const typeValue = requireString(body.type, "type");
   assertFlowType(typeValue);
+  const createRoleError = validateFlowCreateRole(typeValue, role);
+  if (createRoleError) {
+    return errorResponse("FLOW_CREATE_ROLE_FORBIDDEN", createRoleError, 403);
+  }
   const title = requireString(body.title, "title");
   const summary = optionalString(body.summary);
   const initialGate = optionalString(body.initial_gate) || "DRAFT";
