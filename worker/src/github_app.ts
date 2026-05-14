@@ -20,6 +20,16 @@ export interface GithubWriteResult {
 }
 
 const GITHUB_USER_AGENT = "ArqonMonkeyOS/0.2";
+const TOKEN_EXPIRY_SKEW_MS = 60_000;
+
+interface CachedInstallationToken {
+  token: string;
+  expiresAtMs: number;
+  appId: string;
+  installationId: string;
+}
+
+let cachedInstallationToken: CachedInstallationToken | null = null;
 
 function base64url(input: ArrayBuffer | string): string {
   const bytes = typeof input === "string" ? new TextEncoder().encode(input) : new Uint8Array(input);
@@ -61,14 +71,33 @@ export async function createGithubJwt(env: Env): Promise<string> {
 }
 
 export async function getInstallationToken(env: Env): Promise<string> {
+  const appId = env.GITHUB_APP_ID;
+  const installationId = env.GITHUB_APP_INSTALLATION_ID;
+  const cached = cachedInstallationToken;
+  if (
+    cached &&
+    cached.appId === appId &&
+    cached.installationId === installationId &&
+    cached.expiresAtMs - TOKEN_EXPIRY_SKEW_MS > Date.now()
+  ) {
+    return cached.token;
+  }
+
   const jwt = await createGithubJwt(env);
-  const url = `https://api.github.com/app/installations/${env.GITHUB_APP_INSTALLATION_ID}/access_tokens`;
+  const url = `https://api.github.com/app/installations/${installationId}/access_tokens`;
   const res = await fetch(url, {
     method: "POST",
     headers: { authorization: `Bearer ${jwt}`, accept: "application/vnd.github+json", "user-agent": GITHUB_USER_AGENT }
   });
   if (!res.ok) throw new Error(`GitHub installation token failed: ${res.status} ${await res.text()}`);
-  const body = await res.json() as { token: string };
+  const body = await res.json() as { token: string; expires_at?: string };
+  const expiresAtMs = body.expires_at ? Date.parse(body.expires_at) : Date.now() + 9 * 60_000;
+  cachedInstallationToken = {
+    token: body.token,
+    expiresAtMs: Number.isFinite(expiresAtMs) ? expiresAtMs : Date.now() + 9 * 60_000,
+    appId,
+    installationId
+  };
   return body.token;
 }
 
