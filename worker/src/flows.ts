@@ -238,6 +238,10 @@ function resolveFlowId(index: FlowIndex, flowRef: string): string | null {
   return byName?.flow_id || null;
 }
 
+function looksLikeFlowId(flowRef: string): boolean {
+  return /^FLOW-\d{4}-\d{4}$/.test(flowRef);
+}
+
 function buildHistory(eventType: string, role: Role, note: string): FlowHistoryEvent {
   return {
     event_id: `EVT-${utcDate()}-${shortId()}`,
@@ -364,7 +368,17 @@ async function handleListFlows(request: Request, env: Env, store: RepoStore): Pr
 async function flowIdOrError(env: Env, projectName: string, flowRef: string, store: RepoStore): Promise<{ index: FlowIndex; flowId: string } | Response> {
   const index = await loadFlowIndex(env, projectName, store);
   const flowId = resolveFlowId(index, flowRef);
-  if (!flowId) return errorResponse("FLOW_NOT_FOUND", `No flow found for ref: ${flowRef}`, 404);
+  if (!flowId) {
+    if (looksLikeFlowId(flowRef)) {
+      try {
+        await loadFlowManifest(env, projectName, flowRef, store);
+        return { index, flowId: flowRef };
+      } catch {
+        // fall through to FLOW_NOT_FOUND
+      }
+    }
+    return errorResponse("FLOW_NOT_FOUND", `No flow found for ref: ${flowRef}`, 404);
+  }
   return { index, flowId };
 }
 
