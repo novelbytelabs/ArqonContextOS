@@ -30,12 +30,13 @@ checks = [
     ("writes only specification artifact", '"specification"' in pm and '"plan"' not in pm and '"tasks"' not in pm),
     ("idempotency conflict", "PM_SPECIFY_IDEMPOTENCY_CONFLICT" in pm),
     ("forbidden promotion marker rejected", "PM_SPECIFY_FORBIDDEN_CLAIM_INCLUDED" in pm),
+    ("broad promotion validator", "normalizeClaimText" in pm and "approved for release" in pm and "release ready" in pm and "ready for production" in pm),
     ("no science route call", "/v1/science/" not in pm),
     ("diagnostic labels", "REQUIRES_HUMAN_REVIEW" in pm and "NOT SEALED-TEST CERTIFIED" in pm and "not promotable" in pm),
     ("offline all-role denial", "deniedRoles" in offline and "SCIENCE_EXECUTOR_AI" in offline and "HUMAN" in offline),
     ("offline no science artifacts", "PM specify must not add Science artifacts" in offline),
     ("offline no plan/tasks", "PM specify must not create plan" in offline and "PM specify must not create tasks" in offline),
-    ("live conflict and promotion tests", "changed PM specify payload conflicts" in live and "promotion language denied" in live),
+    ("live conflict and promotion tests", "changed PM specify payload conflicts" in live and "promotion language denied" in live and "approved for release" in live),
 ]
 failures = [name for name, ok in checks if not ok]
 if failures:

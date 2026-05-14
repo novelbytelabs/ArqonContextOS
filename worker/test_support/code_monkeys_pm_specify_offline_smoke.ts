@@ -128,8 +128,21 @@ async function main(): Promise<void> {
   const conflict = await requestJson("/v1/pm/specify", { method: "POST", headers: { authorization: auth("PM_AI"), "content-type": "application/json" }, body: JSON.stringify({ ...payload, specification_body: "Changed spec body with same key." }) });
   assert(conflict.status === 409 && conflict.body.error.code === "PM_SPECIFY_IDEMPOTENCY_CONFLICT", "changed payload should conflict");
 
-  const forbidden = await requestJson("/v1/pm/specify", { method: "POST", headers: { authorization: auth("PM_AI"), "content-type": "application/json" }, body: JSON.stringify({ intake_id: context.intakeId, idempotency_key: "pm-specify-forbidden-0001", specification_title: "Bad Spec", specification_body: "This is production ready." }) });
-  assert(forbidden.status === 409 && forbidden.body.error.code === "PM_SPECIFY_FORBIDDEN_CLAIM_INCLUDED", "forbidden promotion language should fail");
+  const blockedPromotionBodies = [
+    "This specification is certified.",
+    "This specification claims certification.",
+    "This specification is production-ready.",
+    "This specification is ready for production.",
+    "This is a product-ready requirement.",
+    "This is promotable.",
+    "This is approved for release.",
+    "This is release-ready."
+  ];
+  for (const [idx, specificationBody] of blockedPromotionBodies.entries()) {
+    const forbidden = await requestJson("/v1/pm/specify", { method: "POST", headers: { authorization: auth("PM_AI"), "content-type": "application/json" }, body: JSON.stringify({ intake_id: context.intakeId, idempotency_key: `pm-specify-forbidden-${idx}-0001`, specification_title: "Forbidden Promotion Probe", specification_body: specificationBody }) });
+    assert(forbidden.status === 409, `${specificationBody} should fail with 409`);
+    assert(forbidden.body.error.code === "PM_SPECIFY_FORBIDDEN_CLAIM_INCLUDED", `${specificationBody} should return PM_SPECIFY_FORBIDDEN_CLAIM_INCLUDED`);
+  }
 
   const scienceManifestAfter = JSON.parse(files.get(`governance/flows/${context.scienceFlowId}/flow_manifest.json`) || "{}");
   assert(scienceManifestAfter.artifacts.length === scienceArtifactCountBefore, "PM specify must not add Science artifacts");

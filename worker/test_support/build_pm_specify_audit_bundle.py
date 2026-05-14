@@ -12,12 +12,17 @@ FILES = [
   "worker/test_support/code_monkeys_pm_specify_offline_smoke.ts",
   "worker/test_support/code_monkeys_pm_specify_live_smoke.ts",
   "worker/test_support/code_monkeys_pm_specify_tripwire.py",
+  "worker/test_support/pm_specify_strict_audit_tripwire.py",
   "worker/test_support/code_monkeys_pm_intake_offline_smoke.ts",
   "worker/test_support/code_monkeys_pm_intake_tripwire.py",
   "worker/test_support/science_to_code_handoff_tripwire.py",
   "worker/test_support/share_integration_strict_tripwire.py",
   "worker/tsconfig.smoke.json", "worker/package.json", "openapi/arqon_contextos.openapi.yaml",
   "docs/04_flows_and_spec_kit/CODE_MONKEYS_PM_SPECIFY_001.md",
+  "docs/04_flows_and_spec_kit/CODE_MONKEYS_PM_SPECIFY_001_PM_REPORT.md",
+  "docs/04_flows_and_spec_kit/CODE_MONKEYS_PM_SPECIFY_001_EVIDENCE.md",
+  "docs/04_flows_and_spec_kit/CODE_MONKEYS_PM_SPECIFY_REMEDIATION_001.md",
+  "docs/04_flows_and_spec_kit/CODE_MONKEYS_PM_SPECIFY_REMEDIATION_001_EVIDENCE.md",
 ]
 LABELS = ["REQUIRES_HUMAN_REVIEW", "development diagnostic only", "NOT SEALED-TEST CERTIFIED", "not promotable"]
 

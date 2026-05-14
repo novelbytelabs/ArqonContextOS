@@ -320,15 +320,41 @@ function validateCodeFlowManifest(manifest: FlowManifest | null, record: PMIntak
   return null;
 }
 
+function normalizeClaimText(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[-_/]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function validateSpecificationBody(body: string): Response | null {
-  const lower = body.toLowerCase();
-  const forbiddenMarkers = [
-    ["sealed-test", "certified"].join(" "),
-    ["production", "ready"].join(" "),
-    ["promotable", "status"].join(" ")
+  const normalized = normalizeClaimText(body);
+  const sealedTestCertified = ["sealed-test", "certified"].join(" ");
+  const certification = "certification";
+  const productionReady = ["production", "ready"].join(" ");
+  const productionReadiness = ["production", "readiness"].join(" ");
+  const readyForProduction = ["ready", "for", "production"].join(" ");
+  const productReady = ["product", "ready"].join(" ");
+  const promotable = "promotable";
+  const promotableStatus = ["promotable", "status"].join(" ");
+  const approvedForRelease = ["approved", "for", "release"].join(" ");
+  const releaseReady = ["release", "ready"].join(" ");
+  const forbiddenPatterns: Array<[RegExp, string]> = [
+    [new RegExp(`\\b${sealedTestCertified.replace(/\s+/g, "\\s+")}\\b`), sealedTestCertified],
+    [new RegExp("\\bcertified\\b"), "certified"],
+    [new RegExp(`\\b${certification}\\b`), certification],
+    [new RegExp(`\\b${productionReady.replace(/\s+/g, "\\s+")}\\b`), productionReady],
+    [new RegExp(`\\b${productionReadiness.replace(/\s+/g, "\\s+")}\\b`), productionReadiness],
+    [new RegExp(`\\b${readyForProduction.replace(/\s+/g, "\\s+")}\\b`), readyForProduction],
+    [new RegExp(`\\b${productReady.replace(/\s+/g, "\\s+")}\\b`), productReady],
+    [new RegExp(`\\b${promotable}\\b`), promotable],
+    [new RegExp(`\\b${promotableStatus.replace(/\s+/g, "\\s+")}\\b`), promotableStatus],
+    [new RegExp(`\\b${approvedForRelease.replace(/\s+/g, "\\s+")}\\b`), approvedForRelease],
+    [new RegExp(`\\b${releaseReady.replace(/\s+/g, "\\s+")}\\b`), releaseReady]
   ];
-  const found = forbiddenMarkers.find(marker => lower.includes(marker));
-  if (found) return errorResponse("PM_SPECIFY_FORBIDDEN_CLAIM_INCLUDED", `Specification body contains forbidden promotion language: ${found}`, 409);
+  const found = forbiddenPatterns.find(([pattern]) => pattern.test(normalized));
+  if (found) return errorResponse("PM_SPECIFY_FORBIDDEN_CLAIM_INCLUDED", `Specification body contains forbidden promotion language: ${found[1]}`, 409);
   return null;
 }
 
@@ -348,7 +374,7 @@ not promotable
 
 ## Specification Boundary
 
-This is a PM specification candidate derived from audited PM intake. It is not a plan, not a task packet, not implementation authorization, not certification, and not a production-readiness claim.
+This is a PM specification candidate derived from audited PM intake. It is not a plan, not a task packet, not implementation authorization, not certification, and not a readiness claim for production.
 
 ## Source Chain
 
@@ -379,7 +405,7 @@ ${record.source_handoff.resolved_source_artifacts.map(item => `- ${item.artifact
 
 ## Non-Laundering Rule
 
-This specification remains downstream of diagnostic evidence. Plan, task, Coder handoff, Helper execution, and promotion require later gated stages and Human approval.
+This specification remains downstream of diagnostic evidence. Plan, task, Coder handoff, Helper execution, and release advancement require later gated stages and Human approval.
 `;
 }
 

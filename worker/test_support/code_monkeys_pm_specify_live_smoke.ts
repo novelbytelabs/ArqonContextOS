@@ -91,7 +91,19 @@ async function main(): Promise<void> {
   assert(transcript.at(-1).response_body.idempotent_replay === true, "duplicate should replay");
 
   transcript.push(await req("changed PM specify payload conflicts", "POST", "/v1/pm/specify", "PM_AI", { ...payload, specification_body: "Changed body with same key." }, 409, "PM_SPECIFY_IDEMPOTENCY_CONFLICT"));
-  transcript.push(await req("promotion language denied", "POST", "/v1/pm/specify", "PM_AI", { intake_id: intakeId, idempotency_key: `spec-bad-${suffix}`, specification_title: "Bad", specification_body: "This is production ready." }, 409, "PM_SPECIFY_FORBIDDEN_CLAIM_INCLUDED"));
+  const blockedPromotionBodies = [
+    "This specification is certified.",
+    "This specification claims certification.",
+    "This specification is production-ready.",
+    "This specification is ready for production.",
+    "This is a product-ready requirement.",
+    "This is promotable.",
+    "This is approved for release.",
+    "This is release-ready."
+  ];
+  for (const [idx, specificationBody] of blockedPromotionBodies.entries()) {
+    transcript.push(await req(`promotion language denied ${idx}`, "POST", "/v1/pm/specify", "PM_AI", { intake_id: intakeId, idempotency_key: `spec-bad-${idx}-${suffix}`, specification_title: "Forbidden Promotion Probe", specification_body: specificationBody }, 409, "PM_SPECIFY_FORBIDDEN_CLAIM_INCLUDED"));
+  }
 
   console.log(JSON.stringify({ ok: true, worker_url: WORKER_URL, science_flow_id: scienceFlowId, share_id: shareId, handoff_id: handoffId, intake_id: intakeId, code_flow_id: codeFlowId, specification_id: spec.specification_id, transcripts: transcript }, null, 2));
 }
