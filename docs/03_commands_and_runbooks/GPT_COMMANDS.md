@@ -78,3 +78,34 @@ Flow Core v0.3 defaults and authority:
 - Repo rename is not authorized in this phase.
 - Runtime/API/auth behavior has not changed in this docs migration.
 - No AI may certify or promote.
+
+## Science-to-Code Orchestration Boundary
+
+Science Monkeys commands:
+
+```text
+/research
+/hypothesize
+/design-experiment
+/execute-experiment
+/audit-experiment
+/interpret
+/iterate
+/record-finding
+/share
+```
+
+Code Monkeys / Spec Kit commands:
+
+```text
+/dossier
+/constitution
+/specify
+/plan
+/tasks
+/implement
+/execute
+/audit
+```
+
+`/share` is the bridge into PM context. It does not automatically create Spec Kit artifacts.

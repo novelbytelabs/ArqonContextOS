@@ -60,3 +60,19 @@ v0.3 authority and defaults:
 - Human-only advancement is enforced for `/adv-flow`.
 - Artifact writes are role-gated by artifact type.
 - Project defaults to `ArqonZero` when omitted.
+
+## Orchestration Doctrine Alignment
+
+Flow Core is the substrate for ArqonMonkeyOS orchestration.
+
+Science Monkeys use `science_flow` to explore.
+
+Code Monkeys use `code_flow` and Spec Kit artifacts to exploit.
+
+Audit work may use `audit_flow`.
+
+Governance changes may use `governance_flow`.
+
+Spec Kit does not replace Flow Core. Spec Kit artifacts are official artifacts written into ContextBus-managed flows.
+
+Routes 001 must implement Science command wrappers over Flow Core, not parallel storage.

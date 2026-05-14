@@ -61,3 +61,9 @@ Runtime/API behavior has not changed as part of this docs migration.
 
 Compatibility note:
 Legacy ContextOS references remain in archive and compatibility documents where historical traceability is required.
+
+## Orchestration Doctrine
+
+- [ArqonMonkeyOS Orchestration Doctrine 001](01_monkeyos_doctrine/ORCHESTRATION_DOCTRINE_001.md)
+- [Spec Kit and ArqonMonkeyOS Orchestration Alignment](04_flows_and_spec_kit/SPEC_KIT_ORCHESTRATION_ALIGNMENT.md)
+- [Routes 001 Tripwire Phrases](04_flows_and_spec_kit/ROUTES_001_TRIPWIRE_PHRASES.md)

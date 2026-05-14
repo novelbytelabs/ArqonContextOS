@@ -134,3 +134,31 @@ REQUIRES_HUMAN_REVIEW
 development diagnostic only  
 NOT SEALED-TEST CERTIFIED  
 not promotable
+
+## ArqonMonkeyOS Orchestration Doctrine 001
+
+ArqonMonkeyOS Orchestration Doctrine 001 is now the active alignment layer before Science Monkeys v0.1 Routes 001.
+
+Current accepted status:
+
+- Role/Auth Foundation 001 offline evidence: PASS
+- Role/Auth Foundation 001 live deployed Worker evidence: PASS
+- Role/Auth Foundation Audit 001: PASS_WITH_WARNINGS, score 86/100
+- Next implementation milestone: Science Monkeys v0.1 Routes 001
+
+The doctrine clarifies:
+
+- Spec Kit belongs to the Code Monkeys exploit lifecycle.
+- Science Monkeys produce audited findings and Human-approved share packets.
+- `/share` is the bridge into PM context, not Spec Kit itself.
+- /share is the bridge into PM context.
+- ContextBus remains the source of truth.
+- metaswarm/Horizons-style ideas may inspire orchestration and gates, but their runtimes/datastores are not adopted.
+- Routes 001 must preserve Role/Auth Foundation denials and keep generic science `share_packet` blocked pending `/v1/science/share`.
+
+Required status remains:
+
+REQUIRES_HUMAN_REVIEW  
+development diagnostic only  
+NOT SEALED-TEST CERTIFIED  
+not promotable

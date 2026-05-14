@@ -47,3 +47,28 @@ Flow Core must support generic flow families:
 4. Context rebuild automation after broker writes.
 5. Multi-user identity progression (temporary labels to OAuth).
 6. Multi-repo swarm replication support.
+
+## Orchestration Alignment Before Routes 001
+
+Before implementing Science Monkeys v0.1 Routes 001, ArqonMonkeyOS now has a doctrine alignment step:
+
+1. Role/Auth Foundation 001
+2. Role/Auth Foundation Audit 001
+3. ArqonMonkeyOS Orchestration Doctrine 001
+4. Science Monkeys v0.1 Routes 001
+5. Routes Audit 001
+6. Science Monkeys v0.1 Share Integration 001
+7. Share Audit 001
+
+Routes 001 must implement the Science command layer without implementing `/v1/science/share`.
+
+Routes 001 must carry forward:
+
+- broker-key uniqueness warning
+- expanded PM_AI denial coverage
+- raw redacted HTTP transcript format
+- no placeholders/shims/stubs/simulations
+- tripwire checks
+- guardrail/policy checks
+- adversarial tests
+- regression tests
