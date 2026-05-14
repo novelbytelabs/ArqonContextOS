@@ -26,7 +26,19 @@ export function assertSafeWritePath(path: string): void {
 }
 
 export function isRole(value: string): value is Role {
-  return value === "PM_AI" || value === "CODER_AI" || value === "AUDITOR_AI" || value === "HELPER_CODEX" || value === "HUMAN";
+  return (
+    value === "PM_AI" ||
+    value === "CODER_AI" ||
+    value === "AUDITOR_AI" ||
+    value === "HELPER_AI" ||
+    value === "HELPER_CODEX" ||
+    value === "EXPLORER_AI" ||
+    value === "HYPOTHESIZER_AI" ||
+    value === "DESIGNER_AI" ||
+    value === "SCIENCE_AUDITOR_AI" ||
+    value === "SCIENCE_EXECUTOR_AI" ||
+    value === "HUMAN"
+  );
 }
 
 export function isKnownProject(value: string): boolean {
@@ -37,13 +49,23 @@ export function canWriteArtifact(role: Role, artifactType: string): boolean {
   const allowed: Record<Role, string[]> = {
     PM_AI: ["pm_spec", "pm_task_packets", "pm_message", "pm_note", "run_event"],
     CODER_AI: ["coder_patch_bundle", "coder_handoff", "coder_message", "coder_note"],
-    HELPER_CODEX: ["helper_execution_report", "evidence_manifest", "helper_log", "helper_message"],
+    HELPER_AI: ["helper_execution_report", "evidence_manifest", "helper_log", "helper_message"],
+    HELPER_CODEX: [],
     AUDITOR_AI: ["auditor_report", "auditor_score", "claim_audit", "auditor_message", "auditor_note"],
+    EXPLORER_AI: ["science_message", "science_note"],
+    HYPOTHESIZER_AI: ["science_message", "science_note"],
+    DESIGNER_AI: ["science_message", "science_note"],
+    SCIENCE_AUDITOR_AI: ["science_auditor_message", "science_auditor_note"],
+    SCIENCE_EXECUTOR_AI: ["science_execution_report", "science_evidence_manifest", "science_command_log"],
     HUMAN: ["human_decision", "exception_manifest", "promotion_manifest", "human_message", "human_note"]
   };
   return allowed[role]?.includes(artifactType) ?? false;
 }
 
+/**
+ * Legacy flow-artifact role gate retained for compatibility.
+ * New Flow Core writes should use flow-type-aware policy in flow_policy.ts.
+ */
 export function canWriteFlowArtifact(role: Role, artifactType: string): boolean {
   const allowed: Record<Role, string[]> = {
     PM_AI: [
@@ -56,32 +78,38 @@ export function canWriteFlowArtifact(role: Role, artifactType: string): boolean 
       "pm_gate_definition",
       "share_review"
     ],
-    CODER_AI: [
-      "tasks",
-      "implementation_bundle",
-      "coder_patch_bundle",
-      "coder_handoff"
+    CODER_AI: ["tasks", "implementation_bundle", "coder_patch_bundle", "coder_handoff"],
+    HELPER_AI: ["execution_report", "evidence_manifest", "command_log", "helper_log"],
+    HELPER_CODEX: [],
+    AUDITOR_AI: ["clarification", "checklist", "analysis", "audit_report", "integrity_review", "claim_audit"],
+    EXPLORER_AI: ["research_dossier", "source_map", "contradiction_map", "open_questions"],
+    HYPOTHESIZER_AI: [
+      "hypothesis_card",
+      "null_hypothesis",
+      "prediction_record",
+      "interpretation_draft",
+      "alternative_explanation_review",
+      "iteration_proposal",
+      "revised_hypothesis_card"
     ],
-    HELPER_CODEX: [
-      "execution_report",
-      "evidence_manifest",
-      "command_log",
-      "helper_log"
-    ],
-    AUDITOR_AI: [
+    DESIGNER_AI: ["experiment_protocol", "metric_plan", "control_plan", "execution_packet", "sealed_boundary_plan", "revised_experiment_protocol"],
+    SCIENCE_EXECUTOR_AI: ["execution_report", "evidence_manifest", "command_log", "raw_result_index", "deviation_report"],
+    SCIENCE_AUDITOR_AI: [
       "clarification",
-      "checklist",
-      "analysis",
+      "science_checklist",
+      "protocol_audit",
+      "evidence_audit",
+      "claim_scope_audit",
       "audit_report",
-      "integrity_review",
-      "claim_audit"
+      "quarantine_recommendation",
+      "claim_scope_review",
+      "finding_record",
+      "negative_finding_record",
+      "inconclusive_finding_record",
+      "finding_boundary_record",
+      "share_recommendation"
     ],
-    HUMAN: [
-      "human_decision",
-      "advancement_approval",
-      "promotion_decision",
-      "exception_manifest"
-    ]
+    HUMAN: ["human_decision", "advancement_approval", "promotion_decision", "exception_manifest", "share_packet"]
   };
   return allowed[role]?.includes(artifactType) ?? false;
 }

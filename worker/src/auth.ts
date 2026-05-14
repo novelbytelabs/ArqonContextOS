@@ -7,7 +7,12 @@ export function roleFromAuth(request: Request, env: Env): Role | null {
   if (token === env.BROKER_KEY_PM) return "PM_AI";
   if (token === env.BROKER_KEY_CODER) return "CODER_AI";
   if (token === env.BROKER_KEY_AUDITOR) return "AUDITOR_AI";
-  if (token === env.BROKER_KEY_HELPER) return "HELPER_CODEX";
+  if (token === env.BROKER_KEY_HELPER) return "HELPER_AI";
+  if (token === env.BROKER_KEY_EXPLORER) return "EXPLORER_AI";
+  if (token === env.BROKER_KEY_HYPOTHESIZER) return "HYPOTHESIZER_AI";
+  if (token === env.BROKER_KEY_DESIGNER) return "DESIGNER_AI";
+  if (token === env.BROKER_KEY_SCIENCE_AUDITOR) return "SCIENCE_AUDITOR_AI";
+  if (token === env.BROKER_KEY_SCIENCE_EXECUTOR) return "SCIENCE_EXECUTOR_AI";
   if (token === env.BROKER_KEY_HUMAN) return "HUMAN";
   return null;
 }

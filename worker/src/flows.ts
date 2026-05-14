@@ -2,9 +2,9 @@ import { requireRole } from "./auth";
 import { githubRepoStore, type RepoStore } from "./repo_store";
 import { getProject } from "./projects";
 import { errorResponse, jsonResponse } from "./response";
-import { STATUS_LABELS, canWriteFlowArtifact, isKnownProject } from "./policy";
+import { STATUS_LABELS, isKnownProject } from "./policy";
 import type { FlowType, FlowStatus, GateState } from "./flow_policy";
-import { assertFlowType, assertFlowStatus, assertGateState, validateArtifactSlot, validateGateAdvance } from "./flow_policy";
+import { assertFlowType, assertFlowStatus, assertGateState, validateArtifactSlot, validateGateAdvance, validateFlowArtifactRole } from "./flow_policy";
 import type { Env, Role } from "./types";
 import { buildFrontMatter, shortId } from "./notes";
 
@@ -413,9 +413,6 @@ async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: stri
   const projectName = projectNameFrom(url, body);
   assertKnownProjectName(projectName);
   const artifactType = requireString(body.artifact_type, "artifact_type");
-  if (!canWriteFlowArtifact(role, artifactType)) {
-    return errorResponse("ARTIFACT_TYPE_FORBIDDEN", `Role ${role} cannot write artifact_type ${artifactType}`, 403);
-  }
   const title = requireString(body.title, "title");
   const artifactBody = requireString(body.body, "body");
 
@@ -428,6 +425,17 @@ async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: stri
   const slotError = validateArtifactSlot(manifest.type, artifactType);
   if (slotError) {
     return errorResponse("ARTIFACT_SLOT_FORBIDDEN", slotError, 403);
+  }
+  const roleError = validateFlowArtifactRole(manifest.type, role, artifactType);
+  if (roleError) {
+    return errorResponse("ARTIFACT_ROLE_FORBIDDEN", roleError, 403);
+  }
+  if (manifest.type === "science_flow" && artifactType === "share_packet") {
+    return errorResponse(
+      "SCIENCE_SHARE_ROUTE_REQUIRED",
+      "Official science share_packet must be created through /v1/science/share so Human approval, outbox, PM notification, and context update can be enforced",
+      403
+    );
   }
 
   const createdAt = utcIso();
@@ -497,7 +505,8 @@ async function handleAdvanceFlow(request: Request, env: Env, flowRef: string, st
     manifest.current_gate,
     gateState,
     status,
-    manifest.artifacts.map(artifact => artifact.artifact_type)
+    manifest.artifacts.map(artifact => artifact.artifact_type),
+    manifest.type
   );
   if (advanceError) {
     return errorResponse("FLOW_ADVANCEMENT_PRECONDITION_FAILED", advanceError, 409);

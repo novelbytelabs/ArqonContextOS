@@ -41,6 +41,11 @@ const env: Env = {
   BROKER_KEY_CODER: "coder-token",
   BROKER_KEY_AUDITOR: "auditor-token",
   BROKER_KEY_HELPER: "helper-token",
+  BROKER_KEY_EXPLORER: "explorer-token",
+  BROKER_KEY_HYPOTHESIZER: "hypothesizer-token",
+  BROKER_KEY_DESIGNER: "designer-token",
+  BROKER_KEY_SCIENCE_AUDITOR: "science-auditor-token",
+  BROKER_KEY_SCIENCE_EXECUTOR: "science-executor-token",
   BROKER_KEY_HUMAN: "human-token"
 };
 
@@ -94,11 +99,11 @@ async function main(): Promise<void> {
   let flowId = "";
   const flowName = "flowcore-v03-smoke-001";
 
-  await record("A create science_flow with default ArqonZero project", async () => {
+  await record("A create code_flow with default ArqonZero project", async () => {
     const res = await handleWorkerFetch(
       request("/v1/flows", "POST", env.BROKER_KEY_PM, {
         name: flowName,
-        type: "science_flow",
+        type: "code_flow",
         title: "Flow Core v0.3 Offline Smoke",
         summary: "Secret-free route-layer smoke validation."
       }),
@@ -111,7 +116,7 @@ async function main(): Promise<void> {
     assert(body.project === "ArqonZero", `expected default project ArqonZero, got ${body.project}`);
     assert(typeof body.flow_id === "string" && body.flow_id.startsWith("FLOW-"), "expected generated flow_id");
     assert(body.name === flowName, "expected stored alias name");
-    assert(body.type === "science_flow", "expected science_flow type");
+    assert(body.type === "code_flow", "expected code_flow type");
     flowId = body.flow_id;
     assert(store.has("governance/flows/flow_index.json"), "expected flow_index.json written");
     assert(store.has(`governance/flows/${flowId}/flow_manifest.json`), "expected flow_manifest.json written");
@@ -176,7 +181,7 @@ async function main(): Promise<void> {
     const body = await readJson(res);
     assert(res.status === 403, `expected 403, got ${res.status}: ${JSON.stringify(body)}`);
     assert(body.ok === false, "expected ok false");
-    return "HELPER_CODEX forbidden from pm_spec as expected";
+    return "HELPER_AI forbidden from pm_spec as expected";
   });
 
   await record("E non-HUMAN advancement denied", async () => {

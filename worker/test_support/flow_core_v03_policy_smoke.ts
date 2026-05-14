@@ -19,6 +19,11 @@ const env: Env = {
   BROKER_KEY_CODER: "coder-token",
   BROKER_KEY_AUDITOR: "auditor-token",
   BROKER_KEY_HELPER: "helper-token",
+  BROKER_KEY_EXPLORER: "explorer-token",
+  BROKER_KEY_HYPOTHESIZER: "hypothesizer-token",
+  BROKER_KEY_DESIGNER: "designer-token",
+  BROKER_KEY_SCIENCE_AUDITOR: "science-auditor-token",
+  BROKER_KEY_SCIENCE_EXECUTOR: "science-executor-token",
   BROKER_KEY_HUMAN: "human-token"
 };
 
