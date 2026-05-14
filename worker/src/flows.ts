@@ -3,18 +3,10 @@ import { githubRepoStore, type RepoStore } from "./repo_store";
 import { getProject } from "./projects";
 import { errorResponse, jsonResponse } from "./response";
 import { STATUS_LABELS, canWriteFlowArtifact, isKnownProject } from "./policy";
+import type { FlowType, FlowStatus, GateState } from "./flow_policy";
+import { assertFlowType, assertFlowStatus, assertGateState, validateArtifactSlot, validateGateAdvance } from "./flow_policy";
 import type { Env, Role } from "./types";
 import { buildFrontMatter, shortId } from "./notes";
-
-type FlowType = "science_flow" | "code_flow" | "audit_flow" | "governance_flow";
-type FlowStatus = "active" | "blocked" | "completed" | "archived";
-type GateState =
-  | "DRAFT"
-  | "PLAN_READY"
-  | "DEV_EVIDENCE_READY"
-  | "INTEGRITY_GATE_PASSED"
-  | "CLAIM_OR_PROMOTION_CANDIDATE"
-  | "HUMAN_APPROVED";
 
 interface FlowArtifactSummary {
   artifact_id: string;
@@ -125,24 +117,6 @@ function assertKnownProjectName(projectName: string): void {
 function assertFlowName(name: string): void {
   if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/.test(name)) {
     throw new Error("Flow name must start with a letter or number and contain only letters, numbers, dot, underscore, or dash; max length 64");
-  }
-}
-
-function assertFlowType(value: string): asserts value is FlowType {
-  if (!["science_flow", "code_flow", "audit_flow", "governance_flow"].includes(value)) {
-    throw new Error("Flow type must be science_flow, code_flow, audit_flow, or governance_flow");
-  }
-}
-
-function assertFlowStatus(value: string): asserts value is FlowStatus {
-  if (!["active", "blocked", "completed", "archived"].includes(value)) {
-    throw new Error("Flow status must be active, blocked, completed, or archived");
-  }
-}
-
-function assertGateState(value: string): asserts value is GateState {
-  if (!["DRAFT", "PLAN_READY", "DEV_EVIDENCE_READY", "INTEGRITY_GATE_PASSED", "CLAIM_OR_PROMOTION_CANDIDATE", "HUMAN_APPROVED"].includes(value)) {
-    throw new Error("Invalid gate state");
   }
 }
 
@@ -451,6 +425,10 @@ async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: stri
   if (["completed", "archived"].includes(manifest.status)) {
     return errorResponse("FLOW_CLOSED", `Cannot write artifacts to ${manifest.status} flow`, 409);
   }
+  const slotError = validateArtifactSlot(manifest.type, artifactType);
+  if (slotError) {
+    return errorResponse("ARTIFACT_SLOT_FORBIDDEN", slotError, 403);
+  }
 
   const createdAt = utcIso();
   const artifactId = `ART-${utcDate()}-${shortId()}`;
@@ -515,6 +493,15 @@ async function handleAdvanceFlow(request: Request, env: Env, flowRef: string, st
   const resolved = await flowIdOrError(env, projectName, flowRef, store);
   if (resolved instanceof Response) return resolved;
   const manifest = await loadFlowManifest(env, projectName, resolved.flowId, store);
+  const advanceError = validateGateAdvance(
+    manifest.current_gate,
+    gateState,
+    status,
+    manifest.artifacts.map(artifact => artifact.artifact_type)
+  );
+  if (advanceError) {
+    return errorResponse("FLOW_ADVANCEMENT_PRECONDITION_FAILED", advanceError, 409);
+  }
   manifest.current_gate = gateState;
   manifest.status = status;
   manifest.updated_by_role = role;
