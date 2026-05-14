@@ -287,7 +287,20 @@ async function main(): Promise<void> {
   assert(dup.share?.share_id === shareBody.share?.share_id, "idempotent share id mismatch");
 
   transcripts.push(await requestScenario({
-    name: "17 generic share_packet remains blocked",
+    name: "17 same idempotency key with changed payload denied",
+    method: "POST",
+    path: "/v1/science/share",
+    role: "HUMAN",
+    request_body: {
+      ...sharePayload,
+      allowed_claims: ["changed diagnostic claim with same idempotency key"]
+    },
+    expected_status: 409,
+    expected_error: "SCIENCE_SHARE_IDEMPOTENCY_CONFLICT"
+  }));
+
+  transcripts.push(await requestScenario({
+    name: "18 generic share_packet remains blocked",
     method: "POST",
     path: `/v1/flows/${encodeURIComponent(flowIdValue)}/artifacts`,
     role: "HUMAN",

@@ -17,6 +17,7 @@ REQUIRED = [
     "worker/src/index.ts",
     "worker/src/policy.ts",
     "worker/src/flows.ts",
+    "worker/test_support/build_share_integration_audit_bundle.py",
     "openapi/arqon_contextos.openapi.yaml",
 ]
 
@@ -67,6 +68,7 @@ def worker(root):
     policy = files["worker/src/policy.ts"]
     flows = files["worker/src/flows.ts"]
     openapi = files["openapi/arqon_contextos.openapi.yaml"]
+    audit_builder = files["worker/test_support/build_share_integration_audit_bundle.py"]
 
     checks = []
     checks.append(("share route mounted", "handleScienceRequest" in index))
@@ -82,6 +84,7 @@ def worker(root):
     checks.append(("outbox pending complete", 'status: "pending"' in share and 'status: "complete"' in share))
     checks.append(("hash recorded", "sha256Hex" in share and "share_packet_hash" in share))
     checks.append(("idempotency replay", "idempotent_replay" in share and "idempotency_key" in share))
+    checks.append(("idempotency conflict", "SCIENCE_SHARE_IDEMPOTENCY_CONFLICT" in share and "payload hash does not match" in share))
     checks.append(("share no longer reserved in runtime", "SCIENCE_SHARE_NOT_IMPLEMENTED" not in science + share))
     checks.append(("source_artifacts nonempty enforced", bool(re.search(r"sourceArtifacts\.length\s*[<=>!]", share) or re.search(r"!\s*sourceArtifacts\.length", share))))
     checks.append(("source_artifacts include required evidence classes", all(marker in share for marker in ["audit_report", "share_recommendation", "FINDING_ARTIFACTS"]) and bool(re.search(r"sourceArtifacts.*artifact_type", share, re.S))))
@@ -90,6 +93,7 @@ def worker(root):
     checks.append(("constant-output mutation detected", 'if (role !== "HUMAN")' not in share.replace('if (role !== "HUMAN")', 'if (false)')))
     checks.append(("openapi share implemented", "/v1/science/share" in openapi and "SCIENCE_SHARE_NOT_IMPLEMENTED" not in openapi))
     checks.append(("outbox allowlist narrowed", '"governance/outbox/science_share/"' in policy and '"governance/outbox/"' not in policy))
+    checks.append(("audit bundle has full dependency set", all(path in audit_builder for path in ["worker/src/auth.ts", "worker/src/flow_policy.ts", "worker/src/types.ts", "worker/src/response.ts", "worker/src/repo_store.ts", "worker/src/science_share.ts"])))
 
     failures = [name for name, ok in checks if not ok]
 
@@ -120,11 +124,9 @@ def main():
         return
     if len(sys.argv) != 2:
         fail("usage: python3 share_integration_strict_tripwire.py /path/to/repo/root")
-
     src = Path(sys.argv[1]).resolve()
     if not src.exists():
         fail("root does not exist", [str(src)])
-
     with tempfile.TemporaryDirectory(prefix="share001-tripwire-") as td:
         clean = Path(td) / "sut"
         def ignore(_dir, names):

@@ -91,6 +91,7 @@ interface SharePacketRecord {
   allowed_claims: string[];
   forbidden_claims: string[];
   share_packet_hash: string;
+  submitted_payload_hash: string;
   share_packet_path: string;
   share_packet_sha?: string;
   pm_message_path: string;
@@ -115,6 +116,7 @@ interface PMShareContextEntry {
   allowed_claims: string[];
   forbidden_claims: string[];
   share_packet_hash: string;
+  submitted_payload_hash: string;
   share_packet_path: string;
   pm_context_path: string;
   created_at: string;
@@ -581,14 +583,6 @@ export async function handleScienceShare(
   const shareId = stableShareId(flowId, idempotencyKey);
   const recordPath = shareRecordPath(flowId, shareId);
   const existingRecord = await fetchJsonIfExists<SharePacketRecord>(env, projectName, recordPath, repoStore);
-  if (existingRecord && existingRecord.schema_version === "science_share_packet.v0.1") {
-    return jsonResponse({
-      ok: true,
-      idempotent_replay: true,
-      share: existingRecord,
-      required_status_labels: requiredStatusLabels()
-    }, 200);
-  }
 
   const manifest = await loadFlowManifest(env, projectName, flowId, repoStore);
   const preconditionError = sharePreconditionError(manifest);
@@ -634,6 +628,23 @@ export async function handleScienceShare(
     body: shareBody
   });
   const shareHash = await sha256Hex(hashMaterial);
+  if (existingRecord && existingRecord.schema_version === "science_share_packet.v0.1") {
+    const existingPayloadHash = existingRecord.submitted_payload_hash || existingRecord.share_packet_hash;
+    if (existingPayloadHash !== shareHash) {
+      return errorResponse(
+        "SCIENCE_SHARE_IDEMPOTENCY_CONFLICT",
+        "Existing science share idempotency record exists but submitted payload hash does not match",
+        409
+      );
+    }
+    return jsonResponse({
+      ok: true,
+      idempotent_replay: true,
+      share: existingRecord,
+      required_status_labels: requiredStatusLabels()
+    }, 200);
+  }
+
   const sharePacketDocument = buildShareMarkdown({
     project: projectName,
     flowId,
@@ -687,6 +698,7 @@ export async function handleScienceShare(
     allowed_claims: allowedClaims,
     forbidden_claims: forbiddenClaims,
     share_packet_hash: shareHash,
+    submitted_payload_hash: shareHash,
     share_packet_path: shareWrite.path,
     pm_context_path: contextPath,
     created_at: createdAt
@@ -730,6 +742,7 @@ export async function handleScienceShare(
     allowed_claims: allowedClaims,
     forbidden_claims: forbiddenClaims,
     share_packet_hash: shareHash,
+    submitted_payload_hash: shareHash,
     share_packet_path: shareWrite.path,
     share_packet_sha: shareWrite.sha,
     pm_message_path: messageWrite.path,
