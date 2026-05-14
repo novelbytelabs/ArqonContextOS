@@ -97,6 +97,8 @@ async function main(): Promise<void> {
   assert(intake.output_artifacts.pm_dossier.artifact_type === "pm_dossier", "missing pm_dossier");
   assert(intake.output_artifacts.pm_gate_definition.artifact_type === "pm_gate_definition", "missing pm_gate_definition");
   assert(intake.source_handoff.forbidden_claims.length === 2, "forbidden claims not preserved");
+  assert(intake.output_artifacts.pm_dossier.role === "PM_AI", "pm_dossier role not preserved as PM_AI");
+  assert(intake.output_artifacts.pm_gate_definition.role === "PM_AI", "pm_gate_definition role not preserved as PM_AI");
 
   transcripts.push(await requestScenario({ name: "duplicate PM intake idempotent", method: "POST", path: "/v1/pm/intake", role: "PM_AI", request_body: intakePayload, expected_status: 200 }));
   assert(transcripts.at(-1).response_body.idempotent_replay === true, "duplicate should replay");

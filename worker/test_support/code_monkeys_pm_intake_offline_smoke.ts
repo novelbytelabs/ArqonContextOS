@@ -157,6 +157,49 @@ async function main(): Promise<void> {
   });
   assert(handoff.status === 201, "handoff should pass");
 
+  const handoffRecordPath = handoff.body.handoff.handoff_record_path as string;
+  const handoffRecord = JSON.parse(files.get(handoffRecordPath) || "{}");
+  const codeFlowIdForTamper = handoff.body.handoff.code_flow.flow_id as string;
+  const codeManifestPathForTamper = `governance/flows/${codeFlowIdForTamper}/flow_manifest.json`;
+  const originalCodeManifestForTamper = files.get(codeManifestPathForTamper);
+  assert(originalCodeManifestForTamper !== undefined, "code flow manifest must exist for tamper test");
+
+  const typeTamperedManifest = JSON.parse(originalCodeManifestForTamper || "{}");
+  const typeTamperedArtifact = typeTamperedManifest.artifacts.find((artifact: { artifact_id: string }) => artifact.artifact_id === handoffRecord.output_artifacts.handoff_intake.artifact_id);
+  assert(typeTamperedArtifact !== undefined, "handoff_intake artifact must exist for tamper test");
+  typeTamperedArtifact.artifact_type = "dossier_seed";
+  files.set(codeManifestPathForTamper, JSON.stringify(typeTamperedManifest, null, 2));
+  const typeTamperResult = await requestJson("/v1/pm/intake", {
+    method: "POST",
+    headers: { authorization: auth("PM_AI"), "content-type": "application/json" },
+    body: JSON.stringify({
+      handoff_id: handoff.body.handoff.handoff_id,
+      idempotency_key: "pm-intake-type-tamper-0001",
+      pm_notes: "This must fail because handoff artifact type was tampered."
+    })
+  });
+  assert(typeTamperResult.status === 409, `artifact type tamper expected 409, got ${typeTamperResult.status}`);
+  assert(typeTamperResult.body.error.code === "PM_INTAKE_HANDOFF_ARTIFACT_TYPE_MISMATCH", "expected type mismatch");
+  files.set(codeManifestPathForTamper, originalCodeManifestForTamper || "");
+
+  const sourceTamperedManifest = JSON.parse(originalCodeManifestForTamper || "{}");
+  const sourceTamperedArtifact = sourceTamperedManifest.artifacts.find((artifact: { artifact_id: string }) => artifact.artifact_id === handoffRecord.output_artifacts.dossier_seed.artifact_id);
+  assert(sourceTamperedArtifact !== undefined, "dossier_seed artifact must exist for tamper test");
+  sourceTamperedArtifact.source_path = "governance/flows/TAMPERED/artifacts/fake.md";
+  files.set(codeManifestPathForTamper, JSON.stringify(sourceTamperedManifest, null, 2));
+  const sourceTamperResult = await requestJson("/v1/pm/intake", {
+    method: "POST",
+    headers: { authorization: auth("PM_AI"), "content-type": "application/json" },
+    body: JSON.stringify({
+      handoff_id: handoff.body.handoff.handoff_id,
+      idempotency_key: "pm-intake-source-tamper-0001",
+      pm_notes: "This must fail because handoff artifact source path was tampered."
+    })
+  });
+  assert(sourceTamperResult.status === 409, `artifact source tamper expected 409, got ${sourceTamperResult.status}`);
+  assert(sourceTamperResult.body.error.code === "PM_INTAKE_HANDOFF_ARTIFACT_SOURCE_MISMATCH", "expected source path mismatch");
+  files.set(codeManifestPathForTamper, originalCodeManifestForTamper || "");
+
   const deniedRoles: TokenRole[] = ["CODER_AI", "AUDITOR_AI", "HELPER_AI", "EXPLORER_AI", "HYPOTHESIZER_AI", "DESIGNER_AI", "SCIENCE_AUDITOR_AI", "SCIENCE_EXECUTOR_AI", "HUMAN"];
   for (const role of deniedRoles) {
     const denied = await requestJson("/v1/pm/intake", {

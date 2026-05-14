@@ -290,13 +290,53 @@ function validateHandoffRecord(record: HandoffRecord): Response | null {
   return null;
 }
 
+function artifactById(manifest: FlowManifest, artifactId: string): FlowArtifactSummary | null {
+  return manifest.artifacts.find(artifact => artifact.artifact_id === artifactId) || null;
+}
+
+function validateExpectedHandoffArtifact(
+  manifest: FlowManifest,
+  expected: FlowArtifactSummary,
+  expectedType: "handoff_intake" | "dossier_seed"
+): Response | null {
+  const actual = artifactById(manifest, expected.artifact_id);
+  if (!actual) {
+    return errorResponse(
+      "PM_INTAKE_HANDOFF_ARTIFACTS_NOT_ON_CODE_FLOW",
+      `Code flow does not contain required handoff artifact ${expected.artifact_id}`,
+      409
+    );
+  }
+
+  if (actual.artifact_type !== expectedType || actual.role !== "PM_AI") {
+    return errorResponse(
+      "PM_INTAKE_HANDOFF_ARTIFACT_TYPE_MISMATCH",
+      `Expected ${expectedType} by PM_AI for ${expected.artifact_id}`,
+      409
+    );
+  }
+
+  if (actual.source_path !== expected.source_path) {
+    return errorResponse(
+      "PM_INTAKE_HANDOFF_ARTIFACT_SOURCE_MISMATCH",
+      `Handoff artifact source path mismatch for ${expected.artifact_id}`,
+      409
+    );
+  }
+
+  return null;
+}
+
 function validateCodeFlowManifest(manifest: FlowManifest | null, record: HandoffRecord): Response | null {
   if (!manifest || manifest.schema_version !== "flow_manifest.v0.3") return errorResponse("PM_INTAKE_CODE_FLOW_NOT_FOUND", "Code flow manifest not found", 404);
   if (manifest.type !== "code_flow" || manifest.flow_id !== record.code_flow.flow_id) return errorResponse("PM_INTAKE_CODE_FLOW_REQUIRED", "PM intake target must be a code_flow", 409);
-  const artifactIds = new Set(manifest.artifacts.map(artifact => artifact.artifact_id));
-  if (!artifactIds.has(record.output_artifacts.handoff_intake.artifact_id) || !artifactIds.has(record.output_artifacts.dossier_seed.artifact_id)) {
-    return errorResponse("PM_INTAKE_HANDOFF_ARTIFACTS_NOT_ON_CODE_FLOW", "Code flow does not contain the handoff intake and dossier seed artifacts", 409);
-  }
+
+  const intakeError = validateExpectedHandoffArtifact(manifest, record.output_artifacts.handoff_intake, "handoff_intake");
+  if (intakeError) return intakeError;
+
+  const seedError = validateExpectedHandoffArtifact(manifest, record.output_artifacts.dossier_seed, "dossier_seed");
+  if (seedError) return seedError;
+
   return null;
 }
 
