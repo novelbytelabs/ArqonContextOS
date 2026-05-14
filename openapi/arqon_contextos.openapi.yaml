@@ -455,7 +455,7 @@ paths:
     post:
       operationId: scienceShareReserved
       summary: Reserved Science Monkeys share command.
-      description: Reserved for Science Monkeys v0.1 Share Integration 001. Routes 001 returns SCIENCE_SHARE_NOT_IMPLEMENTED.
+      description: Creates a Human-approved official science share packet, writes PM notification/context artifacts, preserves source references and share hash, and supports idempotent replay.
       requestBody:
         required: true
         content:
@@ -463,7 +463,8 @@ paths:
             schema:
               type: object
       responses:
-        '501': { description: Share integration is not implemented in Routes 001 }
+        '201': { description: Human-approved science share packet written }
+        '200': { description: Idempotent replay of an existing science share packet }
 components:
   schemas:
     ScienceCommandRequest:

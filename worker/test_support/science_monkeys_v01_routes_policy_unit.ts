@@ -44,7 +44,8 @@ function main(): void {
   assert(SCIENCE_COMMANDS.research.allowed_roles.includes("EXPLORER_AI"), "research must be Explorer-owned");
   assert(SCIENCE_COMMANDS["execute-experiment"].allowed_roles.includes("SCIENCE_EXECUTOR_AI"), "execute-experiment must be Science Executor-owned");
   assert(SCIENCE_COMMANDS["audit-experiment"].allowed_roles.includes("SCIENCE_AUDITOR_AI"), "audit-experiment must be Science Auditor-owned");
-  assert(SCIENCE_COMMANDS.share.reserved === true, "share route must remain reserved in Routes 001");
+  assert(SCIENCE_COMMANDS.share.allowed_roles.includes("HUMAN"), "share route must be Human-owned");
+  assert(SCIENCE_COMMANDS.share.allowed_artifact_types.includes("share_packet"), "share route must target share_packet");
 
   assert(validateScienceCommandRole("research", "PM_AI") !== null, "PM_AI must not run research");
   assert(validateScienceCommandRole("execute-experiment", "HELPER_AI") !== null, "HELPER_AI must not run execute-experiment");
@@ -62,7 +63,7 @@ function main(): void {
       "broker key uniqueness pass",
       "broker key duplicate detection pass",
       "science route ownership matrix pass",
-      "science share reserved pass",
+      "science share ownership pass",
       "science_flow creation authority pass"
     ]
   }, null, 2));
@@ -74,3 +75,5 @@ try {
   console.error(err);
   process.exitCode = 1;
 }
+
+export {};

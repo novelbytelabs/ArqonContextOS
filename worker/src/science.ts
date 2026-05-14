@@ -2,6 +2,7 @@ import { requireRole } from "./auth";
 import { errorResponse, jsonResponse } from "./response";
 import { handleFlowsRequest } from "./flows";
 import { githubRepoStore, type RepoStore } from "./repo_store";
+import { handleScienceShare } from "./science_share";
 import type { Env, Role } from "./types";
 
 export type ScienceCommand =
@@ -95,8 +96,7 @@ export const SCIENCE_COMMANDS: Record<ScienceCommand, ScienceCommandPolicy> = {
     allowed_roles: ["HUMAN"],
     allowed_artifact_types: ["share_packet"],
     requires_flow_ref: true,
-    may_create_science_flow: false,
-    reserved: true
+    may_create_science_flow: false
   }
 };
 
@@ -259,21 +259,18 @@ export async function handleScienceRequest(
     }
 
     const scienceCommand = command as ScienceCommand;
-    const policy = SCIENCE_COMMANDS[scienceCommand];
+    const role = requireRole(request, env);
 
-    if (policy.reserved) {
-      return errorResponse(
-        "SCIENCE_SHARE_NOT_IMPLEMENTED",
-        "/v1/science/share is reserved for Science Monkeys v0.1 Share Integration 001 and is not implemented in Routes 001",
-        501
-      );
+    if (scienceCommand === "share") {
+      return await handleScienceShare(request, env, role, repoStore);
     }
+
+    const policy = SCIENCE_COMMANDS[scienceCommand];
 
     if (request.method !== "POST") {
       return errorResponse("METHOD_NOT_ALLOWED", `Unsupported method: ${request.method}`, 405);
     }
 
-    const role = requireRole(request, env);
     const roleError = validateScienceCommandRole(scienceCommand, role);
     if (roleError) return scienceRouteRoleError(scienceCommand, role);
 

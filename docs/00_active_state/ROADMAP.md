@@ -92,3 +92,28 @@ REQUIRES_HUMAN_REVIEW
 development diagnostic only  
 NOT SEALED-TEST CERTIFIED  
 not promotable
+
+## Science Monkeys v0.1 Share Integration 001
+
+Share Integration 001 implements `/v1/science/share` as the Human-only bridge from audited Science Monkeys findings into PM-visible context.
+
+Required properties:
+
+- authenticated Human authority before processing
+- server-derived Human authority, not body-derived identity
+- official `share_packet` writing
+- source artifact references
+- share packet hash
+- idempotency key
+- PM-visible message
+- generated PM context update
+- recoverable outbox state
+- generic Flow Core `share_packet` path remains blocked
+- no Skill/Memory/Preference runtime expansion
+
+Required status remains:
+
+REQUIRES_HUMAN_REVIEW  
+development diagnostic only  
+NOT SEALED-TEST CERTIFIED  
+not promotable

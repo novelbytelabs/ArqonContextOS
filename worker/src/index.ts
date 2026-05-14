@@ -1,5 +1,5 @@
 import type { Env, Role } from "./types";
-import { requireRole } from "./auth";
+import { requireRole, validateBrokerKeyUniqueness } from "./auth";
 import { getProject, contextPathFor } from "./projects";
 import { fetchGithubFile } from "./github_app";
 import { jsonResponse, errorResponse } from "./response";
@@ -53,6 +53,16 @@ async function handleNotImplemented(name: string): Promise<Response> {
   return errorResponse("NOT_IMPLEMENTED", `${name} is reserved in v0.1 scaffold. Implement after read-only context load is validated.`, 501);
 }
 
+function brokerKeyConfigError(env: Env): Response | null {
+  const validation = validateBrokerKeyUniqueness(env);
+  if (validation.ok) return null;
+  return errorResponse(
+    "BROKER_KEY_CONFIGURATION_INVALID",
+    `Broker key configuration has missing or duplicate role credentials: missing=${validation.missing.join(",")}; duplicate_groups=${validation.duplicate_groups.map(group => group.join("+")).join(",")}`,
+    500
+  );
+}
+
 export async function handleWorkerFetch(
   request: Request,
   env: Env,
@@ -61,6 +71,8 @@ export async function handleWorkerFetch(
   try {
     const url = new URL(request.url);
     if (url.pathname === "/v1/health" && request.method === "GET") return handleHealth(env);
+    const keyConfigError = brokerKeyConfigError(env);
+    if (keyConfigError) return keyConfigError;
     if (url.pathname === "/v1/context" && request.method === "GET") return handleContext(request, env);
     if (url.pathname === "/v1/constitution" && request.method === "GET") return handleContext(request, env);
     if (url.pathname === "/v1/manifest" && request.method === "GET") return handleManifest(request, env);
