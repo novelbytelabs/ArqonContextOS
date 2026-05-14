@@ -223,6 +223,38 @@ paths:
             application/json:
               schema:
                 type: object
+  /v1/pm/intake:
+    post:
+      operationId: pmCodeMonkeysIntake
+      summary: Code Monkeys PM intake from audited handoff.
+      description: >
+        Consumes a Science to Code handoff record and creates PM-side pm_dossier
+        and pm_gate_definition artifacts on a code_flow without generating specs,
+        tasks, implementation work, or new Science behavior.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [idempotency_key]
+              anyOf:
+                - required: [handoff_id]
+                - required: [handoff_record_path]
+              properties:
+                project: { type: string, default: ArqonZero }
+                handoff_id: { type: string }
+                handoff_record_path: { type: string }
+                idempotency_key: { type: string }
+                pm_notes: { type: string }
+      responses:
+        '201': { description: PM intake dossier and gate definition created }
+        '200': { description: Idempotent replay of existing PM intake }
+        '403': { description: PM_AI authority required }
+        '409': { description: PM intake precondition or idempotency conflict }
+
   /v1/pm/handoff:
     post:
       operationId: pmScienceToCodeHandoff

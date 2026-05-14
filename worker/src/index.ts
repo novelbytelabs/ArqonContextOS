@@ -8,6 +8,7 @@ import { handleMessagesRequest } from "./messages";
 import { handleFlowsRequest } from "./flows";
 import { handleScienceRequest } from "./science";
 import { handlePmHandoffRequest } from "./pm_handoff";
+import { handlePmIntakeRequest } from "./pm_intake";
 import type { RepoStore } from "./repo_store";
 
 function getParam(url: URL, name: string): string | null {
@@ -87,6 +88,7 @@ export async function handleWorkerFetch(
     const scienceMatch = url.pathname.match(/^\/v1\/science\/([^/]+)$/);
     if (scienceMatch) return handleScienceRequest(request, env, decodeURIComponent(scienceMatch[1]), options.flowRepoStore);
     if (url.pathname === "/v1/pm/handoff") return handlePmHandoffRequest(request, env, options.flowRepoStore);
+    if (url.pathname === "/v1/pm/intake") return handlePmIntakeRequest(request, env, options.flowRepoStore);
     if (url.pathname === "/v1/flows") return handleFlowsRequest(request, env, undefined, "collection", options.flowRepoStore);
     const flowStatusMatch = url.pathname.match(/^\/v1\/flows\/([^/]+)\/status$/);
     if (flowStatusMatch) return handleFlowsRequest(request, env, decodeURIComponent(flowStatusMatch[1]), "status", options.flowRepoStore);
