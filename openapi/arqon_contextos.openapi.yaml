@@ -223,6 +223,38 @@ paths:
             application/json:
               schema:
                 type: object
+  /v1/pm/handoff:
+    post:
+      operationId: pmScienceToCodeHandoff
+      summary: PM Science to Code handoff intake.
+      description: >
+        Consumes a Human-approved Science share context and creates PM-side handoff_intake
+        and dossier_seed artifacts on a code_flow without adding new Science behavior or
+        laundering evidence claims.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [share_id, idempotency_key]
+              properties:
+                project: { type: string, default: ArqonZero }
+                share_id: { type: string }
+                share_packet_path: { type: string }
+                idempotency_key: { type: string }
+                code_flow_ref: { type: string }
+                code_flow_name: { type: string }
+                code_flow_title: { type: string }
+                pm_notes: { type: string }
+      responses:
+        '201': { description: PM handoff intake and dossier seed created }
+        '200': { description: Idempotent replay of existing PM handoff }
+        '403': { description: PM_AI authority required }
+        '409': { description: Handoff precondition or idempotency conflict }
+
   /v1/flows:
     get:
       summary: List flows

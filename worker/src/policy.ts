@@ -76,6 +76,8 @@ export function canWriteFlowArtifact(role: Role, artifactType: string): boolean 
       "plan",
       "pm_spec",
       "pm_gate_definition",
+      "handoff_intake",
+      "dossier_seed",
       "share_review"
     ],
     CODER_AI: ["tasks", "implementation_bundle", "coder_patch_bundle", "coder_handoff"],
