@@ -12,6 +12,7 @@ import { handlePmIntakeRequest } from "./pm_intake";
 import { handlePmSpecifyRequest } from "./pm_specify";
 import { handlePmPlanRequest } from "./pm_plan";
 import { handlePmTaskingRequest } from "./pm_tasking";
+import { handleCoderWorkPlanRequest } from "./coder_work_plan";
 import type { RepoStore } from "./repo_store";
 
 function getParam(url: URL, name: string): string | null {
@@ -96,6 +97,7 @@ export async function handleWorkerFetch(
     if (url.pathname === "/v1/pm/plan") return handlePmPlanRequest(request, env, options.flowRepoStore);
     if (url.pathname === "/v1/pm/tasks") return errorResponse("PM_TASKS_ROUTE_RETIRED_USE_PM_TASKING", "The generic PM Tasks route is retired. Use /v1/pm/tasking for PM tasking; Coder owns implementation task decomposition.", 410);
     if (url.pathname === "/v1/pm/tasking") return handlePmTaskingRequest(request, env, options.flowRepoStore);
+    if (url.pathname === "/v1/coder/work-plan") return handleCoderWorkPlanRequest(request, env, options.flowRepoStore);
     if (url.pathname === "/v1/flows") return handleFlowsRequest(request, env, undefined, "collection", options.flowRepoStore);
     const flowStatusMatch = url.pathname.match(/^\/v1\/flows\/([^/]+)\/status$/);
     if (flowStatusMatch) return handleFlowsRequest(request, env, decodeURIComponent(flowStatusMatch[1]), "status", options.flowRepoStore);

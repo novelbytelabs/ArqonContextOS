@@ -223,6 +223,38 @@ paths:
             application/json:
               schema:
                 type: object
+/v1/coder/work-plan:
+  post:
+    operationId: coderWorkPlan
+    summary: Create Coder work plan from PM tasking.
+    description: >
+      Creates a Coder-owned engineering work-plan artifact from validated PM tasking while
+      preserving source chain, uncertainty, forbidden claims, and diagnostic labels.
+      Does not create implementation bundle, Coder handoff, Helper execution, or Science behavior.
+    security:
+      - bearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [idempotency_key, work_plan_title, work_plan_body]
+            anyOf:
+              - required: [tasking_id]
+              - required: [pm_tasking_record_path]
+            properties:
+              project: { type: string, default: ArqonZero }
+              tasking_id: { type: string }
+              pm_tasking_record_path: { type: string }
+              idempotency_key: { type: string }
+              work_plan_title: { type: string }
+              work_plan_body: { type: string }
+    responses:
+      '201': { description: Coder work plan artifact created }
+      '200': { description: Idempotent replay of existing Coder work plan }
+      '403': { description: CODER_AI authority required }
+      '409': { description: Coder work plan precondition or idempotency conflict }
 
   /v1/pm/tasking:
     post:
