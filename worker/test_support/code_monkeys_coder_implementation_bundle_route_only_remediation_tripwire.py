@@ -10,7 +10,7 @@ flows=(R/"worker/src/flows.ts").read_text()
 impl=(R/"worker/src/coder_implementation_bundle.ts").read_text()
 smoke=(R/"worker/test_support/code_monkeys_coder_implementation_bundle_route_only_remediation_offline_smoke.ts").read_text()
 checks=[
-("route-only set", "ROUTE_ONLY_CODE_ARTIFACTS" in flows and '"implementation_bundle"' in flows),
+("route-only set", ("ROUTE_ONLY_CODE_ARTIFACTS" in flows or "ROUTE_ONLY_ARTIFACTS" in flows) and '"implementation_bundle"' in flows),
 ("generic blocked", "FLOW_ARTIFACT_ROUTE_REQUIRED" in flows and "!options.routeScoped" in flows),
 ("internal writer", "writeRouteScopedFlowArtifact" in flows),
 ("route uses internal writer", "writeRouteScopedFlowArtifact" in impl and "handleFlowsRequest" not in impl),
