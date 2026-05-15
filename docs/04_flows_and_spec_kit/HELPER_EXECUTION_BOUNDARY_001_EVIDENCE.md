@@ -2,8 +2,8 @@
 
 - branch: `main`
 - commit before: `9990da32ed86ebd7be235dd1b8da5383d6624e55`
-- source remediation commit: `a340ec5baecb631e6238ebc342df453489b9cbe9`
-- current HEAD: `5deb717ba2a1b219c609907b2ce32b978e922a7b`
+- source remediation commit: `ad7debd01b35dd2047b85a23560196f324308891`
+- current HEAD (pre-evidence update): `ad7debd01b35dd2047b85a23560196f324308891`
 - push status (source): `PASS`
 - deployed Worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
 
@@ -26,7 +26,7 @@
 
 ## Bounded Micro-Edits Applied
 - `worker/src/flows.ts`: route-only evidence artifact blocking is now scoped by flow type, so Helper evidence artifacts are route-only on `code_flow` without blocking valid Science executor writes on `science_flow`.
-- `worker/src/helper_execution_report.ts`: forbidden-claim validation now covers command evidence fields, and secret-like markers in stdout/stderr excerpts are rejected with `HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN`.
+- `worker/src/helper_execution_report.ts`: secret-like markers are now rejected across all official report text fields, including `execution_title`, `execution_summary`, `commands[].command`, `commands[].purpose`, `commands[].stdout_excerpt`, and `commands[].stderr_excerpt`.
 - `worker/test_support/code_monkeys_helper_execution_report_offline_smoke.ts`: added science regression, command-field forbidden-claim, and secret-marker probes.
 - `worker/test_support/code_monkeys_helper_execution_report_live_smoke.ts`: added live command-field forbidden-claim and secret-marker probes.
 - `worker/test_support/code_monkeys_helper_execution_report_tripwire.py`: updated to require flow-scoped route-only logic plus command-field and secret-marker coverage.
@@ -55,6 +55,10 @@
 - duplicate report idempotent: `PASS` (`200`)
 - changed payload conflict: `PASS` (`409`)
 - forbidden command-field claim phrases denied: `PASS` (`409 HELPER_EXECUTION_REPORT_FORBIDDEN_CLAIM_INCLUDED`)
+- secret-like `execution_title` denied: `PASS` (`409 HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN`)
+- secret-like `execution_summary` denied: `PASS` (`409 HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN`)
+- secret-like `commands[].command` denied: `PASS` (`409 HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN`)
+- secret-like `commands[].purpose` denied: `PASS` (`409 HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN`)
 - secret-like stdout/stderr markers denied: `PASS` (`409 HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN`)
 - Coder/PM raw writes denied: `PASS`
 - no deployment behavior: `PASS`
@@ -62,15 +66,15 @@
 - no secrets exposed: `PASS`
 
 ### Science Regression Live Verification
-- fresh science flow created: `PASS` (`FLOW-2026-0038`)
+- fresh science flow created: `PASS` (`FLOW-2026-0039`)
 - raw `SCIENCE_EXECUTOR_AI` write of `execution_report` on `science_flow`: `PASS` (`201`, not `FLOW_ARTIFACT_ROUTE_REQUIRED`)
 - raw `SCIENCE_EXECUTOR_AI` write of `raw_result_index` on `science_flow`: `PASS` (`201`)
 
 ### Live Helper Inputs Used
 - fresh `coder_handoff_id` created through the live Coder handoff route:
-  - `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-handoff-live-1778886762863`
+  - `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-handoff-live-1778889323105`
 - fresh `helper_execution_intake_id` created for this remediation verification:
-  - `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--helper-intake-live-capture-177888680`
+  - `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--helper-intake-live-capture-177888935`
 - code flow used:
   - `FLOW-2026-0036`
 
