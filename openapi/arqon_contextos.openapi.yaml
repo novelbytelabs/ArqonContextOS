@@ -256,6 +256,39 @@ paths:
         '403': { description: PM_AI authority required }
         '409': { description: PM tasks precondition or idempotency conflict }
 
+  /v1/pm/tasking:
+    post:
+      operationId: pmTasking
+      summary: Create PM tasking / work order from PM plan.
+      description: >
+        Creates a PM-controlled tasking/work-order artifact from a validated PM plan while
+        preserving source chain, uncertainty, forbidden claims, and diagnostic labels.
+        Does not create generic implementation tasks, Coder handoff, Helper execution, or Science behavior.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [idempotency_key, tasking_title, tasking_body]
+              anyOf:
+                - required: [plan_id]
+                - required: [pm_plan_record_path]
+              properties:
+                project: { type: string, default: ArqonZero }
+                plan_id: { type: string }
+                pm_plan_record_path: { type: string }
+                idempotency_key: { type: string }
+                tasking_title: { type: string }
+                tasking_body: { type: string }
+      responses:
+        '201': { description: PM tasking artifact created }
+        '200': { description: Idempotent replay of existing PM tasking }
+        '403': { description: PM_AI authority required }
+        '409': { description: PM tasking precondition or idempotency conflict }
+
   /v1/pm/plan:
     post:
       operationId: pmPlan

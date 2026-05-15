@@ -1,3 +1,5 @@
+export {};
+
 declare const process: { env: Record<string, string | undefined>; exitCode?: number };
 
 const WORKER_URL = (process.env.WORKER_URL || "https://arqon-contextos-broker.sonarum.workers.dev").replace(/\/+$/, "");

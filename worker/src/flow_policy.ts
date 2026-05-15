@@ -81,11 +81,14 @@ export const FLOW_ARTIFACT_SLOTS: Record<FlowType, string[]> = {
     "constitution",
     "specification",
     "plan",
+    "pm_tasking",
     "pm_spec",
     "pm_gate_definition",
     "handoff_intake",
     "dossier_seed",
     "tasks",
+    "coder_work_plan",
+    "coder_tasks",
     "implementation_bundle",
     "coder_patch_bundle",
     "coder_handoff",
@@ -124,10 +127,13 @@ export const FLOW_ARTIFACT_SLOTS: Record<FlowType, string[]> = {
     "constitution",
     "specification",
     "plan",
+    "pm_tasking",
     "pm_spec",
     "pm_gate_definition",
     "share_review",
     "tasks",
+    "coder_work_plan",
+    "coder_tasks",
     "implementation_bundle",
     "coder_patch_bundle",
     "coder_handoff",
@@ -194,8 +200,8 @@ export const ROLE_FLOW_ARTIFACTS: Record<FlowType, Partial<Record<Role, string[]
     HUMAN: ["human_decision", "advancement_approval", "promotion_decision", "exception_manifest", "share_packet"]
   },
   code_flow: {
-    PM_AI: ["pm_dossier", "constitution", "specification", "plan", "tasks", "pm_spec", "pm_gate_definition", "handoff_intake", "dossier_seed"],
-    CODER_AI: ["implementation_bundle", "coder_patch_bundle", "coder_handoff"],
+    PM_AI: ["pm_dossier", "constitution", "specification", "plan", "pm_tasking", "pm_spec", "pm_gate_definition", "handoff_intake", "dossier_seed"],
+    CODER_AI: ["tasks", "coder_work_plan", "coder_tasks", "implementation_bundle", "coder_patch_bundle", "coder_handoff"],
     HELPER_AI: ["execution_report", "evidence_manifest", "command_log", "helper_log"],
     AUDITOR_AI: ["clarification", "checklist", "analysis", "audit_report", "integrity_review", "claim_audit"],
     HUMAN: ["human_decision", "advancement_approval", "promotion_decision", "exception_manifest"]
@@ -206,7 +212,7 @@ export const ROLE_FLOW_ARTIFACTS: Record<FlowType, Partial<Record<Role, string[]
     HUMAN: ["human_decision", "advancement_approval", "exception_manifest"]
   },
   governance_flow: {
-    PM_AI: ["research_dossier_review", "pm_dossier", "constitution", "specification", "plan", "pm_spec", "pm_gate_definition", "share_review"],
+    PM_AI: ["research_dossier_review", "pm_dossier", "constitution", "specification", "plan", "pm_tasking", "pm_spec", "pm_gate_definition", "share_review"],
     CODER_AI: ["tasks", "implementation_bundle", "coder_patch_bundle", "coder_handoff"],
     HELPER_AI: ["execution_report", "evidence_manifest", "command_log", "helper_log"],
     AUDITOR_AI: ["clarification", "checklist", "analysis", "audit_report", "integrity_review", "claim_audit"],
