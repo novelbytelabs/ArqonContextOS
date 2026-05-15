@@ -10,6 +10,9 @@ REQUIRED = [
     "worker/src/index.ts",
     "worker/src/flow_policy.ts",
     "worker/src/pm_intake.ts",
+    "worker/src/messages.ts",
+    "worker/src/notes.ts",
+    "worker/tsconfig.json",
     "worker/test_support/code_monkeys_pm_specify_offline_smoke.ts",
     "worker/test_support/code_monkeys_pm_specify_live_smoke.ts",
     "worker/test_support/build_pm_specify_audit_bundle.py",
@@ -70,7 +73,7 @@ def main():
             ("offline broad probes", "blockedPromotionBodies" in offline and "production-ready" in offline and "approved for release" in offline and "release-ready" in offline),
             ("live broad probes", "blockedPromotionBodies" in live and "production-ready" in live and "approved for release" in live and "release-ready" in live),
             ("openapi", "/v1/pm/specify:" in openapi),
-            ("bundle includes report and strict tripwire", "CODE_MONKEYS_PM_SPECIFY_001_PM_REPORT.md" in builder and "pm_specify_strict_audit_tripwire.py" in builder),
+            ("bundle includes report and strict tripwire", "CODE_MONKEYS_PM_SPECIFY_001_PM_REPORT.md" in builder and "pm_specify_strict_audit_tripwire.py" in builder and "worker/tsconfig.json" in builder and "worker/src/messages.ts" in builder and "worker/src/notes.ts" in builder),
         ]
         failures = [name for name, ok in checks if not ok]
         if failures:
