@@ -2,8 +2,8 @@
 
 - branch: `main`
 - commit before: `c8f2d0cacf74dfe3813ae110fa8af8ec44ec2161`
-- source commit: `b6a1624750f379444676723ab3d07e89c1b66e98`
-- current HEAD: `b6a1624750f379444676723ab3d07e89c1b66e98`
+- source commit: `386f9f441b572624fb437906623ed3b079b4abc8`
+- current HEAD: `4f8469953195d7fcfbc1f3051ef9d26ca0aa9b3e`
 - refreshed bundle path: `temps/arqonmonkeyos_coder_handoff_001_refreshed_pm_bundle.zip`
 - refreshed bundle SHA256: `067cffab237fb01857c153a30e0ecd13780d6a5ee58bdf43a0e90ece8cae7ea3`
 - apply script path: `runtime/coder_handoff_001_refreshed_pm_bundle/pm_apply_coder_handoff_001.py`
@@ -39,6 +39,17 @@
 - no Helper execution artifacts created: `PASS`
 - no Science behavior changed: `PASS`
 - no secrets exposed: `PASS`
+
+## Live Redeploy Verification
+- deploy trigger method: empty commit push to `main` (Cloudflare GitHub-connected rebuild trigger)
+- deploy trigger commit: `4f8469953195d7fcfbc1f3051ef9d26ca0aa9b3e`
+- redeploy verification live smoke result: `PASS`
+- title guard checks:
+  - `handoff_title: "approved for release"` -> `409 CODER_HANDOFF_FORBIDDEN_CLAIM_INCLUDED` (PASS)
+  - `handoff_title: "helper may execute"` -> `409 CODER_HANDOFF_EXECUTION_AUTHORITY_FORBIDDEN` (PASS)
+- body guard checks remain active:
+  - promotion phrase in body -> `409` (PASS)
+  - helper-execution phrase in body -> `409` (PASS)
 
 ## Title Guard Remediation
 - remediation scope: validate forbidden promotion and Helper-execution authority language in both `handoff_title` and `handoff_body`
