@@ -3,7 +3,7 @@
 - branch: `main`
 - commit before: `9990da32ed86ebd7be235dd1b8da5383d6624e55`
 - source remediation commit: `a340ec5baecb631e6238ebc342df453489b9cbe9`
-- current HEAD (pre-evidence update): `a340ec5baecb631e6238ebc342df453489b9cbe9`
+- current HEAD: `5deb717ba2a1b219c609907b2ce32b978e922a7b`
 - push status (source): `PASS`
 - deployed Worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
 
@@ -70,8 +70,8 @@
 - note: first live run hit transient GitHub contents write SHA conflict (`409 expected sha ...`); second run passed with same source and route behavior.
 
 ## Audit Bundle (Final HEAD)
-- path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/helper_execution_report_audit_bundle_d87c871b3bec.zip`
-- SHA256: `4eba134a1ccf0d237ce3d5edc7cb0032307d3a103f9f856ce9c4bbb699ea631f`
+- path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/helper_execution_report_audit_bundle_5deb717ba2a1.zip`
+- SHA256: `66c74a559ebf3eb7dff21da6e5a7ccbee53da8ba78771064d91b1a1a429cd3e7`
 
 ## Non-Scope Confirmation
 - no Worker-side command execution
