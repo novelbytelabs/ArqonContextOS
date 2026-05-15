@@ -39,9 +39,9 @@ not promotable
 - `git remote -v` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/flow_core_v03_offline_smoke.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/flow_core_v03_policy_smoke.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_role_auth_foundation_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/flow_core_v03_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/flow_core_v03_policy_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_role_auth_foundation_smoke.js` PASS
 - `grep -R "EXPLORER_AI|HYPOTHESIZER_AI|DESIGNER_AI|SCIENCE_AUDITOR_AI|SCIENCE_EXECUTOR_AI|ARTIFACT_ROLE_FORBIDDEN|SCIENCE_SHARE_ROUTE_REQUIRED" -n worker/src worker/test_support` PASS
 - `git diff --stat` PASS
 - `git diff -- worker/src worker/test_support docs/04_flows_and_spec_kit` PASS

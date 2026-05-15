@@ -23,10 +23,10 @@
 - `git remote -v` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_cleanup_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_cleanup_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_pm_tasking_cleanup_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_pm_tasking_tripwire.py` PASS
 - `python3 worker/test_support/build_pm_tasking_cleanup_audit_bundle.py` PASS
 - `rg -n "PM_TASKS_ROUTE_RETIRED_USE_PM_TASKING|handlePmTasksRequest|/v1/pm/tasks|/v1/pm/tasking|pm_tasking|coder_work_plan|coder_tasks" worker/src worker/test_support docs openapi` PASS
@@ -66,7 +66,7 @@
 - live tasking-route liveness probe:
   - `POST /v1/pm/tasking` without auth -> `401 UNAUTHORIZED` PASS (`404` no longer present)
 - full PM tasking live smoke:
-  - command: `PM_TASKING_PLAN_ID=... PM_TASKING_CODE_FLOW_ID=... node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_live_smoke.js`
+  - command: `PM_TASKING_PLAN_ID=... PM_TASKING_CODE_FLOW_ID=... node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_live_smoke.js`
   - status: `BLOCKED_LOCAL_SECRET_ENV`
   - blocker: missing local env var `BROKER_KEY_EXPLORER` (script requires full bearer set for denied-role checks)
 

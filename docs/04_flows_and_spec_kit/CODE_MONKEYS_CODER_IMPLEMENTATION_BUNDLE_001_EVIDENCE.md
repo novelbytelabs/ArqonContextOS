@@ -28,11 +28,11 @@
 - `git remote -v` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_coder_implementation_bundle_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_tasks_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_tasks_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_tasks_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_tasks_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_coder_tasks_tripwire.py` PASS
 - `python3 worker/test_support/build_coder_implementation_bundle_audit_bundle.py` PASS
 - `rg -n "handleCoderImplementationBundleRequest|CODER_IMPLEMENTATION_BUNDLE_ROLE_FORBIDDEN|CODER_IMPLEMENTATION_BUNDLE_IDEMPOTENCY_CONFLICT|CODER_IMPLEMENTATION_BUNDLE_EXECUTION_AUTHORITY_FORBIDDEN|generated_coder_implementation_bundle_context|implementation_bundle|coder_tasks" worker/src worker/test_support docs openapi` PASS
@@ -52,7 +52,7 @@
 - redeploy status: `LIVE_ROUTE_PRESENT_AND_SERVING` (no stale `404`)
 - command:
   - `set -a && source ~/secrets/arqonmonkeyos_science_keys.env && set +a`
-  - `CODER_IMPLEMENTATION_BUNDLE_TASKS_ID='FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-tasks-8815434954' CODER_IMPLEMENTATION_BUNDLE_CODE_FLOW_ID='FLOW-2026-0036' node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_live_smoke.js`
+  - `CODER_IMPLEMENTATION_BUNDLE_TASKS_ID='FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-tasks-8815434954' CODER_IMPLEMENTATION_BUNDLE_CODE_FLOW_ID='FLOW-2026-0036' node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_live_smoke.js`
 - result: `PASS`
 - ids used:
   - `coder_tasks_id`: `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-tasks-8815434954`

@@ -102,12 +102,12 @@ def main() -> None:
         "replay_commands": [
             "cd worker && npm run typecheck && cd ..",
             "cd worker && npx tsc -p tsconfig.smoke.json && cd ..",
-            "node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_share_policy_unit.js",
-            "node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_share_offline_smoke.js",
+            "node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_share_policy_unit.js",
+            "node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_share_offline_smoke.js",
             "python3 worker/test_support/science_monkeys_v01_share_tripwire.py",
             "python3 worker/test_support/share_integration_strict_tripwire.py .",
-            "node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_routes_policy_unit.js",
-            "node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_role_auth_foundation_smoke.js",
+            "node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_routes_policy_unit.js",
+            "node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_role_auth_foundation_smoke.js",
         ],
         "claim_boundary": {
             "not_sealed_test_certified": True,

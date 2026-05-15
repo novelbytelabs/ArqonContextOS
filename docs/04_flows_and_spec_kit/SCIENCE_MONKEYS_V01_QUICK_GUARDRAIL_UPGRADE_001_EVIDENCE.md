@@ -23,13 +23,13 @@ push status: PASS
 - `git remote -v` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_share_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_share_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_share_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_share_offline_smoke.js` PASS
 - `python3 worker/test_support/science_monkeys_v01_share_tripwire.py` PASS
 - `python3 worker/test_support/share_integration_strict_tripwire.py .` PASS
 - `python3 worker/test_support/build_share_integration_audit_bundle.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_routes_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_role_auth_foundation_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_routes_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_role_auth_foundation_smoke.js` PASS
 - `rg -n "SCIENCE_SHARE_IDEMPOTENCY_CONFLICT|submitted_payload_hash|build_share_integration_audit_bundle|same idempotency key with changed payload" worker/src worker/test_support docs` PASS
 
 ## Strict Tripwire Result
@@ -51,7 +51,7 @@ push status: PASS
 - PASS
 - Deployed Worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
 - Command:
-  - `bash -lc 'set -a; source ~/secrets/arqonmonkeyos_science_keys.env; set +a; WORKER_URL="https://arqon-contextos-broker.sonarum.workers.dev" node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_share_live_smoke.js'`
+  - `bash -lc 'set -a; source ~/secrets/arqonmonkeyos_science_keys.env; set +a; WORKER_URL="https://arqon-contextos-broker.sonarum.workers.dev" node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_share_live_smoke.js'`
 
 ### Redacted Transcript Excerpt
 - `15 Human share succeeds` -> `201`

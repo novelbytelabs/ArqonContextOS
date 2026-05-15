@@ -25,11 +25,11 @@
 - `git remote -v` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_intake_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_intake_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_intake_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_intake_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_pm_intake_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_to_code_handoff_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_to_code_handoff_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_to_code_handoff_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_to_code_handoff_offline_smoke.js` PASS
 - `python3 worker/test_support/science_to_code_handoff_tripwire.py` PASS
 - `python3 worker/test_support/share_integration_strict_tripwire.py .` PASS
 - `python3 worker/test_support/build_pm_intake_audit_bundle.py` PASS

@@ -29,11 +29,11 @@
 - `git remote -v` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_pm_tasking_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_pm_plan_tripwire.py` PASS
 - `python3 worker/test_support/pm_specify_strict_audit_tripwire.py .` PASS
 - `python3 worker/test_support/share_integration_strict_tripwire.py .` PASS
@@ -48,7 +48,7 @@
 ## Live Deployed Worker Smoke
 - command:
   - `set -a && source ~/secrets/arqonmonkeyos_science_keys.env && set +a`
-  - `PM_TASKING_PLAN_ID='FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan-live-8811960177' PM_TASKING_CODE_FLOW_ID='FLOW-2026-0036' node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_live_smoke.js`
+  - `PM_TASKING_PLAN_ID='FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan-live-8811960177' PM_TASKING_CODE_FLOW_ID='FLOW-2026-0036' node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_tasking_live_smoke.js`
 - result: `PASS`
 - worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
 - flow IDs used:

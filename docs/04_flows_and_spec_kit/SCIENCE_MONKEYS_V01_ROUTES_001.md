@@ -44,11 +44,11 @@ Science Monkeys v0.1 Routes 001 adds dedicated `/v1/science/*` command routes as
 - `git remote -v` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_routes_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_routes_policy_unit.js` PASS
 - `python3 worker/test_support/science_monkeys_v01_routes_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/flow_core_v03_offline_smoke.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/flow_core_v03_policy_smoke.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_role_auth_foundation_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/flow_core_v03_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/flow_core_v03_policy_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_role_auth_foundation_smoke.js` PASS
 - `grep -R "handleScienceRequest\|SCIENCE_COMMANDS\|SCIENCE_SHARE_NOT_IMPLEMENTED\|FLOW_CREATE_ROLE_FORBIDDEN\|validateBrokerKeyUniqueness" -n worker/src worker/test_support` PASS
 - `git diff --stat` PASS
 - `git diff -- worker/src worker/test_support openapi docs` PASS

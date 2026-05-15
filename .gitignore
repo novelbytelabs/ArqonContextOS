@@ -70,3 +70,6 @@ Thumbs.db
 .codex/
 # local scratch bundles / generated temp work
 tmp/
+
+# Active local execution workspace; not source of truth
+/runtime/

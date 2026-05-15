@@ -43,11 +43,11 @@ This evidence records the PM intake boundary after adding the PM-side intake rou
 - `git remote -v` PASS
 - `cd worker && npm run typecheck` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_intake_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_intake_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_intake_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_intake_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_pm_intake_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_to_code_handoff_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_to_code_handoff_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_to_code_handoff_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_to_code_handoff_offline_smoke.js` PASS
 - `python3 worker/test_support/science_to_code_handoff_tripwire.py` PASS
 - `python3 worker/test_support/share_integration_strict_tripwire.py .` PASS
 - `python3 worker/test_support/build_share_integration_audit_bundle.py` PASS
@@ -55,7 +55,7 @@ This evidence records the PM intake boundary after adding the PM-side intake rou
 
 ## Live Smoke
 
-- command: `bash -lc 'set -a; source ~/secrets/arqonmonkeyos_science_keys.env; set +a; WORKER_URL="https://arqon-contextos-broker.sonarum.workers.dev" node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_intake_live_smoke.js'`
+- command: `bash -lc 'set -a; source ~/secrets/arqonmonkeyos_science_keys.env; set +a; WORKER_URL="https://arqon-contextos-broker.sonarum.workers.dev" node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_intake_live_smoke.js'`
 - result: PASS
 - deployed worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
 

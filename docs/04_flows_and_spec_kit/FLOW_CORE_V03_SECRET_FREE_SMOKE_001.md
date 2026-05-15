@@ -12,13 +12,13 @@ not promotable
 - commit: `a3886f25d283e7bb0bd428bd5535f94deba9ba9c`
 - repo: `novelbytelabs/ArqonMonkeyOS`
 - local path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS`
-- smoke command used: `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/flow_core_v03_offline_smoke.js`
+- smoke command used: `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/flow_core_v03_offline_smoke.js`
 
 ## Command output summary
 
 - `cd worker && npm run typecheck` -> PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json` -> PASS
-- `node tmp/flow-core-smoke-dist/test_support/flow_core_v03_offline_smoke.js` -> PASS
+- `node runtime/flow-core-smoke-dist/test_support/flow_core_v03_offline_smoke.js` -> PASS
 
 ## JSON smoke result
 

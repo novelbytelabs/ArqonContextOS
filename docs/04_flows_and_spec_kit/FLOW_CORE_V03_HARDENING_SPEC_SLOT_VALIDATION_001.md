@@ -32,8 +32,8 @@ not promotable
 - `git remote -v` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/flow_core_v03_offline_smoke.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/flow_core_v03_policy_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/flow_core_v03_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/flow_core_v03_policy_smoke.js` PASS
 - `grep -R "validateArtifactSlot|validateGateAdvance|ARTIFACT_SLOT_FORBIDDEN|FLOW_ADVANCEMENT_PRECONDITION_FAILED" -n worker/src worker/test_support` PASS
 - `git diff --stat` PASS
 - `git diff -- worker/src/flows.ts worker/src/flow_policy.ts worker/test_support/flow_core_v03_policy_smoke.ts docs/04_flows_and_spec_kit` PASS

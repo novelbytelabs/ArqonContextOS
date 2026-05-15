@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "outDir": "../tmp/flow-core-smoke-dist",
+    "outDir": "../runtime/flow-core-smoke-dist",
     "module": "CommonJS",
     "moduleResolution": "Node"
   },

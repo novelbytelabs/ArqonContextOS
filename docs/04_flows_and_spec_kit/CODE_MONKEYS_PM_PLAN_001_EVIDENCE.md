@@ -29,11 +29,11 @@
 - `git remote -v` PASS
 - `cd worker && npm run typecheck` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_pm_plan_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_specify_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_specify_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_specify_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_specify_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_pm_specify_tripwire.py` PASS
 - `python3 worker/test_support/pm_specify_strict_audit_tripwire.py .` PASS
 - `python3 worker/test_support/build_pm_plan_audit_bundle.py` PASS
@@ -47,7 +47,7 @@
 
 ## Live Smoke Result
 - live PM specification id reused: `FLOW-2026-0033-share-8806579957-handoff-8806579957-intake-8806579957-spec-8806579957`
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_live_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_live_smoke.js` PASS
 - live PM plan transcript captured at: `tmp/pm_plan_live_transcript_clean.json`
 
 ### Redacted Live Transcript Excerpt

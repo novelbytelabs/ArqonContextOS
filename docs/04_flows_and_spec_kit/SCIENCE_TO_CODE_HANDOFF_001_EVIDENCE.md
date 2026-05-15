@@ -28,13 +28,13 @@ This evidence records the Science to Code handoff boundary after the runtime har
 
 - `cd worker && npm run typecheck` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_to_code_handoff_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_to_code_handoff_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_to_code_handoff_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_to_code_handoff_offline_smoke.js` PASS
 - `python3 worker/test_support/science_to_code_handoff_tripwire.py` PASS
 
 ## Live Smoke
 
-- command: `bash -lc 'set -a; source ~/secrets/arqonmonkeyos_science_keys.env; set +a; WORKER_URL="https://arqon-contextos-broker.sonarum.workers.dev" node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_to_code_handoff_live_smoke.js'`
+- command: `bash -lc 'set -a; source ~/secrets/arqonmonkeyos_science_keys.env; set +a; WORKER_URL="https://arqon-contextos-broker.sonarum.workers.dev" node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_to_code_handoff_live_smoke.js'`
 - result: PASS
 - deployed worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
 

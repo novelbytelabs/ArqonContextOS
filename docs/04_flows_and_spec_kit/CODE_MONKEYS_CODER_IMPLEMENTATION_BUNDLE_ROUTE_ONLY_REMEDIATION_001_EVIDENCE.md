@@ -48,10 +48,10 @@ mismatch_response {"status":409,"body":{"ok":false,"error":{"code":"CODER_IMPLEM
 
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_route_only_remediation_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_route_only_remediation_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_coder_implementation_bundle_route_only_remediation_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_coder_implementation_bundle_tripwire.py` PASS
 - `python3 worker/test_support/build_coder_implementation_bundle_route_only_remediation_audit_bundle.py` PASS
 - `python3 worker/test_support/build_coder_implementation_bundle_audit_bundle.py` PASS
@@ -82,7 +82,7 @@ mismatch_response {"status":409,"body":{"ok":false,"error":{"code":"CODER_IMPLEM
 
 - deployed worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
 - redeploy/update status: `PASS (main push + live route behavior observed)`
-- live smoke command: `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_live_smoke.js`
+- live smoke command: `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_live_smoke.js`
 - live smoke transcript: `tmp/coder_implementation_bundle_route_only_live_smoke.json`
 - additional live probe transcript: `tmp/coder_implementation_bundle_route_only_live_extra.json`
 - live proof summary:

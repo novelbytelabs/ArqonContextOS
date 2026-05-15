@@ -30,11 +30,11 @@
 - `git remote -v` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_tasks_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_tasks_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_tasks_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_tasks_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_pm_tasks_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_policy_unit.js` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_plan_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_pm_plan_tripwire.py` PASS
 - `python3 worker/test_support/pm_specify_strict_audit_tripwire.py .` PASS
 - `python3 worker/test_support/share_integration_strict_tripwire.py .` PASS
@@ -48,7 +48,7 @@
 
 ## Live Deployed Worker Smoke
 - command:
-  - `PM_TASKS_PLAN_ID='FLOW-2026-0033-share-8806579957-handoff-8806579957-intake-8806579957-spec-8806579957-plan-8806579957' node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_pm_tasks_live_smoke.js`
+  - `PM_TASKS_PLAN_ID='FLOW-2026-0033-share-8806579957-handoff-8806579957-intake-8806579957-spec-8806579957-plan-8806579957' node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_pm_tasks_live_smoke.js`
 - result: `BLOCKED`
 - blocker:
   - `/v1/pm/tasks` returned `404 NOT_FOUND` from deployed Worker URL, indicating stale deployment missing PM Tasks route.

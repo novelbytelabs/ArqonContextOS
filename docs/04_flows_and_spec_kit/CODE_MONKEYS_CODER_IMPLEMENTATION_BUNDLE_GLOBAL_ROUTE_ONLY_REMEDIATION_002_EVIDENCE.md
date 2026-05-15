@@ -41,11 +41,11 @@
 - `git status --short` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_global_route_only_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_global_route_only_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_coder_implementation_bundle_global_route_only_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_route_only_remediation_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_route_only_remediation_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_coder_implementation_bundle_route_only_remediation_tripwire.py` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_offline_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_offline_smoke.js` PASS
 - `python3 worker/test_support/code_monkeys_coder_implementation_bundle_tripwire.py` PASS
 - `python3 worker/test_support/build_coder_implementation_bundle_global_route_only_audit_bundle.py` PASS
 - `python3 worker/test_support/build_coder_implementation_bundle_route_only_remediation_audit_bundle.py` PASS
@@ -53,7 +53,7 @@
 
 ## Bounded Fix-ups
 
-- Added expected compiled smoke JS into `tmp/flow-core-smoke-dist/test_support/` from provided TS so validation command path resolves.
+- Added expected compiled smoke JS into `runtime/flow-core-smoke-dist/test_support/` from provided TS so validation command path resolves.
 - Updated one stale tripwire marker check to accept `ROUTE_ONLY_ARTIFACTS` in addition to old marker naming.
 
 ## Live Verification

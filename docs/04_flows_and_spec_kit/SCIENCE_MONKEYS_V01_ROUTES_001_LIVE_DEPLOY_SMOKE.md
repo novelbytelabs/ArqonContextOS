@@ -34,7 +34,7 @@ set -a
 source ~/secrets/arqonmonkeyos_science_keys.env
 set +a
 WORKER_URL="https://arqon-contextos-broker.sonarum.workers.dev" \
-node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_routes_live_smoke.js
+node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_routes_live_smoke.js
 ```
 
 ## Scenario Table
@@ -110,7 +110,7 @@ The smoke client redacted bearer values in its transcript. Representative excerp
 - `git remote -v` PASS
 - `cd worker && npm run typecheck && cd ..` PASS
 - `cd worker && npx tsc -p tsconfig.smoke.json && cd ..` PASS
-- `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/science_monkeys_v01_routes_live_smoke.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/science_monkeys_v01_routes_live_smoke.js` PASS
 - `grep -R "BROKER_KEY\\|Authorization: Bearer\\|PRIVATE KEY" -n docs/04_flows_and_spec_kit/SCIENCE_MONKEYS_V01_ROUTES_001_LIVE_DEPLOY_SMOKE.md` PASS
 - `git diff --stat` PASS
 - `git diff -- docs worker/src worker/test_support openapi` PASS
