@@ -2,7 +2,7 @@
 
 - branch: `main`
 - commit before: `963a2de2b90c46c288f29b057f2918ae15282e4b`
-- commit after: `82e631e765147ddd255f04c28ae05e1c85a5d5bc`
+- commit after: `58e930928c0642e98fbf03d6eaa49d7afdc7efb4`
 - push status: `PASS`
 
 ## Files Created
@@ -46,35 +46,44 @@
 
 ## Live Deployed Worker Smoke
 - worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
+- redeploy status: `LIVE_ROUTE_PRESENT_AND_SERVING` (no stale `404`)
 - command:
   - `set -a && source ~/secrets/arqonmonkeyos_science_keys.env && set +a`
   - `CODER_TASKS_WORK_PLAN_ID='FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-work-plan-8813568942' CODER_TASKS_CODE_FLOW_ID='FLOW-2026-0036' node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_tasks_live_smoke.js`
-- result: `BLOCKED`
-- blocker:
-  - `POST /v1/coder/tasks` returns `404 NOT_FOUND` in deployed worker, indicating stale deployment does not yet include Coder Tasks route.
+- result: `PASS`
+- ids used:
+  - `coder_work_plan_id`: `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-work-plan-8813568942`
+  - `coder_tasks_id`: `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-tasks-8815434954`
+  - `code_flow_id`: `FLOW-2026-0036`
 
 ### Redacted Live Transcript Excerpt
 ```text
-no-auth Coder tasks denied: expected 401, got 404
-error.code: NOT_FOUND
-message: No route for POST /v1/coder/tasks
+no-auth Coder tasks denied: 401 UNAUTHORIZED
+all non-Coder roles denied: 403 CODER_TASKS_ROLE_FORBIDDEN
+Coder tasks succeeds: 201 (artifact_type=coder_tasks)
+duplicate replay: 200 idempotent_replay=true
+changed payload conflict: 409 CODER_TASKS_IDEMPOTENCY_CONFLICT
+promotion denied: 409 CODER_TASKS_FORBIDDEN_CLAIM_INCLUDED
+execution-authority denied: 409 CODER_TASKS_EXECUTION_AUTHORITY_FORBIDDEN
+PM coder_tasks denied: 403 ARTIFACT_ROLE_FORBIDDEN
+Helper coder_tasks denied: 403 ARTIFACT_ROLE_FORBIDDEN
 ```
 
 ## Proof Matrix
-- no-auth Coder tasks denied: `BLOCKED_BY_STALE_DEPLOYMENT`
-- all non-Coder roles denied: `PASS` (offline smoke)
-- Coder tasks succeeds from audited Coder work plan: `PASS` (offline smoke)
-- `coder_tasks` artifact created: `PASS` (offline smoke)
-- forbidden claims, uncertainty, source chain, and share hash preserved: `PASS` (offline smoke checks + source record assertions)
-- duplicate Coder tasks is idempotent: `PASS` (offline smoke)
-- changed Coder tasks payload conflicts: `PASS` (offline smoke)
-- promotion language is denied: `PASS` (offline smoke)
-- execution-authority language is denied: `PASS` (offline smoke)
-- PM cannot write `coder_tasks`: `PASS` (policy + offline deny matrix)
-- Helper cannot write `coder_tasks`: `PASS` (policy + offline deny matrix)
-- no implementation bundle created: `PASS` (offline smoke manifest assertions)
-- no Coder handoff created: `PASS` (offline smoke manifest assertions)
-- no Helper execution created: `PASS` (offline smoke manifest assertions)
+- no-auth Coder tasks denied: `PASS` (live smoke)
+- all non-Coder roles denied: `PASS` (live smoke)
+- Coder tasks succeeds from audited Coder work plan: `PASS` (live smoke)
+- `coder_tasks` artifact created: `PASS` (live smoke)
+- forbidden claims, uncertainty, source chain, and share hash preserved: `PASS` (live smoke assertions)
+- duplicate Coder tasks is idempotent: `PASS` (live smoke)
+- changed Coder tasks payload conflicts: `PASS` (live smoke)
+- promotion language is denied: `PASS` (live smoke)
+- execution-authority language is denied: `PASS` (live smoke)
+- PM cannot write `coder_tasks`: `PASS` (live smoke)
+- Helper cannot write `coder_tasks`: `PASS` (live smoke)
+- no implementation bundle created: `PASS` (live smoke + route scope)
+- no Coder handoff created: `PASS` (live smoke + route scope)
+- no Helper execution created: `PASS` (live smoke + route scope)
 - no Science behavior added: `PASS` (source review + regression checks)
 - no secrets in report: `PASS`
 
