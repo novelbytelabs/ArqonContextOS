@@ -39,7 +39,7 @@ The audit becomes the boundary between confidence and self-deception.
                                     ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │                           ArqonMonkeyOS                             │
-│              governed repo-native AI-team operating layer            │
+│              governed repo-native AI-team operating layer           │
 │                                                                     │
 │  ┌──────────────────────┐                 ┌──────────────────────┐  │
 │  │   Science Monkeys    │                 │     Code Monkeys     │  │
