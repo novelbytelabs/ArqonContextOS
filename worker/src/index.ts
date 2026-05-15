@@ -16,6 +16,7 @@ import { handleCoderWorkPlanRequest } from "./coder_work_plan";
 import { handleCoderTasksRequest } from "./coder_tasks";
 import { handleCoderImplementationBundleRequest } from "./coder_implementation_bundle";
 import { handleHelperExecutionIntakeRequest } from "./helper_execution_intake";
+import { handleHelperExecutionReportRequest } from "./helper_execution_report";
 import { handleCoderHandoffRequest } from "./coder_handoff";
 import type { RepoStore } from "./repo_store";
 
@@ -106,6 +107,7 @@ export async function handleWorkerFetch(
     if (url.pathname === "/v1/coder/implementation-bundle") return handleCoderImplementationBundleRequest(request, env, options.flowRepoStore);
     if (url.pathname === "/v1/coder/handoff") return handleCoderHandoffRequest(request, env, options.flowRepoStore);
     if (url.pathname === "/v1/helper/execution-intake") return handleHelperExecutionIntakeRequest(request, env, options.flowRepoStore);
+    if (url.pathname === "/v1/helper/execution-report") return handleHelperExecutionReportRequest(request, env, options.flowRepoStore);
     if (url.pathname === "/v1/flows") return handleFlowsRequest(request, env, undefined, "collection", options.flowRepoStore);
     const flowStatusMatch = url.pathname.match(/^\/v1\/flows\/([^/]+)\/status$/);
     if (flowStatusMatch) return handleFlowsRequest(request, env, decodeURIComponent(flowStatusMatch[1]), "status", options.flowRepoStore);

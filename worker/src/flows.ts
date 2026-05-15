@@ -255,7 +255,10 @@ function buildHistory(eventType: string, role: Role, note: string): FlowHistoryE
 const ROUTE_ONLY_ARTIFACTS = new Set<string>([
   "implementation_bundle",
   "coder_handoff",
-  "helper_execution_intake"
+  "helper_execution_intake",
+  "execution_report",
+  "command_log",
+  "evidence_manifest"
 ]);
 
 function buildArtifactDocument(artifact: {

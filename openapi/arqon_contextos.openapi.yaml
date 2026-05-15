@@ -788,3 +788,17 @@ components:
           description: Non-Helper role denied
         '409':
           description: Source boundary, idempotency, promotion, or execution-claim precondition failed
+
+
+  /v1/helper/execution-report:
+    post:
+      operationId: helperExecutionReport
+      summary: Record Helper execution evidence from an audited Helper intake
+      description: Development diagnostic only. Records execution_report, command_log, and evidence_manifest. The Worker does not execute shell commands, deploy, certify, or promote.
+      responses:
+        '201':
+          description: Helper execution evidence recorded
+        '403':
+          description: Non-Helper role denied
+        '409':
+          description: Source boundary, idempotency, or forbidden-claim precondition failed
