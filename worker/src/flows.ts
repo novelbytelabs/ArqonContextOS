@@ -253,7 +253,8 @@ function buildHistory(eventType: string, role: Role, note: string): FlowHistoryE
 }
 
 const ROUTE_ONLY_ARTIFACTS = new Set<string>([
-  "implementation_bundle"
+  "implementation_bundle",
+  "coder_handoff"
 ]);
 
 function buildArtifactDocument(artifact: {

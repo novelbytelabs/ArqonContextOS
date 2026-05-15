@@ -482,6 +482,19 @@ paths:
         '403': { description: PM_AI authority required }
         '409': { description: Handoff precondition or idempotency conflict }
 
+  /v1/coder/handoff:
+    post:
+      operationId: coderHandoff
+      summary: Create a Coder-owned handoff artifact from an audited implementation bundle.
+      description: Development diagnostic only. Creates coder_handoff only; does not authorize Helper execution, patch application, certification, or promotion.
+      responses:
+        "201":
+          description: Coder handoff created.
+        "403":
+          description: Non-Coder role denied.
+        "409":
+          description: Source boundary, idempotency, promotion, or execution-authority precondition failed.
+
   /v1/flows:
     get:
       summary: List flows
