@@ -31,8 +31,8 @@ async function writeJson(env: Env, projectName: string, path: string, value: unk
 async function parseResponse(r: Response): Promise<any> { const t = await r.text(); if (!t) return null; try { return JSON.parse(t); } catch { return t; } }
 
 function normalize(s: string): string { return s.toLowerCase().replace(/[-_/]+/g, " ").replace(/\s+/g, " ").trim(); }
-function validateBody(body: string): Response | null {
-  const n = normalize(body);
+function validateText(value: string): Response | null {
+  const n = normalize(value);
   const promotion: Array<[RegExp, string]> = [[/\bsealed test certified\b/, "sealed-test certified"], [/\bcertified\b/, "certified"], [/\bcertification\b/, "certification"], [/\bproduction ready\b/, "production ready"], [/\bready for production\b/, "ready for production"], [/\bproduct ready\b/, "product ready"], [/\bpromotable\b/, "promotable"], [/\bapproved for release\b/, "approved for release"], [/\brelease ready\b/, "release ready"]];
   const p = promotion.find(([r]) => r.test(n));
   if (p) return errorResponse("CODER_HANDOFF_FORBIDDEN_CLAIM_INCLUDED", `Coder handoff contains forbidden promotion language: ${p[1]}`, 409);
@@ -130,7 +130,8 @@ export async function handleCoderHandoffRequest(request: Request, env: Env, repo
     if (!/^[A-Za-z0-9][A-Za-z0-9._-]{7,127}$/.test(key)) return errorResponse("BAD_REQUEST", "idempotency_key must be 8-128 chars and contain only letters, numbers, dot, underscore, or dash", 400);
     const title = req(body.handoff_title, "handoff_title");
     const handoffBody = req(body.handoff_body, "handoff_body");
-    const bodyError = validateBody(handoffBody); if (bodyError) return bodyError;
+    const titleError = validateText(title); if (titleError) return titleError;
+    const bodyError = validateText(handoffBody); if (bodyError) return bodyError;
 
     const entry = await loadBundleEntry(env, project, body, repoStore);
     const bundle = await fetchJson<Obj>(env, project, entry.implementation_bundle_record_path, repoStore);

@@ -40,9 +40,31 @@
 - no Science behavior changed: `PASS`
 - no secrets exposed: `PASS`
 
+## Title Guard Remediation
+- remediation scope: validate forbidden promotion and Helper-execution authority language in both `handoff_title` and `handoff_body`
+- expected behavior confirmed:
+  - `handoff_title: "approved for release"` -> `409 CODER_HANDOFF_FORBIDDEN_CLAIM_INCLUDED` (PASS)
+  - `handoff_title: "helper may execute"` -> `409 CODER_HANDOFF_EXECUTION_AUTHORITY_FORBIDDEN` (PASS)
+  - forbidden phrases in `handoff_body` still reject with existing `409` codes (PASS)
+  - valid diagnostic title/body still succeeds (PASS)
+- regression behavior confirmed:
+  - raw generic `coder_handoff` still returns `403 FLOW_ARTIFACT_ROUTE_REQUIRED` (PASS)
+  - no Helper execution artifacts created (PASS)
+  - no Science behavior changes (PASS)
+
+### Remediation Validation Matrix
+- `cd worker && npm run typecheck && cd ..` PASS
+- `python3 worker/test_support/compile_smoke_runtime.py` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_handoff_policy_unit.js` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_handoff_offline_smoke.js` PASS
+- `python3 worker/test_support/code_monkeys_coder_handoff_tripwire.py` PASS
+- `node --experimental-specifier-resolution=node runtime/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_global_route_only_offline_smoke.js` PASS
+- `python3 worker/test_support/check_no_tmp_critical_paths.py` PASS
+- `python3 worker/test_support/build_coder_handoff_audit_bundle.py` PASS
+
 ## Audit Bundle (Final HEAD)
-- bundle path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/coder_handoff_audit_bundle_b6a1624750f3.zip`
-- bundle SHA256: `57b6880eccabd240e4f21cb0703be88a1f6198bd751444324718c9b449b2024a`
+- bundle path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/coder_handoff_audit_bundle_29ab195c254a.zip`
+- bundle SHA256: `a04b84d0c5227b7925edd5ad607cb4017c53d6043ce9134eaf701ae27b20aa20`
 
 ## Sequencing Note
 - Audit bundle builder failure was an evidence sequencing issue only (evidence file missing), not source authorization for further code edits.
