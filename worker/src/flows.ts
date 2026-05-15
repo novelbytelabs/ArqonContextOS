@@ -252,6 +252,10 @@ function buildHistory(eventType: string, role: Role, note: string): FlowHistoryE
   };
 }
 
+const ROUTE_ONLY_CODE_ARTIFACTS = new Set<string>([
+  "implementation_bundle"
+]);
+
 function buildArtifactDocument(artifact: {
   artifactId: string;
   flowId: string;
@@ -424,7 +428,7 @@ async function handleFlowStatus(request: Request, env: Env, flowRef: string, sto
   });
 }
 
-async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: string, store: RepoStore): Promise<Response> {
+async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: string, store: RepoStore, options: { routeScoped?: boolean } = {}): Promise<Response> {
   const role = requireRole(request, env);
   const url = new URL(request.url);
   const body = await readJsonBody(request);
@@ -447,6 +451,13 @@ async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: stri
   const roleError = validateFlowArtifactRole(manifest.type, role, artifactType);
   if (roleError) {
     return errorResponse("ARTIFACT_ROLE_FORBIDDEN", roleError, 403);
+  }
+  if (manifest.type === "code_flow" && ROUTE_ONLY_CODE_ARTIFACTS.has(artifactType) && !options.routeScoped) {
+    return errorResponse(
+      "FLOW_ARTIFACT_ROUTE_REQUIRED",
+      `${artifactType} must be created through its role-scoped route`,
+      403
+    );
   }
   if (manifest.type === "science_flow" && artifactType === "share_packet") {
     return errorResponse(
@@ -499,6 +510,15 @@ async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: stri
     manifest_sha: manifestWrite.sha,
     required_status_labels: requiredStatusLabels()
   }, 201);
+}
+
+export async function writeRouteScopedFlowArtifact(
+  request: Request,
+  env: Env,
+  flowRef: string,
+  repoStore: RepoStore = githubRepoStore
+): Promise<Response> {
+  return await handleWriteFlowArtifact(request, env, flowRef, repoStore, { routeScoped: true });
 }
 
 async function handleAdvanceFlow(request: Request, env: Env, flowRef: string, store: RepoStore): Promise<Response> {

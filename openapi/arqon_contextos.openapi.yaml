@@ -758,3 +758,6 @@ components:
 # Use /v1/pm/tasking for PM tasking/work-order artifacts.
 # Coder-side implementation decomposition remains separate.
 # Expected retired route error: PM_TASKS_ROUTE_RETIRED_USE_PM_TASKING.
+
+
+# Route-only boundary: code_flow implementation_bundle artifacts must use /v1/coder/implementation-bundle. Direct generic artifact writes return FLOW_ARTIFACT_ROUTE_REQUIRED.

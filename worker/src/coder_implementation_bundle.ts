@@ -3,7 +3,7 @@ import { errorResponse, jsonResponse } from "./response";
 import { githubRepoStore, type RepoStore } from "./repo_store";
 import { getProject } from "./projects";
 import { STATUS_LABELS } from "./policy";
-import { handleFlowsRequest } from "./flows";
+import { writeRouteScopedFlowArtifact } from "./flows";
 import type { Env, Role } from "./types";
 
 interface FlowArtifactSummary {
@@ -347,10 +347,16 @@ async function loadCoderTasksContextEntry(env: Env, projectName: string, body: R
     throw new Error("Coder tasks context index is missing or invalid");
   }
 
-  const entry = index.entries.find(item =>
-    (coderTasksId && item.coder_tasks_id === coderTasksId) ||
-    (coderTasksRecordPath && item.coder_tasks_record_path === coderTasksRecordPath)
-  );
+  const entry = index.entries.find(item => {
+    if (coderTasksId && coderTasksRecordPath) {
+      return item.coder_tasks_id === coderTasksId && item.coder_tasks_record_path === coderTasksRecordPath;
+    }
+    return (coderTasksId && item.coder_tasks_id === coderTasksId) ||
+      (coderTasksRecordPath && item.coder_tasks_record_path === coderTasksRecordPath);
+  });
+  if (!entry && coderTasksId && coderTasksRecordPath) {
+    throw new Error("Coder tasks context fields conflict: coder_tasks_id and coder_tasks_record_path do not resolve to the same generated context entry");
+  }
   if (!entry) throw new Error(`No Coder tasks context entry found for ${coderTasksId || coderTasksRecordPath}`);
   return { coder_tasks_id: entry.coder_tasks_id, coder_tasks_record_path: entry.coder_tasks_record_path };
 }
@@ -367,6 +373,9 @@ function validateExpectedCoderTasksArtifact(manifest: FlowManifest, expected: Fl
   }
   if (actual.source_path !== expected.source_path) {
     return errorResponse("CODER_IMPLEMENTATION_BUNDLE_TASKS_ARTIFACT_SOURCE_MISMATCH", `Coder tasks artifact source path mismatch for ${expected.artifact_id}`, 409);
+  }
+  if (actual.source_sha !== expected.source_sha) {
+    return errorResponse("CODER_IMPLEMENTATION_BUNDLE_TASKS_ARTIFACT_SHA_MISMATCH", `Coder tasks artifact source sha mismatch for ${expected.artifact_id}`, 409);
   }
   return null;
 }
@@ -459,7 +468,7 @@ async function writeCodeFlowArtifact(request: Request, env: Env, flowId: string,
     headers: jsonHeaders(request),
     body: JSON.stringify({ project: projectName, artifact_type: artifactType, title, body })
   });
-  const response = await handleFlowsRequest(artifactRequest, env, flowId, "artifacts", store);
+  const response = await writeRouteScopedFlowArtifact(artifactRequest, env, flowId, store);
   const parsed = await parseJsonResponse(response);
   if (!response.ok) return jsonResponse(parsed, response.status);
   const artifact = (parsed as { artifact?: FlowArtifactSummary }).artifact;
@@ -548,6 +557,9 @@ export async function handleCoderImplementationBundleRequest(request: Request, e
 
     const recordPath = implementationBundleRecordPath(implementationBundleId);
     const existingRecord = await fetchJsonIfExists<CoderImplementationBundleRecord>(env, projectName, recordPath, repoStore);
+    if (existingRecord && existingRecord.schema_version !== "coder_implementation_bundle_context.v0.1") {
+      return errorResponse("CODER_IMPLEMENTATION_BUNDLE_EXISTING_RECORD_INVALID", "Existing implementation bundle idempotency record has invalid schema", 409);
+    }
     if (existingRecord && existingRecord.schema_version === "coder_implementation_bundle_context.v0.1") {
       if (existingRecord.submitted_payload_hash !== payloadHash) {
         return errorResponse("CODER_IMPLEMENTATION_BUNDLE_IDEMPOTENCY_CONFLICT", "Existing implementation bundle idempotency record exists but submitted payload hash does not match", 409);
@@ -623,6 +635,7 @@ export async function handleCoderImplementationBundleRequest(request: Request, e
     const message = err instanceof Error ? err.message : String(err);
     if (message.startsWith("Invalid") || message.startsWith("Missing") || message.includes("must be")) return errorResponse("BAD_REQUEST", message, 400);
     if (message.startsWith("Unknown project")) return errorResponse("UNKNOWN_PROJECT", message, 404);
+    if (message.includes("Coder tasks context fields conflict")) return errorResponse("CODER_IMPLEMENTATION_BUNDLE_TASKS_CONTEXT_MISMATCH", message, 409);
     if (message.includes("No Coder tasks context entry")) return errorResponse("CODER_IMPLEMENTATION_BUNDLE_TASKS_CONTEXT_NOT_FOUND", message, 404);
     if (message.includes("Coder tasks context index is missing")) return errorResponse("CODER_IMPLEMENTATION_BUNDLE_TASKS_CONTEXT_NOT_FOUND", message, 404);
     return errorResponse("INTERNAL_ERROR", message, 500);
