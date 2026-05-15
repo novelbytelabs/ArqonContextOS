@@ -1,4 +1,5 @@
 declare const process: { env: Record<string, string | undefined>; exitCode?: number };
+export {};
 
 type Scenario = { name: string; method: string; path: string; role?: string; request_body?: unknown; expected_status?: number; expected_error?: string };
 type Transcript = Scenario & { status: number; ok: boolean; response_body: unknown; authorization: "Bearer REDACTED" | "none" };
