@@ -1,3 +1,5 @@
+export {};
+
 declare const process: { env: Record<string, string | undefined>; exitCode?: number };
 const WORKER_URL = (process.env.WORKER_URL || "https://arqon-contextos-broker.sonarum.workers.dev").replace(/\/+$/, "");
 const TOKEN_ENV: Record<string, string> = { PM_AI: "BROKER_KEY_PM", CODER_AI: "BROKER_KEY_CODER", AUDITOR_AI: "BROKER_KEY_AUDITOR", HELPER_AI: "BROKER_KEY_HELPER", EXPLORER_AI: "BROKER_KEY_EXPLORER", HYPOTHESIZER_AI: "BROKER_KEY_HYPOTHESIZER", DESIGNER_AI: "BROKER_KEY_DESIGNER", SCIENCE_AUDITOR_AI: "BROKER_KEY_SCIENCE_AUDITOR", SCIENCE_EXECUTOR_AI: "BROKER_KEY_SCIENCE_EXECUTOR", HUMAN: "BROKER_KEY_HUMAN" };
