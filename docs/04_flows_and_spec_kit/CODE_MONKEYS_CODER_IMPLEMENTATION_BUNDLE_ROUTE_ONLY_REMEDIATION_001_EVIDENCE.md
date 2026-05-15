@@ -2,6 +2,9 @@
 
 - branch: `main`
 - commit before: `e34264afa3fa794697bcd6e3b68b1c01bf8bf787`
+- source commit: `1ea4289123eda66bc6eab0f1cd7b3cd2e41d5543`
+- evidence commit / current HEAD: `1ea4289123eda66bc6eab0f1cd7b3cd2e41d5543`
+- push status: `PASS`
 - required status:
   - `REQUIRES_HUMAN_REVIEW`
   - `development diagnostic only`
@@ -69,16 +72,33 @@ mismatch_response {"status":409,"body":{"ok":false,"error":{"code":"CODER_IMPLEM
 ## Audit Bundles (Rebuilt)
 
 - remediation bundle:
-  - path: `temps/coder_impl_bundle_route_only_remediation_audit_bundle_e34264afa3fa.zip`
-  - sha256: `f189f4c2e8c9dc9e9c8c5f7cdebf4bd97438f424f278b9f9235725f8e145595a`
+  - path: `temps/coder_impl_bundle_route_only_remediation_audit_bundle_1ea4289123ed.zip`
+  - sha256: `90ee6cc5e0a7ac8c0a1cdc352bbbb5dc3c484be4c57f5ee97886ecef53ae023d`
 - implementation bundle audit:
-  - path: `temps/coder_implementation_bundle_audit_bundle_e34264afa3fa.zip`
-  - sha256: `e1ca0630f6737ce7eaa95d3ffabeee447f7b308a862fcc721a334f281e28327b`
+  - path: `temps/coder_implementation_bundle_audit_bundle_1ea4289123ed.zip`
+  - sha256: `27c55387d3cb4df9cec02d62ee84c7e28858d8f6a1f55f9d8dc88b7cf3f0b9a1`
 
 ## Live Verification
 
 - deployed worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
-- status: `PENDING_REDEPLOY_AND_LIVE_SMOKE`
+- redeploy/update status: `PASS (main push + live route behavior observed)`
+- live smoke command: `node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_live_smoke.js`
+- live smoke transcript: `tmp/coder_implementation_bundle_route_only_live_smoke.json`
+- additional live probe transcript: `tmp/coder_implementation_bundle_route_only_live_extra.json`
+- live proof summary:
+  - raw generic CODER write `implementation_bundle`: `403 FLOW_ARTIFACT_ROUTE_REQUIRED` PASS
+  - `/v1/coder/implementation-bundle` success from audited `coder_tasks`: PASS
+  - mismatch id/path fails closed: `409 CODER_IMPLEMENTATION_BUNDLE_TASKS_CONTEXT_MISMATCH` PASS
+  - source sha mismatch fails closed: covered in remediation offline smoke PASS
+  - malformed existing idempotency record fails closed: covered in remediation offline smoke PASS
+  - changed payload conflict: `409 CODER_IMPLEMENTATION_BUNDLE_IDEMPOTENCY_CONFLICT` PASS
+  - promotion denial: `409 CODER_IMPLEMENTATION_BUNDLE_FORBIDDEN_CLAIM_INCLUDED` PASS
+  - execution-authority denial: `409 CODER_IMPLEMENTATION_BUNDLE_EXECUTION_AUTHORITY_FORBIDDEN` PASS
+  - PM raw write denied: `403 ARTIFACT_ROLE_FORBIDDEN` PASS
+  - Helper raw write denied: `403 ARTIFACT_ROLE_FORBIDDEN` PASS
+  - no Coder handoff created: PASS
+  - no Helper execution created: PASS
+  - no Science behavior changed: PASS
 
 ## Secret Handling
 
