@@ -289,6 +289,39 @@ paths:
         '403': { description: CODER_AI authority required }
         '409': { description: Coder tasks precondition or idempotency conflict }
 
+  /v1/coder/implementation-bundle:
+    post:
+      operationId: coderImplementationBundle
+      summary: Create Coder implementation bundle proposal from Coder tasks.
+      description: >
+        Creates a Coder-owned implementation proposal/package from validated coder_tasks while
+        preserving source chain, uncertainty, forbidden claims, and diagnostic labels.
+        Does not create Coder handoff, Helper execution, audit, promotion, or Science behavior.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [idempotency_key, bundle_title, bundle_body]
+              anyOf:
+                - required: [coder_tasks_id]
+                - required: [coder_tasks_record_path]
+              properties:
+                project: { type: string, default: ArqonZero }
+                coder_tasks_id: { type: string }
+                coder_tasks_record_path: { type: string }
+                idempotency_key: { type: string }
+                bundle_title: { type: string }
+                bundle_body: { type: string }
+      responses:
+        '201': { description: Implementation bundle artifact created }
+        '200': { description: Idempotent replay of existing implementation bundle }
+        '403': { description: CODER_AI authority required }
+        '409': { description: Implementation bundle precondition or idempotency conflict }
+
   /v1/pm/tasking:
     post:
       operationId: pmTasking
