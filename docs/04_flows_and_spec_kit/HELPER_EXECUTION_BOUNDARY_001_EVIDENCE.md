@@ -1,9 +1,9 @@
 # Actual Helper Execution Boundary 001 Evidence
 
 - branch: `main`
-- commit before: `baf541c57c63619fa5d84f4526c284ae0214f8da`
-- source commit: `d87c871b3bec958847d12761d5b5ba59c2e13946`
-- current HEAD (pre-evidence update): `d87c871b3bec958847d12761d5b5ba59c2e13946`
+- commit before: `9990da32ed86ebd7be235dd1b8da5383d6624e55`
+- source remediation commit: `a340ec5baecb631e6238ebc342df453489b9cbe9`
+- current HEAD (pre-evidence update): `a340ec5baecb631e6238ebc342df453489b9cbe9`
 - push status (source): `PASS`
 - deployed Worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
 
@@ -25,10 +25,12 @@
 - `python3 worker/test_support/build_helper_execution_report_audit_bundle.py` PASS
 
 ## Bounded Micro-Edits Applied
-- `worker/src/helper_execution_report.ts`: narrow type compatibility annotation (`record: AnyRecord`) for generated context SHA assignment typing.
-- `worker/test_support/build_helper_execution_report_audit_bundle.py`: mechanical syntax repair for manifest newline literal.
-- `worker/test_support/code_monkeys_helper_execution_report_tripwire.py`: compatibility check update so route-only assertion matches offline smoke template-loop coverage.
-- No changes to route authority, route-only policy, source validation, idempotency, or claim-guard logic.
+- `worker/src/flows.ts`: route-only evidence artifact blocking is now scoped by flow type, so Helper evidence artifacts are route-only on `code_flow` without blocking valid Science executor writes on `science_flow`.
+- `worker/src/helper_execution_report.ts`: forbidden-claim validation now covers command evidence fields, and secret-like markers in stdout/stderr excerpts are rejected with `HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN`.
+- `worker/test_support/code_monkeys_helper_execution_report_offline_smoke.ts`: added science regression, command-field forbidden-claim, and secret-marker probes.
+- `worker/test_support/code_monkeys_helper_execution_report_live_smoke.ts`: added live command-field forbidden-claim and secret-marker probes.
+- `worker/test_support/code_monkeys_helper_execution_report_tripwire.py`: updated to require flow-scoped route-only logic plus command-field and secret-marker coverage.
+- No changes to Helper-only authority, idempotency semantics, or source validation behavior beyond the scoped route-only fix.
 
 ## Remediation 001 Targets
 - scope raw generic route-only blocking for `execution_report`, `command_log`, and `evidence_manifest` to `code_flow` so `science_flow` executor evidence is not blocked
@@ -43,11 +45,25 @@
 - raw generic HELPER write for each route-only artifact blocked: `PASS` (`403 FLOW_ARTIFACT_ROUTE_REQUIRED`)
 - duplicate report idempotent: `PASS` (`200`)
 - changed payload conflict: `PASS` (`409`)
-- certification/promotion/deployment/execution claim phrases denied in title/summary/body: `PASS` (`409`)
+- forbidden command-field claim phrases denied: `PASS` (`409 HELPER_EXECUTION_REPORT_FORBIDDEN_CLAIM_INCLUDED`)
+- secret-like stdout/stderr markers denied: `PASS` (`409 HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN`)
 - Coder/PM raw writes denied: `PASS`
 - no deployment behavior: `PASS`
 - no Science behavior changes: `PASS`
 - no secrets exposed: `PASS`
+
+### Science Regression Live Verification
+- fresh science flow created: `PASS` (`FLOW-2026-0038`)
+- raw `SCIENCE_EXECUTOR_AI` write of `execution_report` on `science_flow`: `PASS` (`201`, not `FLOW_ARTIFACT_ROUTE_REQUIRED`)
+- raw `SCIENCE_EXECUTOR_AI` write of `raw_result_index` on `science_flow`: `PASS` (`201`)
+
+### Live Helper Inputs Used
+- fresh `coder_handoff_id` created through the live Coder handoff route:
+  - `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-handoff-live-1778886762863`
+- fresh `helper_execution_intake_id` created for this remediation verification:
+  - `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--helper-intake-live-capture-177888680`
+- code flow used:
+  - `FLOW-2026-0036`
 
 ### Live Freshness Gate
 - deploy trigger commit: `NOT REQUIRED`
