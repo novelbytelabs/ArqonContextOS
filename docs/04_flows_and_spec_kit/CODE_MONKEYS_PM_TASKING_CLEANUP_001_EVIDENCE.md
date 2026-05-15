@@ -3,8 +3,8 @@
 - branch: `main`
 - commit before: `4768b983133cd918a1dc1b379154939337c7b3a4`
 - source commit after: `c8ff294c219dd63d4d4bb31a77daa631417857d8`
-- evidence commit after: `PENDING_EVIDENCE_COMMIT`
-- push status: `PENDING_PUSH`
+- evidence commit after: `938781a402d2001c07fc0ef1e3463e0aa2a03332`
+- push status: `PASS`
 
 ## Files Changed
 - `worker/src/index.ts`
