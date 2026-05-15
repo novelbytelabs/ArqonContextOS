@@ -102,8 +102,6 @@ function validateCommandEvidence(commands: AnyRecord[]): Response | null {
     for (const [field, value] of fields) {
       const forbidden = forbiddenEvidenceText(value, field);
       if (forbidden) return forbidden;
-    }
-    for (const [field, value] of [[`${prefix}.stdout_excerpt`, command.stdout_excerpt || ""], [`${prefix}.stderr_excerpt`, command.stderr_excerpt || ""]] as Array<[string, string]>) {
       const secret = secretMaterialText(value, field);
       if (secret) return secret;
     }
@@ -261,6 +259,8 @@ export async function handleHelperExecutionReportRequest(request: Request, env: 
     const summary = reqStr(body.execution_summary, "execution_summary");
     const titleError = forbiddenEvidenceText(title, "execution_title"); if (titleError) return titleError;
     const summaryError = forbiddenEvidenceText(summary, "execution_summary"); if (summaryError) return summaryError;
+    const titleSecretError = secretMaterialText(title, "execution_title"); if (titleSecretError) return titleSecretError;
+    const summarySecretError = secretMaterialText(summary, "execution_summary"); if (summarySecretError) return summarySecretError;
     const commands = commandList(body.commands);
     const commandEvidenceError = validateCommandEvidence(commands); if (commandEvidenceError) return commandEvidenceError;
 

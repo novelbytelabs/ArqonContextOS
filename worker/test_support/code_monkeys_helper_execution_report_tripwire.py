@@ -31,13 +31,13 @@ checks = [
   ("writes three evidence artifacts", all(a in handler for a in ['"execution_report"', '"command_log"', '"evidence_manifest"'])),
   ("idempotency conflict", "HELPER_EXECUTION_REPORT_IDEMPOTENCY_CONFLICT" in handler and "submitted_payload_hash" in handler),
   ("forbidden claim guard", "HELPER_EXECUTION_REPORT_FORBIDDEN_CLAIM_INCLUDED" in handler and "validateCommandEvidence" in handler),
-  ("secret material guard", "HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN" in handler and "secretMaterialText" in handler),
+  ("secret material guard", "HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN" in handler and "secretMaterialText" in handler and "titleSecretError" in handler and "summarySecretError" in handler),
   ("source sha guard", "HELPER_EXECUTION_REPORT_INTAKE_ARTIFACT_SHA_MISMATCH" in handler),
   ("no server command execution", "child_process" not in handler and "exec(" not in handler and "spawn(" not in handler),
   ("offline smoke raw route-only", 'for (const artifact_type of ["execution_report","command_log","evidence_manifest"])' in smoke and "raw generic ${artifact_type} must be route-only" in smoke),
   ("offline science regression", "science executor raw execution_report should not be route-only blocked" in smoke and "science raw_result_index should succeed" in smoke),
   ("offline command guard coverage", all(marker in smoke for marker in ["bad command", "bad purpose", "bad stdout", "bad stderr"])),
-  ("offline secret guard coverage", all(marker in smoke for marker in ["secret stdout", "secret stderr"])),
+  ("offline secret guard coverage", all(marker in smoke for marker in ["secret title", "secret summary", "secret command", "secret purpose", "secret stdout", "secret stderr"])),
   ("status labels", all(label in doc for label in ["REQUIRES_HUMAN_REVIEW", "development diagnostic only", "NOT SEALED-TEST CERTIFIED", "not promotable"]))
 ]
 failures = [name for name, ok in checks if not ok]

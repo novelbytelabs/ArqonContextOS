@@ -37,6 +37,15 @@
 - extend forbidden-claim checks to `commands[].command`, `commands[].purpose`, `commands[].stdout_excerpt`, and `commands[].stderr_excerpt`
 - reject secret-like excerpt material with `HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN`
 
+## Remediation 002 Targets
+- reject secret-like material in all official Helper execution report text fields:
+  - `execution_title`
+  - `execution_summary`
+  - `commands[].command`
+  - `commands[].purpose`
+  - `commands[].stdout_excerpt`
+  - `commands[].stderr_excerpt`
+
 ## Live Verification
 - no-auth denied: `PASS` (`401`)
 - all non-Helper roles denied: `PASS`
