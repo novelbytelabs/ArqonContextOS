@@ -252,14 +252,18 @@ function buildHistory(eventType: string, role: Role, note: string): FlowHistoryE
   };
 }
 
-const ROUTE_ONLY_ARTIFACTS = new Set<string>([
-  "implementation_bundle",
-  "coder_handoff",
-  "helper_execution_intake",
-  "execution_report",
-  "command_log",
-  "evidence_manifest"
-]);
+const ROUTE_ONLY_ARTIFACT_FLOWS: Record<string, FlowType[]> = {
+  implementation_bundle: ["code_flow", "governance_flow"],
+  coder_handoff: ["code_flow", "governance_flow"],
+  helper_execution_intake: ["code_flow"],
+  execution_report: ["code_flow"],
+  command_log: ["code_flow"],
+  evidence_manifest: ["code_flow"]
+};
+
+function isRouteOnlyArtifactForFlow(flowType: FlowType, artifactType: string): boolean {
+  return (ROUTE_ONLY_ARTIFACT_FLOWS[artifactType] || []).includes(flowType);
+}
 
 function buildArtifactDocument(artifact: {
   artifactId: string;
@@ -457,7 +461,7 @@ async function handleWriteFlowArtifact(request: Request, env: Env, flowRef: stri
   if (roleError) {
     return errorResponse("ARTIFACT_ROLE_FORBIDDEN", roleError, 403);
   }
-  if (ROUTE_ONLY_ARTIFACTS.has(artifactType) && !options.routeScoped) {
+  if (isRouteOnlyArtifactForFlow(manifest.type, artifactType) && !options.routeScoped) {
     return errorResponse(
       "FLOW_ARTIFACT_ROUTE_REQUIRED",
       `${artifactType} must be created through its role-scoped route`,

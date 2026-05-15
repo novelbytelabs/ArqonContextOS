@@ -60,6 +60,20 @@ function forbiddenEvidenceText(value: string, field: string): Response | null {
   return hit ? errorResponse("HELPER_EXECUTION_REPORT_FORBIDDEN_CLAIM_INCLUDED", `${field} contains forbidden certification/promotion/deployment language: ${hit[1]}`, 409) : null;
 }
 
+function secretMaterialText(value: string, field: string): Response | null {
+  const secretPatterns: Array<[RegExp, string]> = [
+    [/BEGIN PRIVATE KEY/i, "BEGIN PRIVATE KEY"],
+    [/GITHUB_APP_PRIVATE_KEY/i, "GITHUB_APP_PRIVATE_KEY"],
+    [/BROKER_KEY_/i, "BROKER_KEY_"],
+    [/Authorization:/i, "Authorization:"],
+    [/\bBearer\s+/i, "Bearer "],
+    [/\bapi_key\b/i, "api_key"],
+    [/\btoken=/i, "token="]
+  ];
+  const hit = secretPatterns.find(([pattern]) => pattern.test(value));
+  return hit ? errorResponse("HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN", `${field} contains forbidden secret-like material: ${hit[1]}`, 409) : null;
+}
+
 function commandList(value: unknown): AnyRecord[] {
   if (!Array.isArray(value) || value.length === 0) throw new Error("commands must be a non-empty array");
   return value.map((item, idx) => {
@@ -73,6 +87,28 @@ function commandList(value: unknown): AnyRecord[] {
     if (!["PASS", "FAIL", "SKIPPED"].includes(result)) throw new Error(`commands[${idx}].result must be PASS, FAIL, or SKIPPED`);
     return { command, purpose, result, exit_code: exitCode, stdout_excerpt: optStr(rec.stdout_excerpt).slice(0, 4000), stderr_excerpt: optStr(rec.stderr_excerpt).slice(0, 4000) };
   });
+}
+
+function validateCommandEvidence(commands: AnyRecord[]): Response | null {
+  for (let idx = 0; idx < commands.length; idx += 1) {
+    const command = commands[idx];
+    const prefix = `commands[${idx}]`;
+    const fields: Array<[string, string]> = [
+      [`${prefix}.command`, command.command],
+      [`${prefix}.purpose`, command.purpose],
+      [`${prefix}.stdout_excerpt`, command.stdout_excerpt || ""],
+      [`${prefix}.stderr_excerpt`, command.stderr_excerpt || ""]
+    ];
+    for (const [field, value] of fields) {
+      const forbidden = forbiddenEvidenceText(value, field);
+      if (forbidden) return forbidden;
+    }
+    for (const [field, value] of [[`${prefix}.stdout_excerpt`, command.stdout_excerpt || ""], [`${prefix}.stderr_excerpt`, command.stderr_excerpt || ""]] as Array<[string, string]>) {
+      const secret = secretMaterialText(value, field);
+      if (secret) return secret;
+    }
+  }
+  return null;
 }
 
 async function loadIntakeEntry(env: Env, project: string, body: AnyRecord, store: RepoStore): Promise<{ id: string; path: string }> {
@@ -226,6 +262,7 @@ export async function handleHelperExecutionReportRequest(request: Request, env: 
     const titleError = forbiddenEvidenceText(title, "execution_title"); if (titleError) return titleError;
     const summaryError = forbiddenEvidenceText(summary, "execution_summary"); if (summaryError) return summaryError;
     const commands = commandList(body.commands);
+    const commandEvidenceError = validateCommandEvidence(commands); if (commandEvidenceError) return commandEvidenceError;
 
     const entry = await loadIntakeEntry(env, project, body, repoStore);
     const intake = await fetchJson<AnyRecord>(env, project, entry.path, repoStore);

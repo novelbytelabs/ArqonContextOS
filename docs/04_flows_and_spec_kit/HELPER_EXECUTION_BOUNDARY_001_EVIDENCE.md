@@ -30,6 +30,11 @@
 - `worker/test_support/code_monkeys_helper_execution_report_tripwire.py`: compatibility check update so route-only assertion matches offline smoke template-loop coverage.
 - No changes to route authority, route-only policy, source validation, idempotency, or claim-guard logic.
 
+## Remediation 001 Targets
+- scope raw generic route-only blocking for `execution_report`, `command_log`, and `evidence_manifest` to `code_flow` so `science_flow` executor evidence is not blocked
+- extend forbidden-claim checks to `commands[].command`, `commands[].purpose`, `commands[].stdout_excerpt`, and `commands[].stderr_excerpt`
+- reject secret-like excerpt material with `HELPER_EXECUTION_REPORT_SECRET_MATERIAL_FORBIDDEN`
+
 ## Live Verification
 - no-auth denied: `PASS` (`401`)
 - all non-Helper roles denied: `PASS`
