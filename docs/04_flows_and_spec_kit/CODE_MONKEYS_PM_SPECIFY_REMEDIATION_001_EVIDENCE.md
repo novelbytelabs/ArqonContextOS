@@ -37,14 +37,20 @@
 - `rg -n "normalizeClaimText|ready for production|approved for release|release ready|pm_specify_strict_audit_tripwire|PM_SPECIFY_FORBIDDEN_CLAIM_INCLUDED" worker/src worker/test_support docs` PASS
 
 ## Audit Bundle Builder
-- bundle path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/pm_specify_audit_bundle_5d8dd5a2c1a3.zip`
-- zip SHA256: `5a4e101c1cceba25d1d82b891c03f93a63e03cb114f4f0f5d2774b8944ed843f`
-- file count: `32`
-- bundle contents include the PM report and the replay bundle inputs required by the PM:
+- bundle path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/pm_specify_audit_bundle_5395f947eff3.zip`
+- zip SHA256: `e9f7973b131fdab43dc57302b37b17491bd29d4a498144d62952ac6f9792b46e`
+- file count: `36`
+- bundle contents include the PM report, the replay bundle inputs required by the PM, and the extra replay dependencies needed for an independent TypeScript check:
   - `docs/04_flows_and_spec_kit/CODE_MONKEYS_PM_SPECIFY_001_PM_REPORT.md`
   - `docs/04_flows_and_spec_kit/CODE_MONKEYS_PM_SPECIFY_REMEDIATION_001.md`
   - `docs/04_flows_and_spec_kit/CODE_MONKEYS_PM_SPECIFY_REMEDIATION_001_EVIDENCE.md`
   - `worker/test_support/pm_specify_strict_audit_tripwire.py`
+  - `worker/tsconfig.json`
+  - `worker/src/messages.ts`
+  - `worker/src/notes.ts`
+- extracted replay bundle result:
+  - `python3 tmp/pm_specify_replay_check/worker/test_support/code_monkeys_pm_specify_tripwire.py` PASS
+  - `python3 worker/test_support/pm_specify_strict_audit_tripwire.py tmp/pm_specify_replay_check` PASS
 
 ## Strict Tripwire Result
 - PASS
@@ -98,4 +104,3 @@ promotion language denied 7 -> 409 PM_SPECIFY_FORBIDDEN_CLAIM_INCLUDED
 - `development diagnostic only`
 - `NOT SEALED-TEST CERTIFIED`
 - `not promotable`
-
