@@ -223,38 +223,6 @@ paths:
             application/json:
               schema:
                 type: object
-  /v1/pm/tasks:
-    post:
-      operationId: pmTasks
-      summary: Create PM tasks from PM plan.
-      description: >
-        Creates a PM-controlled task-decomposition artifact from a validated PM plan while
-        preserving source chain, uncertainty, forbidden claims, and diagnostic labels.
-        Does not create Coder handoff, Helper execution, or Science behavior.
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required: [idempotency_key, tasks_title, tasks_body]
-              anyOf:
-                - required: [plan_id]
-                - required: [pm_plan_record_path]
-              properties:
-                project: { type: string, default: ArqonZero }
-                plan_id: { type: string }
-                pm_plan_record_path: { type: string }
-                idempotency_key: { type: string }
-                tasks_title: { type: string }
-                tasks_body: { type: string }
-      responses:
-        '201': { description: Tasks artifact created }
-        '200': { description: Idempotent replay of existing PM tasks }
-        '403': { description: PM_AI authority required }
-        '409': { description: PM tasks precondition or idempotency conflict }
 
   /v1/pm/tasking:
     post:
@@ -685,3 +653,10 @@ components:
           type: string
         body:
           type: string
+
+
+# PM tasks route retirement note:
+# /v1/pm/tasks is retired and must not be used for PM authority.
+# Use /v1/pm/tasking for PM tasking/work-order artifacts.
+# Coder-side implementation decomposition remains separate.
+# Expected retired route error: PM_TASKS_ROUTE_RETIRED_USE_PM_TASKING.
