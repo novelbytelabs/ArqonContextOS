@@ -92,6 +92,7 @@ export const FLOW_ARTIFACT_SLOTS: Record<FlowType, string[]> = {
     "implementation_bundle",
     "coder_patch_bundle",
     "coder_handoff",
+    "helper_execution_intake",
     "execution_report",
     "evidence_manifest",
     "command_log",
@@ -202,7 +203,7 @@ export const ROLE_FLOW_ARTIFACTS: Record<FlowType, Partial<Record<Role, string[]
   code_flow: {
     PM_AI: ["pm_dossier", "constitution", "specification", "plan", "pm_tasking", "pm_spec", "pm_gate_definition", "handoff_intake", "dossier_seed"],
     CODER_AI: ["tasks", "coder_work_plan", "coder_tasks", "implementation_bundle", "coder_patch_bundle", "coder_handoff"],
-    HELPER_AI: ["execution_report", "evidence_manifest", "command_log", "helper_log"],
+    HELPER_AI: ["helper_execution_intake", "execution_report", "evidence_manifest", "command_log", "helper_log"],
     AUDITOR_AI: ["clarification", "checklist", "analysis", "audit_report", "integrity_review", "claim_audit"],
     HUMAN: ["human_decision", "advancement_approval", "promotion_decision", "exception_manifest"]
   },

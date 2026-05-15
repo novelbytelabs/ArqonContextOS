@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import json, sys
+ROOT=Path.cwd()
+req=["worker/src/helper_execution_intake.ts","worker/src/index.ts","worker/src/flows.ts","worker/src/flow_policy.ts","worker/test_support/code_monkeys_helper_execution_intake_offline_smoke.ts","docs/04_flows_and_spec_kit/HELPER_EXECUTION_INTAKE_001.md","docs/01_monkeyos_doctrine/HELPER_BOUNDED_MICRO_EDIT_POLICY_001.md"]
+missing=[p for p in req if not (ROOT/p).exists()]
+if missing: print(json.dumps({"ok":False,"result":"FAIL","missing":missing},indent=2)); sys.exit(1)
+h=(ROOT/"worker/src/helper_execution_intake.ts").read_text(); idx=(ROOT/"worker/src/index.ts").read_text(); fl=(ROOT/"worker/src/flows.ts").read_text(); pol=(ROOT/"worker/src/flow_policy.ts").read_text(); sm=(ROOT/"worker/test_support/code_monkeys_helper_execution_intake_offline_smoke.ts").read_text(); doc=(ROOT/"docs/04_flows_and_spec_kit/HELPER_EXECUTION_INTAKE_001.md").read_text()
+checks=[("route mounted","/v1/helper/execution-intake" in idx and "handleHelperExecutionIntakeRequest" in idx),("helper only",'role !== "HELPER_AI"' in h and "HELPER_EXECUTION_INTAKE_ROLE_FORBIDDEN" in h),("context consumed","generated_coder_handoff_context.json" in h and "coder_handoff_record_path" in h),("route only",'"helper_execution_intake"' in fl and "FLOW_ARTIFACT_ROUTE_REQUIRED" in fl),("policy ownership",'"helper_execution_intake"' in pol and 'HELPER_AI: ["helper_execution_intake"' in pol),("idempotency","HELPER_EXECUTION_INTAKE_IDEMPOTENCY_CONFLICT" in h),("title/body guard","validateText(title" in h and "validateText(intakeBody" in h),("source sha","HELPER_EXECUTION_INTAKE_HANDOFF_ARTIFACT_SHA_MISMATCH" in h),("no execution writes",'"execution_report"' not in h and '"command_log"' not in h and '"helper_log"' not in h),("smoke raw", "raw generic helper_execution_intake" in sm and "FLOW_ARTIFACT_ROUTE_REQUIRED" in sm),("labels", all(x in doc for x in ["REQUIRES_HUMAN_REVIEW","development diagnostic only","NOT SEALED-TEST CERTIFIED","not promotable"]))]
+fail=[n for n,o in checks if not o]
+print(json.dumps({"ok":not fail,"result":"PASS" if not fail else "FAIL","failures":fail,"checks":[n for n,_ in checks]}, indent=2)); sys.exit(1 if fail else 0)

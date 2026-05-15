@@ -774,3 +774,17 @@ components:
 
 
 # Route-only boundary: implementation_bundle artifacts are route-only across flow types and must use /v1/coder/implementation-bundle. Direct generic artifact writes return FLOW_ARTIFACT_ROUTE_REQUIRED.
+
+
+  /v1/helper/execution-intake:
+    post:
+      operationId: helperExecutionIntake
+      summary: Create a Helper execution-intake artifact from an audited Coder handoff
+      description: Development diagnostic only. Creates helper_execution_intake only; does not run commands, apply patches, deploy, certify, or promote.
+      responses:
+        '201':
+          description: Helper execution intake created
+        '403':
+          description: Non-Helper role denied
+        '409':
+          description: Source boundary, idempotency, promotion, or execution-claim precondition failed
