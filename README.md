@@ -14,10 +14,10 @@ ArqonMonkeyOS solves that by making the repository the operational memory layer 
 
 - Role-scoped AI operations for PM, Coder, Auditor, Helper/Codex, and Human authority
 - Repo-backed persistent context with live sync, governance packaging, and role isolation
-- Flow-native delivery lifecycle with phase, milestone, audit, and governance flow families
-- Spec-driven command system across dossier, constitution, specify, clarify, plan, tasks, analyze, implement, execute, and audit
+- Flow-native delivery lifecycle with science, code, audit, and governance flow families
+- Spec-driven command system across dossier, constitution, specify, clarify, plan, PM tasking, Coder work planning, Coder tasking, implementation bundle creation, execution, and audit
 - Official artifact pipeline separating formal deliverables from informal notes and messages
-- Integrated evidence model with execution reports, manifests, and gate-ready audit trails
+- Integrated evidence model with execution reports, manifests, source hashes, idempotency records, and gate-ready audit trails
 - Multi-user collaboration architecture with identity-aware orchestration and ownership tracking
 - Multi-repo swarm replication model for spinning up standardized AI teams per project
 - Cloudflare Worker broker for command routing and controlled write operations
@@ -29,13 +29,13 @@ ArqonMonkeyOS solves that by making the repository the operational memory layer 
 
 ArqonMonkeyOS runs a clear authority chain:
 
-1. PM defines intent, dossier, constitution, specification, and plan.
-2. Coder converts plan into tasks and implementation bundles.
-3. Helper/Codex executes exactly, captures evidence, and reports results.
+1. PM defines intent, dossier, specification, governance plan, and bounded PM tasking.
+2. Coder converts PM tasking into Coder work plans, Coder task decomposition, and implementation bundles.
+3. Helper/Codex executes only after a separate authorized handoff, captures evidence, and reports results.
 4. Auditor gates integrity, ambiguity, and claim boundaries.
 5. Human controls advancement, decisions, and promotion authority.
 
-This keeps strategy, execution, verification, and approval structurally separate, so no single agent can silently self-authorize outcomes.
+This keeps strategy, implementation proposal, execution, verification, and approval structurally separate, so no single agent can silently self-authorize outcomes.
 
 ## Built for Explore + Exploit
 
@@ -52,5 +52,8 @@ ArqonMonkeyOS gives teams a repeatable way to operate AI collaboration as an acc
 ## Legacy Compatibility and Delivery Status
 
 - ContextOS is the legacy terminology for the infrastructure now named ContextBus.
-- Current v0.2 capabilities remain unchanged after the rename.
-- Flow Core v0.3 remains the next implementation milestone.
+- Current v0.2 capabilities remain compatible under the ArqonMonkeyOS / ContextBus naming.
+- Flow Core v0.3 is no longer the next milestone; it has been extended into governed Science Monkeys and Code Monkeys route boundaries.
+- Current diagnostic chain reaches Human-approved Science share, Science-to-Code handoff, PM intake/specify/plan/tasking, Coder work plan, Coder tasks, and Coder implementation bundle.
+- Next planned boundary is Coder Handoff 001, followed later by Helper execution and Auditor review.
+- Current status remains: REQUIRES_HUMAN_REVIEW, development diagnostic only, NOT SEALED-TEST CERTIFIED, not promotable.
