@@ -2,7 +2,7 @@
 
 - branch: `main`
 - commit before: `6d8d6d511392fa0aac41dfca79bef242c7faf670`
-- commit after: `8b4fb6c468a7c0830292fbf55b9a13f059b44177`
+- commit after: `5a8ff07a3294a289b881bdc703ae44be379b0145`
 - push status: `PASS`
 
 ## Files Created
@@ -43,34 +43,43 @@
 
 ## Live Deployed Worker Smoke
 - worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
+- redeploy status: `LIVE_ROUTE_PRESENT_AND_SERVING` (no stale `404`)
 - command:
   - `set -a && source ~/secrets/arqonmonkeyos_science_keys.env && set +a`
   - `CODER_IMPLEMENTATION_BUNDLE_TASKS_ID='FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-tasks-8815434954' CODER_IMPLEMENTATION_BUNDLE_CODE_FLOW_ID='FLOW-2026-0036' node --experimental-specifier-resolution=node tmp/flow-core-smoke-dist/test_support/code_monkeys_coder_implementation_bundle_live_smoke.js`
-- result: `BLOCKED`
-- blocker:
-  - `POST /v1/coder/implementation-bundle` returns `404 NOT_FOUND` in deployed worker, indicating stale deployment does not yet include Coder Implementation Bundle route.
+- result: `PASS`
+- ids used:
+  - `coder_tasks_id`: `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--coder-tasks-8815434954`
+  - `implementation_bundle_id`: `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--implementation-bundle-8816618296`
+  - `code_flow_id`: `FLOW-2026-0036`
 
 ### Redacted Live Transcript Excerpt
 ```text
-no-auth implementation bundle denied: expected 401, got 404
-error.code: NOT_FOUND
-message: No route for POST /v1/coder/implementation-bundle
+no-auth implementation bundle denied: 401 UNAUTHORIZED
+all non-Coder roles denied: 403 CODER_IMPLEMENTATION_BUNDLE_ROLE_FORBIDDEN
+implementation bundle succeeds: 201 (artifact_type=implementation_bundle)
+duplicate replay: 200 idempotent_replay=true
+changed payload conflict: 409 CODER_IMPLEMENTATION_BUNDLE_IDEMPOTENCY_CONFLICT
+promotion denied: 409 CODER_IMPLEMENTATION_BUNDLE_FORBIDDEN_CLAIM_INCLUDED
+execution-authority denied: 409 CODER_IMPLEMENTATION_BUNDLE_EXECUTION_AUTHORITY_FORBIDDEN
+PM implementation_bundle denied: 403 ARTIFACT_ROLE_FORBIDDEN
+Helper implementation_bundle denied: 403 ARTIFACT_ROLE_FORBIDDEN
 ```
 
 ## Proof Matrix
-- no-auth implementation bundle denied: `BLOCKED_BY_STALE_DEPLOYMENT`
-- all non-Coder roles denied: `PASS` (offline smoke)
-- implementation bundle succeeds from audited coder_tasks: `PASS` (offline smoke)
-- `implementation_bundle` artifact created: `PASS` (offline smoke)
-- forbidden claims, uncertainty, source chain, and share hash preserved: `PASS` (offline smoke checks + source record assertions)
-- duplicate implementation bundle is idempotent: `PASS` (offline smoke)
-- changed implementation bundle payload conflicts: `PASS` (offline smoke)
-- promotion language is denied: `PASS` (offline smoke)
-- execution-authority language is denied: `PASS` (offline smoke)
-- PM cannot write `implementation_bundle`: `PASS` (policy + offline deny matrix)
-- Helper cannot write `implementation_bundle`: `PASS` (policy + offline deny matrix)
-- no Coder handoff created: `PASS` (offline smoke manifest assertions)
-- no Helper execution created: `PASS` (offline smoke manifest assertions)
+- no-auth implementation bundle denied: `PASS` (live smoke)
+- all non-Coder roles denied: `PASS` (live smoke)
+- implementation bundle succeeds from audited coder_tasks: `PASS` (live smoke)
+- `implementation_bundle` artifact created: `PASS` (live smoke)
+- forbidden claims, uncertainty, source chain, and share hash preserved: `PASS` (live smoke assertions)
+- duplicate implementation bundle is idempotent: `PASS` (live smoke)
+- changed implementation bundle payload conflicts: `PASS` (live smoke)
+- promotion language is denied: `PASS` (live smoke)
+- execution-authority language is denied: `PASS` (live smoke)
+- PM cannot write `implementation_bundle`: `PASS` (live smoke)
+- Helper cannot write `implementation_bundle`: `PASS` (live smoke)
+- no Coder handoff created: `PASS` (live smoke + route scope)
+- no Helper execution created: `PASS` (live smoke + route scope)
 - no Science behavior added: `PASS` (source review + regression checks)
 - no secrets in report: `PASS`
 
