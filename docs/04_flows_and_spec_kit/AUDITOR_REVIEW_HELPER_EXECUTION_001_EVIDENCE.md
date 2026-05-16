@@ -11,8 +11,8 @@ not promotable
 
 - branch: `main`
 - commit before: `a794733df5bbd96268c7a2af99adb83b2f80b987`
-- source commit: `ee7cc5a161997de9686dcaed9d48727528943cce`
-- current HEAD (pre-evidence update): `ee7cc5a161997de9686dcaed9d48727528943cce`
+- source commit: `5097bca654225a505c59c1dc91b8fa4fd31edd1d`
+- current HEAD (pre-evidence update): `5097bca654225a505c59c1dc91b8fa4fd31edd1d`
 - push status (source): `PASS`
 - deployed Worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
 
@@ -43,12 +43,21 @@ not promotable
 - changed payload conflicts: `PASS` (`409 AUDITOR_HELPER_EXECUTION_REVIEW_IDEMPOTENCY_CONFLICT`)
 - forbidden promotion/deployment/advancement/certification title-summary-findings phrases denied: `PASS` (`409 AUDITOR_HELPER_EXECUTION_REVIEW_FORBIDDEN_CLAIM_INCLUDED`)
 - secret-like title-summary-findings markers denied: `PASS` (`409 AUDITOR_HELPER_EXECUTION_REVIEW_SECRET_MATERIAL_FORBIDDEN`)
+- embedded `output_artifacts.execution_report.role = AUDITOR_AI`: `NOT_EXECUTED_LIVE`
+- embedded `output_artifacts.command_log.role = AUDITOR_AI`: `NOT_EXECUTED_LIVE`
+- embedded `output_artifacts.evidence_manifest.role = AUDITOR_AI`: `NOT_EXECUTED_LIVE`
 - no `human_decision` artifact created: `PASS`
 - no `advancement_approval` artifact created: `PASS`
 - no `promotion_decision` artifact created: `PASS`
 - no deployment behavior: `PASS`
 - no Science behavior changed: `PASS`
 - no secrets exposed: `PASS`
+
+### Live Mutation Limitation
+
+- the embedded-role mismatch probes require a poisoned official `helper_execution_report` record
+- the current live harness does not synthesize or mutate repo-backed official report records in place
+- bounded remediation correctness for those three mismatch cases was verified offline and by tripwire, not by live repo mutation
 
 ### Live Inputs Used
 
@@ -59,14 +68,14 @@ not promotable
 - fresh `helper_execution_report_id`:
   - `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--helper-report-live-capture-177889318`
 - live `helper_execution_review_id`:
-  - `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--auditor-review-live-1778893203535`
+  - `FLOW-2026-0035-share-8811894980-handoff-8811894980-intake-8811894980-spec-8811894980-plan--auditor-review-live-1778896224409`
 - code flow used:
   - `FLOW-2026-0036`
 
 ## Audit Bundle
 
-- path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/auditor_helper_execution_review_audit_bundle_a794733df5bb.zip`
-- SHA256: `661f1fe07dd7d5037f746776d865771343030f1c6b842a71ac1b71355bfcee29`
+- path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/auditor_helper_execution_review_audit_bundle_5097bca65422.zip`
+- SHA256: `822e54dfbe9999771f67cf511182ba40ae25202cf272bfafb9acf2d9155f6766`
 
 ## Remediation 001 Target
 
@@ -75,6 +84,10 @@ not promotable
   - the embedded report record artifact entry
   - the code-flow manifest artifact entry
 - expected failure code: `AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_TYPE_MISMATCH`
+- offline mutation results:
+  - `execution_report.role = AUDITOR_AI` -> `409 AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_TYPE_MISMATCH`
+  - `command_log.role = AUDITOR_AI` -> `409 AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_TYPE_MISMATCH`
+  - `evidence_manifest.role = AUDITOR_AI` -> `409 AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_TYPE_MISMATCH`
 
 ## Non-Scope Confirmation
 
