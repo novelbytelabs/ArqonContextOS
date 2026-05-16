@@ -12,7 +12,7 @@ not promotable
 - branch: `main`
 - commit before: `a794733df5bbd96268c7a2af99adb83b2f80b987`
 - source commit: `5097bca654225a505c59c1dc91b8fa4fd31edd1d`
-- current HEAD (pre-evidence update): `5097bca654225a505c59c1dc91b8fa4fd31edd1d`
+- current HEAD (pre-evidence update): `a8a0f8a3d982c49e671ed3e7080d87ca57aa3d22`
 - push status (source): `PASS`
 - deployed Worker URL: `https://arqon-contextos-broker.sonarum.workers.dev`
 
@@ -74,8 +74,8 @@ not promotable
 
 ## Audit Bundle
 
-- path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/auditor_helper_execution_review_audit_bundle_5097bca65422.zip`
-- SHA256: `822e54dfbe9999771f67cf511182ba40ae25202cf272bfafb9acf2d9155f6766`
+- path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/auditor_helper_execution_review_audit_bundle_a8a0f8a3d982.zip`
+- SHA256: `4993871d2acba936ae8804fec14b2f676d3026e003e68a9144335ab042cc508c`
 
 ## Remediation 001 Target
 
