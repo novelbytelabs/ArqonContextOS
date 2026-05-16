@@ -63,8 +63,11 @@ not promotable
 
 ## Audit Bundle
 
-- source-commit bundle path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/human_advancement_decision_audit_bundle_db36de2aae3e.zip`
-- source-commit bundle SHA256: `a716baad8901ef68a0e8204399b0adc9d1211147d2ce3a516ee68e8cd10dd49e`
+- canonical audited bundle path: `temps/human_advancement_decision_audit_bundle_2c75e592c4c0.zip`
+- canonical audited bundle SHA256: `bae5039daa0d46829fe1ee46882ac1b8b1a67a7df539bd96616aff1c674ac934`
+- actual rebuilt bundle path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/human_advancement_decision_audit_bundle_2c75e592c4c0.zip`
+- actual rebuilt bundle SHA256: `b742393e9b6cfb6a5fa5e9dfe033e6f180f6c9a59f96093716f8f67ca22f6e03`
+- note: rebuilding after evidence metadata cleanup changes the bundle SHA because this evidence document is included inside the bundle
 
 ## Non-Scope Confirmation
 
