@@ -802,3 +802,17 @@ components:
           description: Non-Helper role denied
         '409':
           description: Source boundary, idempotency, or forbidden-claim precondition failed
+
+
+  /v1/auditor/helper-execution-review:
+    post:
+      operationId: auditorHelperExecutionReview
+      summary: Create an Auditor-owned review from Helper execution evidence
+      description: Development diagnostic only. Creates helper_execution_review only; does not authorize Human advancement, deployment, certification, or promotion.
+      responses:
+        '201':
+          description: Auditor helper execution review created
+        '403':
+          description: Non-Auditor role denied
+        '409':
+          description: Source boundary, idempotency, secret, or forbidden-claim precondition failed
