@@ -138,9 +138,6 @@ async function main(): Promise<void> {
   await expectArtifactDeny(flowId, "PM_AI", "hypothesis_card");
   record("PM_AI hypothesis_card denied");
 
-  await expectArtifactDeny(flowId, "HELPER_AI", "execution_report");
-  record("HELPER_AI execution_report denied");
-
   assert(canWriteFlowArtifactForFlow("science_flow", "HELPER_CODEX" as Role, "execution_report") === false, "legacy HELPER_CODEX must not write science execution_report");
   record("HELPER_CODEX execution_report denied by policy oracle");
 
@@ -170,8 +167,8 @@ async function main(): Promise<void> {
   });
   assert(codeCreate.status === 201, `code_flow create failed: ${codeCreate.status} ${JSON.stringify(codeCreate.body)}`);
   const codeFlowId = codeCreate.body.flow_id as string;
-  await expectArtifactPass(codeFlowId, "HELPER_AI", "execution_report");
-  record("HELPER_AI execution_report still allowed for code_flow");
+  await expectArtifactDeny(codeFlowId, "HELPER_AI", "execution_report");
+  record("HELPER_AI execution_report blocked by route-only policy on code_flow raw route");
 
   console.log(JSON.stringify({ ok: true, flow_id: flowId, code_flow_id: codeFlowId, results, written_paths: [...files.keys()].sort() }, null, 2));
 }

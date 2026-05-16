@@ -1,7 +1,16 @@
 declare const process: { env: Record<string, string | undefined>; exitCode?: number };
 export {};
 
-type Scenario = { name: string; method: string; path: string; role?: string; request_body?: unknown; expected_status?: number; expected_error?: string };
+type Scenario = {
+  name: string;
+  method: string;
+  path: string;
+  role?: string;
+  request_body?: unknown;
+  expected_status?: number;
+  expected_error?: string;
+  retry_on_sha_conflict?: number;
+};
 type Transcript = Scenario & { status: number; ok: boolean; response_body: unknown; authorization: "Bearer REDACTED" | "none" };
 
 const WORKER_URL = (process.env.WORKER_URL || "https://arqon-contextos-broker.sonarum.workers.dev").replace(/\/+$/, "");
@@ -31,20 +40,37 @@ function assert(condition: boolean, message: string): void {
 }
 
 async function requestScenario(scenario: Scenario): Promise<Transcript> {
-  const headers = new Headers();
-  if (scenario.role) headers.set("authorization", `Bearer ${token(scenario.role)}`);
-  if (scenario.request_body !== undefined) headers.set("content-type", "application/json");
-  const response = await fetch(`${WORKER_URL}${scenario.path}`, { method: scenario.method, headers, body: scenario.request_body !== undefined ? JSON.stringify(scenario.request_body) : undefined });
-  const text = await response.text();
-  let responseBody: unknown = null;
-  try { responseBody = text ? JSON.parse(text) : null; } catch { responseBody = text; }
-  const transcript: Transcript = { ...scenario, status: response.status, ok: response.ok, response_body: responseBody, authorization: scenario.role ? "Bearer REDACTED" : "none" };
-  if (scenario.expected_status !== undefined) assert(response.status === scenario.expected_status, `${scenario.name}: expected ${scenario.expected_status}, got ${response.status}: ${text}`);
-  if (scenario.expected_error) {
-    const code = responseBody && typeof responseBody === "object" ? (responseBody as { error?: { code?: string } }).error?.code : undefined;
-    assert(code === scenario.expected_error, `${scenario.name}: expected ${scenario.expected_error}, got ${code}: ${text}`);
+  const retries = scenario.retry_on_sha_conflict ?? 0;
+  let attempt = 0;
+
+  while (true) {
+    const headers = new Headers();
+    if (scenario.role) headers.set("authorization", `Bearer ${token(scenario.role)}`);
+    if (scenario.request_body !== undefined) headers.set("content-type", "application/json");
+    const response = await fetch(`${WORKER_URL}${scenario.path}`, { method: scenario.method, headers, body: scenario.request_body !== undefined ? JSON.stringify(scenario.request_body) : undefined });
+    const text = await response.text();
+    let responseBody: unknown = null;
+    try { responseBody = text ? JSON.parse(text) : null; } catch { responseBody = text; }
+    const transcript: Transcript = { ...scenario, status: response.status, ok: response.ok, response_body: responseBody, authorization: scenario.role ? "Bearer REDACTED" : "none" };
+
+    const shaConflict = response.status === 500 && text.includes('status":"409"') && text.includes("GitHub file write failed");
+    if (shaConflict && attempt < retries) {
+      attempt += 1;
+      continue;
+    }
+
+    if (scenario.expected_status !== undefined) {
+      const extra = shaConflict
+        ? " (possible product bug: persistent GitHub SHA conflict during serialized live run)"
+        : "";
+      assert(response.status === scenario.expected_status, `${scenario.name}: expected ${scenario.expected_status}, got ${response.status}: ${text}${extra}`);
+    }
+    if (scenario.expected_error) {
+      const code = responseBody && typeof responseBody === "object" ? (responseBody as { error?: { code?: string } }).error?.code : undefined;
+      assert(code === scenario.expected_error, `${scenario.name}: expected ${scenario.expected_error}, got ${code}: ${text}`);
+    }
+    return transcript;
   }
-  return transcript;
 }
 
 function body(label: string): string {
@@ -57,7 +83,7 @@ async function main(): Promise<void> {
 
   transcripts.push(await requestScenario({ name: "1 no-auth handoff denied", method: "POST", path: "/v1/pm/handoff", request_body: { share_id: "none", idempotency_key: `handoff-noauth-${suffix}` }, expected_status: 401, expected_error: "UNAUTHORIZED" }));
 
-  transcripts.push(await requestScenario({ name: "2 create science flow", method: "POST", path: "/v1/science/research", role: "EXPLORER_AI", request_body: { name: `handoff-science-${suffix}`, title: "Science to Code Handoff Live Smoke", summary: "Live smoke for PM handoff boundary.", artifact_title: "Research dossier", body: body("research_dossier") }, expected_status: 201 }));
+  transcripts.push(await requestScenario({ name: "2 create science flow", method: "POST", path: "/v1/science/research", role: "EXPLORER_AI", request_body: { name: `handoff-science-${suffix}`, title: "Science to Code Handoff Live Smoke", summary: "Live smoke for PM handoff boundary.", artifact_title: "Research dossier", body: body("research_dossier") }, expected_status: 201, retry_on_sha_conflict: 2 }));
   const research = transcripts[transcripts.length - 1].response_body as { flow_id?: string };
   const flowId = research.flow_id;
   assert(typeof flowId === "string", "missing science flow id");

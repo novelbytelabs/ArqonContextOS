@@ -232,13 +232,13 @@ async function main(): Promise<void> {
       expected_error: "SCIENCE_ROUTE_ROLE_FORBIDDEN"
     },
     {
-      name: "13 science share route remains not implemented",
+      name: "13 science share enforces request schema (idempotency_key required)",
       method: "POST",
       path: "/v1/science/share",
       role: "HUMAN",
       request_body: { flow_ref: scienceFlowId, human_identity: "Mike", body: artifactBody("share") },
-      expected_status: 501,
-      expected_error: "SCIENCE_SHARE_NOT_IMPLEMENTED"
+      expected_status: 400,
+      expected_error: "BAD_REQUEST"
     },
     {
       name: "14 generic Human share_packet remains blocked",
@@ -267,12 +267,13 @@ async function main(): Promise<void> {
   const codeFlowIdValue = codeFlowId as string;
 
   transcripts.push(await requestScenario({
-    name: "16 HELPER_AI writes code_flow execution_report",
+    name: "16 HELPER_AI raw code_flow execution_report blocked by route-only",
     method: "POST",
     path: `/v1/flows/${encodeURIComponent(codeFlowIdValue)}/artifacts`,
     role: "HELPER_AI",
     request_body: { artifact_type: "execution_report", title: "Code flow execution report", body: artifactBody("code execution_report") },
-    expected_status: 201
+    expected_status: 403,
+    expected_error: "FLOW_ARTIFACT_ROUTE_REQUIRED"
   }));
 
   transcripts.push(await requestScenario({

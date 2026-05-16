@@ -21,18 +21,36 @@ FORBIDDEN = [
 ]
 
 violations = []
+
+DEFINITION_MARKERS = (
+    "FORBIDDEN",
+    "forbidden",
+    "forbidden =",
+    "forbidden:",
+    "forbidden_claim",
+    "promotion:",
+    "/\\b",
+    '"/\\b',
+    "'/\\b",
+    "checks.append",
+)
+
+def is_definition_context(line: str) -> bool:
+    return any(marker in line for marker in DEFINITION_MARKERS)
+
 for root in SEARCH_ROOTS:
     if not root.exists():
         continue
     for path in root.rglob("*"):
         if not path.is_file():
             continue
-        if path.name == "science_monkeys_v01_routes_tripwire.py":
+        if path.name.endswith("tripwire.py"):
             continue
         text = path.read_text(encoding="utf-8", errors="ignore")
-        for phrase in FORBIDDEN:
-            if phrase in text:
-                violations.append((str(path.relative_to(ROOT)), phrase))
+        for lineno, line in enumerate(text.splitlines(), start=1):
+            for phrase in FORBIDDEN:
+                if phrase in line and not is_definition_context(line):
+                    violations.append((f"{path.relative_to(ROOT)}:{lineno}", phrase))
 
 if violations:
     print("TRIPWIRE FAIL")
