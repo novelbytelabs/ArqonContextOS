@@ -31,10 +31,10 @@ This document does not authorize Action creation by itself.
 
 | GPT | Role Token | Allowed Routes | Forbidden Routes |
 |---|---|---|---|
-| Arqon Science Explorer GPT | Explorer token | `/v1/science/research` | `/v1/science/share`, `/v1/science/execute-experiment`, audit/design/hypothesis routes |
-| Arqon Science Hypothesizer GPT | Hypothesizer token | `/v1/science/hypothesize`, `/v1/science/interpret`, limited `/v1/science/iterate` | `/v1/science/share`, `/v1/science/execute-experiment`, audit/design/research routes |
-| Arqon Science Designer GPT | Designer token | `/v1/science/design-experiment`, limited `/v1/science/iterate` | `/v1/science/share`, `/v1/science/execute-experiment`, audit/hypothesis/research routes |
-| Arqon Science Auditor GPT | Science Auditor token | `/v1/science/audit-experiment`, `/v1/science/record-finding` | `/v1/science/share`, `/v1/science/execute-experiment`, research/design/hypothesis routes |
+| Arqon Zero Explorer AI | Explorer token | `/v1/science/research` | `/v1/science/share`, `/v1/science/execute-experiment`, audit/design/hypothesis routes |
+| Arqon Zero Hypothesizer AI | Hypothesizer token | `/v1/science/hypothesize`, `/v1/science/interpret`, limited `/v1/science/iterate` | `/v1/science/share`, `/v1/science/execute-experiment`, audit/design/research routes |
+| Arqon Zero Designer AI | Designer token | `/v1/science/design-experiment`, limited `/v1/science/iterate` | `/v1/science/share`, `/v1/science/execute-experiment`, audit/hypothesis/research routes |
+| Arqon Zero Science Auditor AI | Science Auditor token | `/v1/science/audit-experiment`, `/v1/science/record-finding` | `/v1/science/share`, `/v1/science/execute-experiment`, research/design/hypothesis routes |
 
 ## Local Secret File References
 

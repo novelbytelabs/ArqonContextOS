@@ -31,7 +31,7 @@ Before configuring any GPT:
 
 | Check | Expected |
 |---|---|
-| Name | Arqon Science Explorer GPT |
+| Name | Arqon Zero Explorer AI |
 | Role | `EXPLORER_AI` |
 | Allowed route | `/v1/science/research` |
 | Forbidden route | `/v1/science/share` |
@@ -46,7 +46,7 @@ Before configuring any GPT:
 
 | Check | Expected |
 |---|---|
-| Name | Arqon Science Hypothesizer GPT |
+| Name | Arqon Zero Hypothesizer AI |
 | Role | `HYPOTHESIZER_AI` |
 | Allowed routes | `/v1/science/hypothesize`, `/v1/science/interpret`, limited `/v1/science/iterate` |
 | Forbidden route | `/v1/science/share` |
@@ -61,7 +61,7 @@ Before configuring any GPT:
 
 | Check | Expected |
 |---|---|
-| Name | Arqon Science Designer GPT |
+| Name | Arqon Zero Designer AI |
 | Role | `DESIGNER_AI` |
 | Allowed routes | `/v1/science/design-experiment`, limited `/v1/science/iterate` |
 | Forbidden route | `/v1/science/share` |
@@ -76,7 +76,7 @@ Before configuring any GPT:
 
 | Check | Expected |
 |---|---|
-| Name | Arqon Science Auditor GPT |
+| Name | Arqon Zero Science Auditor AI |
 | Role | `SCIENCE_AUDITOR_AI` |
 | Allowed routes | `/v1/science/audit-experiment`, `/v1/science/record-finding` |
 | Forbidden route | `/v1/science/share` |

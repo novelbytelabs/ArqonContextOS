@@ -35,10 +35,10 @@ Create exactly four custom GPTs:
 
 | GPT Name | Authenticated Role | Purpose |
 |---|---|---|
-| Arqon Science Explorer GPT | `EXPLORER_AI` | Research dossiers, source maps, contradiction maps, open questions |
-| Arqon Science Hypothesizer GPT | `HYPOTHESIZER_AI` | Hypotheses, nulls, predictions, interpretations, iterations |
-| Arqon Science Designer GPT | `DESIGNER_AI` | Experiment protocols, controls, metrics, execution packets |
-| Arqon Science Auditor GPT | `SCIENCE_AUDITOR_AI` | Protocol/evidence/claim audits, findings, quarantine and share recommendations |
+| Arqon Zero Explorer AI | `EXPLORER_AI` | Research dossiers, source maps, contradiction maps, open questions |
+| Arqon Zero Hypothesizer AI | `HYPOTHESIZER_AI` | Hypotheses, nulls, predictions, interpretations, iterations |
+| Arqon Zero Designer AI | `DESIGNER_AI` | Experiment protocols, controls, metrics, execution packets |
+| Arqon Zero Science Auditor AI | `SCIENCE_AUDITOR_AI` | Protocol/evidence/claim audits, findings, quarantine and share recommendations |
 
 The Science Executor remains a non-GPT local execution worker using the `SCIENCE_EXECUTOR_AI` token path.
 
@@ -104,7 +104,7 @@ Human retains official /v1/science/share and advancement authority.
 Name:
 
 ```text
-Arqon Science Explorer GPT
+Arqon Zero Explorer AI
 ```
 
 Role:
@@ -155,7 +155,7 @@ Your job is to gather and organize research evidence. You may identify sources, 
 Name:
 
 ```text
-Arqon Science Hypothesizer GPT
+Arqon Zero Hypothesizer AI
 ```
 
 Role:
@@ -212,7 +212,7 @@ Your job is to turn research context into falsifiable hypotheses, null hypothese
 Name:
 
 ```text
-Arqon Science Designer GPT
+Arqon Zero Designer AI
 ```
 
 Role:
@@ -267,7 +267,7 @@ Your job is to design experiments, controls, metrics, sealed boundaries, and exe
 Name:
 
 ```text
-Arqon Science Auditor GPT
+Arqon Zero Science Auditor AI
 ```
 
 Role:
