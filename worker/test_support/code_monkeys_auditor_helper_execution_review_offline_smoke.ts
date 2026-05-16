@@ -58,9 +58,19 @@ async function main(): Promise<void> {
   const secretSummary = await post("/v1/auditor/helper-execution-review", "AUDITOR", { ...payload, idempotency_key:"secret-summary-0001", review_summary:"Authorization: Bearer abc" }); assert(secretSummary.status === 409 && secretSummary.body.error.code === "AUDITOR_HELPER_EXECUTION_REVIEW_SECRET_MATERIAL_FORBIDDEN", "secret summary");
   const secretFinding = await post("/v1/auditor/helper-execution-review", "AUDITOR", { ...payload, idempotency_key:"secret-finding-0001", findings:["token=abc"] }); assert(secretFinding.status === 409 && secretFinding.body.error.code === "AUDITOR_HELPER_EXECUTION_REVIEW_SECRET_MATERIAL_FORBIDDEN", "secret finding");
   const badVerdict = await post("/v1/auditor/helper-execution-review", "AUDITOR", { ...payload, idempotency_key:"bad-verdict-0001", review_verdict:"HUMAN_ADVANCEMENT_APPROVED" }); assert(badVerdict.status === 400, "bad verdict enum rejected");
+  seed();
+  const executionRoleRecord = JSON.parse(files.get(reportPath) || "{}"); executionRoleRecord.output_artifacts.execution_report.role = "AUDITOR_AI"; files.set(reportPath, JSON.stringify(executionRoleRecord));
+  const executionRole = await post("/v1/auditor/helper-execution-review", "AUDITOR", { ...payload, idempotency_key:"execution-role-0001" }); assert(executionRole.status === 409 && executionRole.body.error.code === "AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_TYPE_MISMATCH", "execution_report embedded role mismatch");
+  seed();
+  const commandRoleRecord = JSON.parse(files.get(reportPath) || "{}"); commandRoleRecord.output_artifacts.command_log.role = "AUDITOR_AI"; files.set(reportPath, JSON.stringify(commandRoleRecord));
+  const commandRole = await post("/v1/auditor/helper-execution-review", "AUDITOR", { ...payload, idempotency_key:"command-role-0001" }); assert(commandRole.status === 409 && commandRole.body.error.code === "AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_TYPE_MISMATCH", "command_log embedded role mismatch");
+  seed();
+  const evidenceRoleRecord = JSON.parse(files.get(reportPath) || "{}"); evidenceRoleRecord.output_artifacts.evidence_manifest.role = "AUDITOR_AI"; files.set(reportPath, JSON.stringify(evidenceRoleRecord));
+  const evidenceRole = await post("/v1/auditor/helper-execution-review", "AUDITOR", { ...payload, idempotency_key:"evidence-role-0001" }); assert(evidenceRole.status === 409 && evidenceRole.body.error.code === "AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_TYPE_MISMATCH", "evidence_manifest embedded role mismatch");
+  seed();
   const record = JSON.parse(files.get(reportPath) || "{}"); record.output_artifacts.execution_report.source_sha = "wrong"; files.set(reportPath, JSON.stringify(record));
   const sha = await post("/v1/auditor/helper-execution-review", "AUDITOR", { ...payload, idempotency_key:"sha-0001" }); assert(sha.status === 409 && sha.body.error.code === "AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_SHA_MISMATCH", "sha mismatch");
   assert(!writes.some(p => p.includes("human_decision") || p.includes("advancement_approval") || p.includes("promotion_decision")), "no Human/promotion artifacts");
-  console.log(JSON.stringify({ ok:true, no_auth_status:noAuth.status, success_status:success.status, replay_status:replay.status, conflict_status:conflict.status, bad_title_status:badTitle.status, bad_finding_status:badFinding.status, secret_summary_status:secretSummary.status, secret_finding_status:secretFinding.status, sha_status:sha.status }, null, 2));
+  console.log(JSON.stringify({ ok:true, no_auth_status:noAuth.status, success_status:success.status, replay_status:replay.status, conflict_status:conflict.status, bad_title_status:badTitle.status, bad_finding_status:badFinding.status, secret_summary_status:secretSummary.status, secret_finding_status:secretFinding.status, execution_role_status:executionRole.status, command_role_status:commandRole.status, evidence_role_status:evidenceRole.status, sha_status:sha.status }, null, 2));
 }
 main().catch(e => { console.error(e); process.exitCode = 1; });

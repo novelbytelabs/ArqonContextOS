@@ -18,6 +18,7 @@ Allow `AUDITOR_AI` to review official Helper execution evidence and create an Au
 - consumes generated Helper execution report context
 - validates official `helper_execution_report`
 - validates `execution_report`, `command_log`, and `evidence_manifest`
+- requires embedded report-record artifact role and code-flow manifest artifact role to both remain `HELPER_AI`
 - validates artifact ID, type, role, source path, and source SHA
 - creates only `helper_execution_review`
 - blocks raw generic `helper_execution_review` writes

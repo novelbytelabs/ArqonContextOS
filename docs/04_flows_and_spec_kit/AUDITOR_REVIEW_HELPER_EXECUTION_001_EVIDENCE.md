@@ -68,6 +68,14 @@ not promotable
 - path: `/home/irbsurfer/Projects/arqon/ArqonMonkeyOS/temps/auditor_helper_execution_review_audit_bundle_a794733df5bb.zip`
 - SHA256: `661f1fe07dd7d5037f746776d865771343030f1c6b842a71ac1b71355bfcee29`
 
+## Remediation 001 Target
+
+- reject poisoned official `helper_execution_report` records where any embedded upstream artifact role is mutated away from `HELPER_AI`
+- enforce the same `HELPER_AI` role requirement on both:
+  - the embedded report record artifact entry
+  - the code-flow manifest artifact entry
+- expected failure code: `AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_TYPE_MISMATCH`
+
 ## Non-Scope Confirmation
 
 - no Human advancement

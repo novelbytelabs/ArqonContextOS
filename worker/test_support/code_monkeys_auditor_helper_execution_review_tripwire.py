@@ -31,6 +31,7 @@ checks = [
   ("source context consumed", "generated_helper_execution_report_context.json" in handler and "helper_execution_report_record_path" in handler),
   ("official report schema", "helper_execution_report_context.v0.1" in handler),
   ("validates three Helper artifacts", all(s in handler for s in ["execution_report", "command_log", "evidence_manifest"])),
+  ("embedded report role guard", 'expected.role !== "HELPER_AI"' in handler),
   ("route-only review artifact", "helper_execution_review" in flows and "FLOW_ARTIFACT_ROUTE_REQUIRED" in flows),
   ("auditor policy ownership", '"helper_execution_review"' in policy and "AUDITOR_AI" in policy),
   ("idempotency conflict", "AUDITOR_HELPER_EXECUTION_REVIEW_IDEMPOTENCY_CONFLICT" in handler and "submitted_payload_hash" in handler),
@@ -38,6 +39,9 @@ checks = [
   ("secret guard", "AUDITOR_HELPER_EXECUTION_REVIEW_SECRET_MATERIAL_FORBIDDEN" in handler),
   ("no human advancement artifacts", "advancement_approval" not in handler and "promotion_decision" not in handler and "human_decision" not in handler),
   ("offline smoke raw route-only", "raw generic helper_execution_review must be route-only" in smoke),
+  ("offline smoke execution_report role mutation", "execution_report embedded role mismatch" in smoke),
+  ("offline smoke command_log role mutation", "command_log embedded role mismatch" in smoke),
+  ("offline smoke evidence_manifest role mutation", "evidence_manifest embedded role mismatch" in smoke),
   ("offline smoke no advancement", "no Human/promotion artifacts" in smoke),
   ("status labels", all(label in doc for label in ["REQUIRES_HUMAN_REVIEW", "development diagnostic only", "NOT SEALED-TEST CERTIFIED", "not promotable"]))
 ]

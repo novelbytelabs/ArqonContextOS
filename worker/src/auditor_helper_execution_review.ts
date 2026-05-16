@@ -120,6 +120,9 @@ function validateReportRecord(record: AnyRecord): Response | null {
   return null;
 }
 function validateArtifactInFlow(manifest: FlowManifest, expected: Artifact, kind: string): Response | null {
+  if (expected.artifact_type !== kind || expected.role !== "HELPER_AI") {
+    return errorResponse("AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_TYPE_MISMATCH", `Expected ${kind} by HELPER_AI`, 409);
+  }
   const actual = manifest.artifacts.find(a => a.artifact_id === expected.artifact_id);
   if (!actual) return errorResponse("AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_NOT_ON_CODE_FLOW", `Code flow does not contain ${kind} artifact ${expected.artifact_id}`, 409);
   if (actual.artifact_type !== expected.artifact_type || actual.role !== "HELPER_AI") return errorResponse("AUDITOR_HELPER_EXECUTION_REVIEW_ARTIFACT_TYPE_MISMATCH", `Expected ${kind} by HELPER_AI`, 409);
