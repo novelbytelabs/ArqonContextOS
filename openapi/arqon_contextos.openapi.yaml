@@ -816,3 +816,17 @@ components:
           description: Non-Auditor role denied
         '409':
           description: Source boundary, idempotency, secret, or forbidden-claim precondition failed
+
+
+  /v1/human/advancement-decision:
+    post:
+      operationId: humanAdvancementDecision
+      summary: Create a Human-only advancement decision from an Auditor helper-execution review
+      description: Development diagnostic only. Creates human_advancement_decision only; does not deploy, certify, promote, or claim production readiness.
+      responses:
+        '201':
+          description: Human advancement decision created
+        '403':
+          description: Non-Human role denied
+        '409':
+          description: Source boundary, idempotency, unresolved blocker, secret, or forbidden-claim precondition failed

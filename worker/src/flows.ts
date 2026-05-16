@@ -259,7 +259,8 @@ const ROUTE_ONLY_ARTIFACT_FLOWS: Record<string, FlowType[]> = {
   execution_report: ["code_flow"],
   command_log: ["code_flow"],
   evidence_manifest: ["code_flow"],
-  helper_execution_review: ["code_flow"]
+  helper_execution_review: ["code_flow"],
+  human_advancement_decision: ["code_flow"]
 };
 
 function isRouteOnlyArtifactForFlow(flowType: FlowType, artifactType: string): boolean {

@@ -104,6 +104,7 @@ export const FLOW_ARTIFACT_SLOTS: Record<FlowType, string[]> = {
     "integrity_review",
     "claim_audit",
     "helper_execution_review",
+    "human_advancement_decision",
     "human_decision",
     "advancement_approval",
     "promotion_decision",
@@ -206,7 +207,7 @@ export const ROLE_FLOW_ARTIFACTS: Record<FlowType, Partial<Record<Role, string[]
     CODER_AI: ["tasks", "coder_work_plan", "coder_tasks", "implementation_bundle", "coder_patch_bundle", "coder_handoff"],
     HELPER_AI: ["helper_execution_intake", "execution_report", "evidence_manifest", "command_log", "helper_log"],
     AUDITOR_AI: ["clarification", "checklist", "analysis", "audit_report", "integrity_review", "claim_audit", "helper_execution_review"],
-    HUMAN: ["human_decision", "advancement_approval", "promotion_decision", "exception_manifest"]
+    HUMAN: ["human_advancement_decision", "human_decision", "advancement_approval", "promotion_decision", "exception_manifest"]
   },
   audit_flow: {
     AUDITOR_AI: ["clarification", "checklist", "analysis", "audit_report", "integrity_review", "claim_audit"],
