@@ -261,9 +261,9 @@ const ROUTE_ONLY_ARTIFACT_FLOWS: Record<string, FlowType[]> = {
   evidence_manifest: ["code_flow"],
   helper_execution_review: ["code_flow"],
   human_advancement_decision: ["code_flow"],
-  promotion_decision: ["code_flow"],
-  advancement_approval: ["code_flow"],
-  human_decision: ["code_flow"]
+  promotion_decision: ["code_flow", "governance_flow"],
+  advancement_approval: ["science_flow", "code_flow", "audit_flow", "governance_flow"],
+  human_decision: ["science_flow", "code_flow", "audit_flow", "governance_flow"]
 };
 
 function isRouteOnlyArtifactForFlow(flowType: FlowType, artifactType: string): boolean {
